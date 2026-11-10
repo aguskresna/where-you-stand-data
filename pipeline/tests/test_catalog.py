@@ -65,15 +65,19 @@ def test_publish_writes_hashed_files_and_an_index(tmp_path):
 
     assert hashlib.sha256(body).hexdigest() == entry["sha256"] and len(body) == entry["bytes"]
     catalog = json.loads((site / index["catalog"]["path"]).read_text())
-    assert [q["id"] for q in catalog["questions"]] == ["id-kelas-sosial"]
+    # Every published question has its data built; kelas sosial's (the poverty line) always is.
+    assert "id-kelas-sosial" in [q["id"] for q in catalog["questions"]]
+    built = set(index["datasets"])
+    assert all(set(q["datasets"]) <= built for q in catalog["questions"])
     assert "lists" in catalog and "topics" in catalog
     sources = json.loads((site / index["sources"]["path"]).read_text())
-    assert list(sources) == ["bps"] and sources["bps"]["licenseUrl"]
+    assert "bps" in sources and all(s["licenseUrl"] for s in sources.values())
     assert "max-age=300" in (site / "_headers").read_text()
 
     app = tmp_path / "app"
     copied = publish.bundle(site, app)
-    assert (app / "index.json").exists() and len(copied) == 3
+    unsharded = [d for d in index["datasets"].values() if "shards" not in d]
+    assert (app / "index.json").exists() and len(copied) == 3 + len(unsharded) - 1
 
 
 def test_publish_includes_every_shard(tmp_path):

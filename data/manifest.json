@@ -8,6 +8,486 @@
         "bps"
       ],
       "year": "March 2026"
+    },
+    "my.births.daily": {
+      "built": "2026-11-10T15:32:05+00:00",
+      "file": "my/births_daily.json",
+      "sources": [
+        "datagovmy_births"
+      ],
+      "year": "2000-2022"
+    },
+    "my.cpi": {
+      "built": "2026-11-10T15:33:57+00:00",
+      "file": "my/cpi.json",
+      "sources": [
+        "opendosm"
+      ],
+      "year": 2026
+    },
+    "my.hies.percentile": {
+      "built": "2026-11-10T15:33:55+00:00",
+      "file": "my/hies_percentile.json",
+      "sources": [
+        "opendosm"
+      ],
+      "year": 2024
+    },
+    "my.lifetables": {
+      "built": "2026-11-10T15:34:56+00:00",
+      "file": "my/lifetables.json",
+      "sources": [
+        "opendosm"
+      ],
+      "year": 2026
+    },
+    "my.population": {
+      "built": "2026-11-10T15:35:42+00:00",
+      "file": "my/population.json",
+      "sources": [
+        "opendosm"
+      ],
+      "year": 2026
+    },
+    "my.wages": {
+      "built": "2026-11-10T15:35:41+00:00",
+      "file": "my/wages.json",
+      "sources": [
+        "opendosm"
+      ],
+      "year": 2025
+    },
+    "us.acs.children": {
+      "built": "2026-11-10T15:43:26+00:00",
+      "file": "us/acs_children.json",
+      "sources": [
+        "census_acs_pums"
+      ],
+      "year": 2024
+    },
+    "us.acs.commute_q": {
+      "built": "2026-11-10T15:43:17+00:00",
+      "file": "us/acs_commute.json",
+      "sources": [
+        "census_acs_pums"
+      ],
+      "year": 2024
+    },
+    "us.acs.couples": {
+      "built": "2026-11-10T15:43:36+00:00",
+      "file": "us/acs_couples.json",
+      "sources": [
+        "census_acs_pums"
+      ],
+      "year": 2024
+    },
+    "us.acs.degree_earnings": {
+      "built": "2026-11-10T15:43:30+00:00",
+      "file": "us/acs_degree_earnings.json",
+      "sources": [
+        "census_acs_pums"
+      ],
+      "year": 2024
+    },
+    "us.acs.diaspora": {
+      "built": "2026-11-10T15:43:46+00:00",
+      "file": "us/acs_diaspora.json",
+      "sources": [
+        "census_acs_pums"
+      ],
+      "year": 2024
+    },
+    "us.acs.education": {
+      "built": "2026-11-10T15:43:29+00:00",
+      "file": "us/acs_education.json",
+      "sources": [
+        "census_acs_pums"
+      ],
+      "year": 2024
+    },
+    "us.acs.ever_married": {
+      "built": "2026-11-10T15:43:09+00:00",
+      "file": "us/acs_ever_married.json",
+      "sources": [
+        "census_acs_pums"
+      ],
+      "year": 2024
+    },
+    "us.acs.hh_income": {
+      "built": "2026-11-10T15:42:40+00:00",
+      "file": "us/acs_household_income.json",
+      "sources": [
+        "census_acs_pums"
+      ],
+      "year": 2024
+    },
+    "us.acs.housing": {
+      "built": "2026-11-10T15:43:16+00:00",
+      "file": "us/acs_housing.json",
+      "sources": [
+        "census_acs_pums"
+      ],
+      "year": 2024
+    },
+    "us.acs.income_q": {
+      "built": "2026-11-10T15:42:37+00:00",
+      "file": "us/acs_income_quantiles.json",
+      "sources": [
+        "census_acs_pums"
+      ],
+      "year": 2024
+    },
+    "us.acs.languages": {
+      "built": "2026-11-10T15:43:44+00:00",
+      "file": "us/acs_languages.json",
+      "sources": [
+        "census_acs_pums"
+      ],
+      "year": 2024
+    },
+    "us.acs.occ_pay_gap": {
+      "built": "2026-11-10T15:43:42+00:00",
+      "file": "us/acs_occupation_pay_gap.json",
+      "sources": [
+        "census_acs_pums"
+      ],
+      "year": 2024
+    },
+    "us.acs.ownership": {
+      "built": "2026-11-10T15:43:14+00:00",
+      "file": "us/acs_ownership.json",
+      "sources": [
+        "census_acs_pums"
+      ],
+      "year": 2024
+    },
+    "us.acs.rent_burden": {
+      "built": "2026-11-10T15:43:14+00:00",
+      "file": "us/acs_rent_burden.json",
+      "sources": [
+        "census_acs_pums"
+      ],
+      "year": 2024
+    },
+    "us.acs.sample": {
+      "built": "2026-11-10T15:42:01+00:00",
+      "file": "us/acs_sample.json",
+      "sources": [
+        "census_acs_pums"
+      ],
+      "year": 2024
+    },
+    "us.acs.with_parents": {
+      "built": "2026-11-10T15:43:12+00:00",
+      "file": "us/acs_with_parents.json",
+      "sources": [
+        "census_acs_pums"
+      ],
+      "year": 2024
+    },
+    "us.acs.work_hours_q": {
+      "built": "2026-11-10T15:43:23+00:00",
+      "file": "us/acs_work_hours.json",
+      "sources": [
+        "census_acs_pums"
+      ],
+      "year": 2024
+    },
+    "us.births.daily": {
+      "built": "2026-11-10T15:32:03+00:00",
+      "file": "us/births_daily.json",
+      "sources": [
+        "births_538"
+      ],
+      "year": "1994-2014"
+    },
+    "us.nhanes.body": {
+      "built": "2026-11-10T15:36:47+00:00",
+      "file": "us/nhanes_body.json",
+      "sources": [
+        "nchs_nhanes"
+      ],
+      "year": "2021-2023"
+    },
+    "world.pip.percentiles": {
+      "built": "2026-11-10T15:42:18+00:00",
+      "file": "world/pip_percentiles.json",
+      "sources": [
+        "worldbank_pip"
+      ],
+      "year": 2025
+    },
+    "world.wdi": {
+      "built": "2026-11-10T15:32:16+00:00",
+      "file": "world/wdi.json",
+      "sources": [
+        "worldbank_wdi"
+      ],
+      "year": 2026
+    },
+    "world.wpp.indicators": {
+      "built": "2026-11-10T15:42:00+00:00",
+      "file": "world/wpp_indicators.json",
+      "sources": [
+        "un_wpp"
+      ],
+      "year": 2024
+    },
+    "world.wpp.lifetable": {
+      "built": "2026-11-10T15:42:09+00:00",
+      "file": "world/lifetable/{shard}.json",
+      "sources": [
+        "un_wpp"
+      ],
+      "year": 2026,
+      "shards": [
+        "ABW",
+        "AFG",
+        "AGO",
+        "AIA",
+        "ALB",
+        "AND",
+        "ARE",
+        "ARG",
+        "ARM",
+        "ASM",
+        "ATG",
+        "AUS",
+        "AUT",
+        "AZE",
+        "BDI",
+        "BEL",
+        "BEN",
+        "BES",
+        "BFA",
+        "BGD",
+        "BGR",
+        "BHR",
+        "BHS",
+        "BIH",
+        "BLM",
+        "BLR",
+        "BLZ",
+        "BMU",
+        "BOL",
+        "BRA",
+        "BRB",
+        "BRN",
+        "BTN",
+        "BWA",
+        "CAF",
+        "CAN",
+        "CHE",
+        "CHL",
+        "CHN",
+        "CIV",
+        "CMR",
+        "COD",
+        "COG",
+        "COK",
+        "COL",
+        "COM",
+        "CPV",
+        "CRI",
+        "CUB",
+        "CUW",
+        "CYM",
+        "CYP",
+        "CZE",
+        "DEU",
+        "DJI",
+        "DMA",
+        "DNK",
+        "DOM",
+        "DZA",
+        "ECU",
+        "EGY",
+        "ERI",
+        "ESH",
+        "ESP",
+        "EST",
+        "ETH",
+        "FIN",
+        "FJI",
+        "FLK",
+        "FRA",
+        "FRO",
+        "FSM",
+        "GAB",
+        "GBR",
+        "GEO",
+        "GGY",
+        "GHA",
+        "GIB",
+        "GIN",
+        "GLP",
+        "GMB",
+        "GNB",
+        "GNQ",
+        "GRC",
+        "GRD",
+        "GRL",
+        "GTM",
+        "GUF",
+        "GUM",
+        "GUY",
+        "HKG",
+        "HND",
+        "HRV",
+        "HTI",
+        "HUN",
+        "IDN",
+        "IMN",
+        "IND",
+        "IRL",
+        "IRN",
+        "IRQ",
+        "ISL",
+        "ISR",
+        "ITA",
+        "JAM",
+        "JEY",
+        "JOR",
+        "JPN",
+        "KAZ",
+        "KEN",
+        "KGZ",
+        "KHM",
+        "KIR",
+        "KNA",
+        "KOR",
+        "KWT",
+        "LAO",
+        "LBN",
+        "LBR",
+        "LBY",
+        "LCA",
+        "LIE",
+        "LKA",
+        "LSO",
+        "LTU",
+        "LUX",
+        "LVA",
+        "MAC",
+        "MAF",
+        "MAR",
+        "MCO",
+        "MDA",
+        "MDG",
+        "MDV",
+        "MEX",
+        "MHL",
+        "MKD",
+        "MLI",
+        "MLT",
+        "MMR",
+        "MNE",
+        "MNG",
+        "MNP",
+        "MOZ",
+        "MRT",
+        "MSR",
+        "MTQ",
+        "MUS",
+        "MWI",
+        "MYS",
+        "MYT",
+        "NAM",
+        "NCL",
+        "NER",
+        "NGA",
+        "NIC",
+        "NIU",
+        "NLD",
+        "NOR",
+        "NPL",
+        "NRU",
+        "NZL",
+        "OMN",
+        "PAK",
+        "PAN",
+        "PER",
+        "PHL",
+        "PLW",
+        "PNG",
+        "POL",
+        "PRI",
+        "PRK",
+        "PRT",
+        "PRY",
+        "PSE",
+        "PYF",
+        "QAT",
+        "REU",
+        "ROU",
+        "RUS",
+        "RWA",
+        "SAU",
+        "SDN",
+        "SEN",
+        "SGP",
+        "SHN",
+        "SLB",
+        "SLE",
+        "SLV",
+        "SMR",
+        "SOM",
+        "SPM",
+        "SRB",
+        "SSD",
+        "STP",
+        "SUR",
+        "SVK",
+        "SVN",
+        "SWE",
+        "SWZ",
+        "SXM",
+        "SYC",
+        "SYR",
+        "TCA",
+        "TCD",
+        "TGO",
+        "THA",
+        "TJK",
+        "TKL",
+        "TKM",
+        "TLS",
+        "TON",
+        "TTO",
+        "TUN",
+        "TUR",
+        "TUV",
+        "TWN",
+        "TZA",
+        "UGA",
+        "UKR",
+        "URY",
+        "USA",
+        "UZB",
+        "VAT",
+        "VCT",
+        "VEN",
+        "VGB",
+        "VIR",
+        "VNM",
+        "VUT",
+        "WLD",
+        "WLF",
+        "WSM",
+        "XKX",
+        "YEM",
+        "ZAF",
+        "ZMB",
+        "ZWE"
+      ]
+    },
+    "world.wpp.pop_age": {
+      "built": "2026-11-10T15:42:01+00:00",
+      "file": "world/wpp_population_by_age.json",
+      "sources": [
+        "un_wpp"
+      ],
+      "year": 2026
     }
   }
 }

@@ -3,3 +3,4 @@ numpy>=1.26
 requests>=2.31
 pyarrow>=15  # reads OpenDOSM and data.gov.my parquet files
 pytest>=8
+truststore>=0.10  # use the OS certificate store for downloads

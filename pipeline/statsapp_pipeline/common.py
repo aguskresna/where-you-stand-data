@@ -208,6 +208,8 @@ class Context:
         with requests.get(url, headers={"User-Agent": USER_AGENT}, stream=True, timeout=120) as r:
             if r.status_code != 200:
                 raise PipelineError(f"{url} returned HTTP {r.status_code}")
+            if _is_html_instead_of_file(name, r.headers):
+                raise PipelineError(f"{url} returned a web page instead of the file (moved, not published yet, or refused)")
             fd, tmp = tempfile.mkstemp(dir=self.raw, prefix=".part-")
             with os.fdopen(fd, "wb") as f:
                 for chunk in r.iter_content(chunk_size=1 << 20):
@@ -229,7 +231,16 @@ class Context:
         return f"{r.status_code} {h.get('ETag', '')} {h.get('Last-Modified', '')} {h.get('Content-Length', '')}"
 
     def exists(self, url: str) -> bool:
-        return self.head(url).startswith("200 ")
+        """True when url serves the file itself (some servers answer a missing file with a 200 web page)."""
+        if self.offline:
+            raise PipelineError(f"Can't check {url}: downloads are off")
+        import requests
+
+        r = requests.head(url, headers={"User-Agent": USER_AGENT}, allow_redirects=True, timeout=60)
+        if r.status_code in (403, 405, 501):
+            r = requests.get(url, headers={"User-Agent": USER_AGENT}, allow_redirects=True, timeout=60, stream=True)
+            r.close()
+        return r.status_code == 200 and not _is_html_instead_of_file(url.split("?")[0], r.headers)
 
     def fetch_json(self, url: str, params: dict | None = None) -> Any:
         if self.offline:
@@ -331,6 +342,12 @@ class Context:
             write_json_atomic(manifest_path, manifest, indent=2)
         self.written.append(dataset_id)
         self.log(f"  wrote {dataset_id}" if dataset_id in self.changed or shards is not None else f"  {dataset_id} unchanged")
+
+
+def _is_html_instead_of_file(name: str, headers) -> bool:
+    """A web page served where a data file (zip, csv, parquet, xpt, ...) was expected."""
+    kind = str(headers.get("Content-Type", "")).lower()
+    return kind.startswith("text/html") and not name.lower().endswith((".html", ".htm", ".aspx"))
 
 
 def _now() -> str:

@@ -36,6 +36,10 @@ EDU_LEVELS = ["Less than high school", "High school or GED", "Some college or as
 HOUSEHOLDER, PARTNERS, CHILDREN = 20, (21, 22, 23, 24), (25, 26, 27)
 
 
+# Columns the Census Bureau renamed between releases: our name -> names used in some years.
+ALIASES = {"ST": ["STATE"]}  # 'STATE' from the 2024 files on
+
+
 def read_zip_csvs(path: Path, prefix: str, columns: list[str]) -> pd.DataFrame:
     """Reads every CSV in the zip whose name starts with prefix (psam_pusa.csv, psam_pusb.csv, ...)."""
     frames = []
@@ -46,11 +50,18 @@ def read_zip_csvs(path: Path, prefix: str, columns: list[str]) -> pd.DataFrame:
                 continue
             with zf.open(info) as f:
                 header = pd.read_csv(f, nrows=0).columns
-            missing = [c for c in columns if c not in header]
+            rename = {}
+            for c in columns:
+                if c not in header:
+                    alias = next((a for a in ALIASES.get(c, []) if a in header), None)
+                    if alias:
+                        rename[alias] = c
+            missing = [c for c in columns if c not in header and c not in rename.values()]
             if missing:
                 raise PipelineError(f"{name} has no column(s) {missing}")
+            use = [next((a for a, c2 in rename.items() if c2 == c), c) for c in columns]
             with zf.open(info) as f:
-                frames.append(pd.read_csv(f, usecols=columns, dtype={"SERIALNO": str}, low_memory=False))
+                frames.append(pd.read_csv(f, usecols=use, dtype={"SERIALNO": str}, low_memory=False).rename(columns=rename))
     if not frames:
         raise PipelineError(f"No {prefix}*.csv files in {path}")
     return pd.concat(frames, ignore_index=True)

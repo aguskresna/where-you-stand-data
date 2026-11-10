@@ -30,6 +30,7 @@ FILES = {
     "wages_age": ["labour/wages_age.parquet", "labour/salaries_age.parquet"],
     "wages_education": ["labour/wages_education.parquet", "labour/salaries_education.parquet"],
     "population_state": ["population/population_state.parquet"],
+    "population_malaysia": ["population/population_malaysia.parquet"],
     "lifetables": ["demography/lifetables.parquet", "population/lifetables.parquet"],
     "lifetables_state": ["demography/lifetables_state.parquet", "population/lifetables_state.parquet"],
     "cpi_headline": ["cpi/cpi_2d.parquet", "cpi/cpi_headline.parquet"],
@@ -98,35 +99,39 @@ def age_start(label: str) -> int:
     return int(m.group(1)) if m else -1
 
 
-def thresholds(rows: pd.DataFrame) -> list[float]:
-    """101 thresholds from a percentile table (1..100), using maxima when present, else means."""
+def thresholds(rows: pd.DataFrame) -> tuple[list[float], list[int]]:
+    """Percentile cut points and their positions (0..100) from a percentile table (1..100).
+
+    DOSM gives each percentile's minimum and maximum. The maximum of percentile k is the cut point at
+    position k. DOSM leaves the bottom of the 1st and the top of the 100th percentile blank (open ends),
+    so those positions are only published when the table has them; nothing is estimated.
+    """
     pct = pick_column(rows, ["percentile"], "percentile")
     value = pick_column(rows, ["income", "value", "amount"], "income")
     var = next((c for c in rows.columns if c.lower() == "variable"), None)
     if var:
         piv = rows.pivot_table(index=pct, columns=var, values=value, aggfunc="first")
         cols = {str(c).lower(): c for c in piv.columns}
+        if "maximum" not in cols:
+            raise PipelineError(f"The percentile table has no 'maximum' rows; found {list(cols)}")
         piv = piv.reindex(range(1, 101))
-        if "maximum" in cols:
-            top = piv[cols["maximum"]].to_numpy(dtype=float)
-            bottom = float(piv[cols["minimum"]].iloc[0]) if "minimum" in cols else top[0] / 2
-            q = np.concatenate([[bottom], top])
-        else:
-            mean = piv[cols.get("mean", cols.get("median", next(iter(cols.values()))))].to_numpy(dtype=float)
-            mids = (mean[:-1] + mean[1:]) / 2
-            q = np.concatenate([[mean[0] - (mids[0] - mean[0])], mids, [mean[-1] + (mean[-1] - mids[-1])]])
+        top = piv[cols["maximum"]].astype("Float64")
+        known = {int(k): float(v) for k, v in top.items() if not pd.isna(v)}
+        if "minimum" in cols and not pd.isna(piv[cols["minimum"]].iloc[0]):
+            known[0] = float(piv[cols["minimum"]].iloc[0])
     else:
         vals = rows.sort_values(pct)[value].to_numpy(dtype=float)
         if len(vals) == 101:
-            q = vals
+            known = {i: float(v) for i, v in enumerate(vals)}
         elif len(vals) == 100:
-            q = np.concatenate([[vals[0] / 2], vals])
+            known = {i + 1: float(v) for i, v in enumerate(vals)}
         else:
             raise PipelineError(f"Expected 100 percentiles, found {len(vals)}")
-    if np.isnan(q).any():
-        raise PipelineError("Percentile table has gaps")
-    q = np.maximum.accumulate(np.clip(q, 0, None))
-    return [round(float(x)) for x in q]
+    positions = sorted(known)
+    if positions != list(range(positions[0], positions[-1] + 1)) or len(positions) < 99:
+        raise PipelineError(f"Percentile table has gaps: cut points at {positions}")
+    q = np.maximum.accumulate(np.clip([known[k] for k in positions], 0, None))
+    return [round(float(x)) for x in q], positions
 
 
 def year_of(rows: pd.DataFrame):
@@ -136,18 +141,26 @@ def year_of(rows: pd.DataFrame):
 
 
 def hies(ctx) -> None:
-    groups, years = {}, {}
+    groups, years, positions = {}, {}, {}
     nat = latest(frame(ctx, "hies_malaysia_percentile"))
-    groups["Malaysia"], years["Malaysia"] = thresholds(nat), year_of(nat)
+    groups["Malaysia"], positions["Malaysia"] = thresholds(nat)
+    years["Malaysia"] = year_of(nat)
     states = latest(frame(ctx, "hies_state_percentile"))
     state_col = pick_column(states, ["state"], "state")
     for state, rows in states.groupby(state_col):
-        groups[str(state)], years[str(state)] = thresholds(rows), year_of(rows)
-    ctx.write("my.hies.percentile", {"unit": "RM/month", "groups": groups, "years": years}, year=years["Malaysia"])
+        groups[str(state)], positions[str(state)] = thresholds(rows)
+        years[str(state)] = year_of(rows)
+    # One set of positions for every group, so the app reads them once.
+    common = sorted(set.intersection(*(set(p) for p in positions.values())))
+    for g, p in positions.items():
+        groups[g] = [v for k, v in zip(p, groups[g]) if k in common]
+    ctx.write("my.hies.percentile", {"unit": "RM/month", "p": common, "groups": groups, "years": years}, year=years["Malaysia"],
+              note="Cut points between percentiles of monthly gross household income. DOSM leaves the open ends blank, so the lowest and highest 1% have no cut point.")
 
 
 def wage_table(df: pd.DataFrame, dim_candidates: list[str], what: str, norm=str) -> tuple[dict, list[str]]:
     df = latest(df)
+    wage_table.year = year_of(df)
     dim = pick_column(df, dim_candidates, what)
     sex = pick_column(df, ["sex"], "sex")
     var = next((c for c in df.columns if c.lower() == "variable"), None)
@@ -172,12 +185,15 @@ def wages(ctx) -> None:
     by_age, _ = wage_table(frame(ctx, "wages_age"), ["age", "age_group"], "age group", norm_age)
     by_edu, levels = wage_table(frame(ctx, "wages_education"), ["education", "edu", "qualification"], "education")
     ctx.write("my.wages", {"byState": by_state, "byAge": by_age, "byEducation": by_edu, "educationLevels": [l for l in levels if l.lower() not in ("overall", "all")]},
-              year=ctx.today.year, note="Monthly salaries and wages of Malaysian citizen employees.")
+              year=wage_table.year or ctx.today.year, note="Monthly salaries and wages of Malaysian citizen employees.")
 
 
 def population(ctx) -> None:
     df = latest(frame(ctx, "population_state"))
     state = pick_column(df, ["state"], "state")
+    if not (df[state] == "Malaysia").any():  # the state table has no national rows; DOSM publishes them separately
+        nat = latest(frame(ctx, "population_malaysia"))
+        df = pd.concat([df, nat.assign(**{state: "Malaysia"})], ignore_index=True)
     sex = pick_column(df, ["sex"], "sex")
     age = pick_column(df, ["age"], "age")
     eth = pick_column(df, ["ethnicity"], "ethnicity")
@@ -204,6 +220,9 @@ def lifetables(ctx) -> None:
                 ctx.log(f"  {e}")
                 continue
             raise
+        eth = next((c for c in df.columns if c.lower() == "ethnicity"), None)
+        if eth:  # the national table is also split by ethnicity; the app uses everyone
+            df = df[df[eth].astype(str).str.lower() == "overall"]
         sex = pick_column(df, ["sex"], "sex")
         age = pick_column(df, ["age"], "age")
         state = next((c for c in df.columns if c.lower() == "state"), None)
@@ -211,8 +230,8 @@ def lifetables(ctx) -> None:
         if var:
             value = pick_column(df, ["value"], "value")
             df = df.pivot_table(index=[c for c in (state, sex, age) if c], columns=var, values=value, aggfunc="first").reset_index()
-        lx = pick_column(df, ["lx"], "lx")
-        ex = pick_column(df, ["ex"], "ex")
+        lx = pick_column(df, ["lx", "survivors"], "lx")
+        ex = pick_column(df, ["ex", "life_expectancy"], "ex")
         df = df.assign(_age=df[age].map(lambda v: age_start(norm_age(v))))
         for keys, rows in df.groupby([c for c in (state, sex) if c]):
             keys = keys if isinstance(keys, tuple) else (keys,)
@@ -221,7 +240,7 @@ def lifetables(ctx) -> None:
             tables[f"{st}|{norm_sex(sx)}"] = {"ages": rows["_age"].astype(int).tolist(), "lx": [round(float(v)) for v in rows[lx]], "ex": [round(float(v), 2) for v in rows[ex]]}
     if not tables:
         raise PipelineError("No life tables found")
-    ctx.write("my.lifetables", {"tables": tables}, year=ctx.today.year, note="Abridged life tables; the oldest group is open-ended.")
+    ctx.write("my.lifetables", {"tables": tables}, year=year_of(df) or ctx.today.year, note="Abridged life tables; the oldest group is open-ended. DOSM marks the latest year as an estimate and the year before as preliminary.")
 
 
 def cpi(ctx) -> None:

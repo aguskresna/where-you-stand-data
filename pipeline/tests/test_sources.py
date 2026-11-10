@@ -169,8 +169,8 @@ def test_pip_thresholds_and_population(make_ctx, read):
     wpp = read(make_ctx.data, "world.wpp.indicators")["data"]
     worldbank_pip.build_from(make_ctx("worldbank_pip"), pd.DataFrame(rows), wpp)
     c = read(make_ctx.data, "world.pip.percentiles")["data"]["countries"]
-    assert c["IDN"]["welfare"] == "consumption" and len(c["IDN"]["q"]) == 101 and ascending(c["IDN"]["q"])
-    assert c["IDN"]["q"][50] == pytest.approx(5.0) and c["IDN"]["pop"] == (3 * 1000 + 2023) * 1000
+    assert c["IDN"]["welfare"] == "consumption" and len(c["IDN"]["q"]) == 99 and ascending(c["IDN"]["q"])
+    assert c["IDN"]["q"][49] == pytest.approx(5.0) and len(c["IDN"]["m"]) == 100 and c["IDN"]["pop"] == (3 * 1000 + 2023) * 1000
 
 
 def test_wdi_keeps_only_cc_by_indicators(make_ctx, read, monkeypatch):
@@ -218,6 +218,7 @@ def test_opendosm_tables(make_ctx, read):
     opendosm.build(ctx)
     h = read(make_ctx.data, "my.hies.percentile")["data"]
     assert h["groups"]["Malaysia"][0] == 100 and h["groups"]["Malaysia"][100] == 10099 and h["years"]["Selangor"] == 2024
+    assert h["p"] == list(range(101))
     w = read(make_ctx.data, "my.wages")["data"]
     assert w["byAge"]["60+|both"]["median"] == 3200 and w["educationLevels"] == ["SPM", "Degree"]
     pop = read(make_ctx.data, "my.population")["data"]
@@ -226,6 +227,14 @@ def test_opendosm_tables(make_ctx, read):
     assert lt["Johor|male"]["ages"] == [0, 1, 5, 80]
     cpi = read(make_ctx.data, "my.cpi")["data"]
     assert cpi["asOf"] == "2026-09" and cpi["overall"] == pytest.approx(0.02) and cpi["groups"]["01"]["label"] == "Food and drinks"
+
+
+def test_opendosm_percentiles_leave_the_open_ends_out():
+    # The real DOSM layout: no minimum for the 1st percentile and no maximum for the 100th.
+    rows = pd.DataFrame([{"percentile": p, "variable": v, "income": None if (p, v) in ((1, "minimum"), (100, "maximum")) else p * 100 + (0 if v == "minimum" else 99)}
+                         for p in range(1, 101) for v in ("minimum", "maximum", "mean", "median")])
+    values, positions = opendosm.thresholds(rows)
+    assert positions == list(range(1, 100)) and values[0] == 199 and values[-1] == 9999
 
 
 def test_opendosm_explains_missing_tables(make_ctx):

@@ -210,7 +210,7 @@
     "world.pip.percentiles": {
       "sources": ["worldbank_pip"], "kind": "quantiles", "file": "world/pip_percentiles.json",
       "description": "Income or consumption per person per day (2021 PPP dollars), 100 percentiles per country, latest survey year.",
-      "schema": "{unit:'2021 PPP $ per person per day', countries:{'<ISO3>': {year, welfare:'income'|'consumption', pop, q:[101 values]}}}"
+      "schema": "{unit:'2021 PPP $ per person per day', p:[1..99], countries:{'<ISO3>': {year, welfare:'income'|'consumption', pop, q:[99 cut points at positions p], m:[100 percentile means]}}}"
     },
     "world.wdi": {
       "sources": ["worldbank_wdi"], "kind": "table", "file": "world/wdi.json",
@@ -245,7 +245,7 @@
     "my.hies.percentile": {
       "sources": ["opendosm"], "kind": "quantiles", "file": "my/hies_percentile.json",
       "description": "Monthly gross household income by percentile, Malaysia and each state.",
-      "schema": "{unit:'RM/month', groups:{'Malaysia'|'<state>': [101 values]}, years:{'<group>': YYYY}}"
+      "schema": "{unit:'RM/month', p:[percentile positions of the cut points, e.g. 1..99], groups:{'Malaysia'|'<state>': [one value per position]}, years:{'<group>': YYYY}}"
     },
     "my.wages": {
       "sources": ["opendosm"], "kind": "table", "file": "my/wages.json",

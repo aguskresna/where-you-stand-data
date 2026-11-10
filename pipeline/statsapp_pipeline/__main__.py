@@ -146,7 +146,18 @@ def cmd_publish(args) -> int:
     return 0
 
 
+def _use_system_certificates() -> None:
+    """Trust the operating system's certificate store (some PCs and proxies need it); no-op if unavailable."""
+    try:
+        import truststore
+
+        truststore.inject_into_ssl()
+    except ImportError:
+        pass
+
+
 def main(argv=None) -> int:
+    _use_system_certificates()
     parser = argparse.ArgumentParser(prog="python -m statsapp_pipeline", description="Build the app's datasets from official statistics.")
     sub = parser.add_subparsers(dest="cmd", required=True)
     sub.add_parser("list", help="every source, its license and build status").set_defaults(fn=cmd_list)

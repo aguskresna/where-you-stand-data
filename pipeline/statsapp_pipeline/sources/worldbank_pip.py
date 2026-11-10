@@ -21,28 +21,27 @@ DEPENDS = ["un_wpp"]
 HOW = "Download the PIP percentiles CSV from https://datacatalog.worldbank.org (search 'Poverty and Inequality Platform percentiles') and save it there."
 
 
-def thresholds(rows: pd.DataFrame, pct_col: str, avg_col: str, q_col: str | None) -> list[float]:
-    """101 thresholds from 100 percentile groups.
+P = list(range(1, 100))  # positions of the published cut points: the tops of percentiles 1..99
 
-    With a threshold column, q[p] is the top of percentile p; the bottom (q[0]) and a missing top (q[100])
-    are extrapolated from the group means. Without one, thresholds sit between neighbouring group means.
+
+def thresholds(rows: pd.DataFrame, pct_col: str, avg_col: str, q_col: str | None) -> tuple[list[float], list[float]]:
+    """The 99 cut points between percentiles (the 'quantile' column: top of percentiles 1..99) and the
+    100 percentile means.
+
+    PIP leaves the top of the 100th percentile blank and has no bottom for the 1st, so those ends are
+    not published; nothing is extrapolated.
     """
     rows = rows.sort_values(pct_col)
     avg = rows[avg_col].to_numpy(dtype=float)
-    if len(avg) != 100:
-        raise PipelineError(f"Expected 100 percentiles, found {len(avg)}")
-    if q_col and rows[q_col].notna().sum() >= 99:
-        top = rows[q_col].to_numpy(dtype=float)
-        q = np.empty(101)
-        q[1:] = top
-        q[0] = max(0.0, avg[0] - (top[0] - avg[0]))
-        if not np.isfinite(q[100]):
-            q[100] = avg[99] + (avg[99] - top[98])
-    else:
-        mids = (avg[:-1] + avg[1:]) / 2
-        q = np.concatenate([[max(0.0, avg[0] - (mids[0] - avg[0]))], mids, [avg[99] + (avg[99] - mids[-1])]])
-    q = np.maximum.accumulate(np.nan_to_num(q, nan=0.0))
-    return [round(float(x), 3) for x in q]
+    if len(avg) != 100 or not np.isfinite(avg).all():
+        raise PipelineError(f"Expected 100 percentile means, found {np.isfinite(avg).sum()}")
+    if not q_col:
+        raise PipelineError("The PIP file has no 'quantile' (threshold) column")
+    top = rows[q_col].to_numpy(dtype=float)[:99]
+    if not np.isfinite(top).all():
+        raise PipelineError("Missing cut points for percentiles 1..99")
+    q = np.maximum.accumulate(top)
+    return [round(float(x), 3) for x in q], [round(float(x), 3) for x in avg]
 
 
 def build(ctx) -> None:
@@ -79,12 +78,12 @@ def build_from(ctx, df: pd.DataFrame, wpp: dict) -> None:
         if not pop:
             continue
         try:
-            q = thresholds(rows, pct, avg, qcol)
+            q, means = thresholds(rows, pct, avg, qcol)
         except PipelineError as e:
             ctx.log(f"  skipped {iso}: {e}")
             continue
-        countries[iso] = {"year": int(latest_year), "welfare": str(rows[welfare].iloc[0]) if welfare else "income", "pop": round(pop * 1000), "q": q}
+        countries[iso] = {"year": int(latest_year), "welfare": str(rows[welfare].iloc[0]) if welfare else "income", "pop": round(pop * 1000), "q": q, "m": means}
     if not countries:
         raise PipelineError("No countries matched between PIP and the UN population data")
-    ctx.write("world.pip.percentiles", {"unit": "2021 PPP $ per person per day", "countries": countries},
-              year=max(c["year"] for c in countries.values()), note="Each country's latest survey year.")
+    ctx.write("world.pip.percentiles", {"unit": "2021 PPP $ per person per day", "p": P, "countries": countries},
+              year=max(c["year"] for c in countries.values()), note="Each country's latest survey year. q: cut points at percentiles 1..99; m: the mean of each of the 100 percentiles.")

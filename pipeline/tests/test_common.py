@@ -90,3 +90,11 @@ def test_rewriting_the_same_data_keeps_the_file_byte_for_byte(make_ctx, read):
     newer = make_ctx("bps")
     newer.write("id.bps.cpi", {"asOf": "2026-10", "overall": 0.03, "groups": {}}, year=2026)
     assert newer.changed == ["id.bps.cpi"] and read(make_ctx.data, "id.bps.cpi")["data"]["asOf"] == "2026-10"
+
+
+def test_a_web_page_is_not_a_data_file():
+    from statsapp_pipeline.common import _is_html_instead_of_file
+
+    assert _is_html_instead_of_file("csv_pus.zip", {"Content-Type": "text/html; charset=utf-8"})
+    assert not _is_html_instead_of_file("csv_pus.zip", {"Content-Type": "application/zip"})
+    assert not _is_html_instead_of_file("release.html", {"Content-Type": "text/html"})
