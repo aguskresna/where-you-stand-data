@@ -1,0 +1,138 @@
+[
+  {
+    "id": "world-age-rank",
+    "mode": "world",
+    "topic": "identity",
+    "title": "Age rank",
+    "question": "How many people alive today are older than you?",
+    "kind": "age_rank",
+    "datasets": [
+      "world.wpp.pop_age",
+      "world.wpp.indicators"
+    ],
+    "inputs": [
+      {
+        "key": "birthDate",
+        "type": "date",
+        "label": "Birth date",
+        "default": "1995-06-15",
+        "min": "1900-01-01"
+      },
+      {
+        "key": "place",
+        "type": "select",
+        "label": "Compare with",
+        "default": "WLD",
+        "optionsFrom": {
+          "dataset": "world.wpp.indicators",
+          "path": [
+            "countries"
+          ],
+          "exclude": [
+            "WLD"
+          ],
+          "first": [
+            [
+              "WLD",
+              "The whole world"
+            ]
+          ]
+        }
+      }
+    ],
+    "params": {
+      "dataset": "world.wpp.pop_age",
+      "layout": "single_mf",
+      "path": [
+        "groups",
+        "{place}"
+      ],
+      "birthDate": "birthDate",
+      "place": {
+        "input": "place",
+        "map": {
+          "WLD": "in the world"
+        },
+        "default": "in {label.place}"
+      }
+    },
+    "text": {
+      "headline": "Older than {younger}",
+      "sentence": "You're older than {younger} of the people living {place}, and younger than {older}."
+    }
+  },
+  {
+    "id": "world-time-left",
+    "mode": "world",
+    "topic": "body",
+    "title": "Time left",
+    "question": "How many years does the average person your age have ahead?",
+    "kind": "life_table",
+    "datasets": [
+      "world.wpp.lifetable",
+      "world.wpp.indicators"
+    ],
+    "inputs": [
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age",
+        "default": 30,
+        "min": 0,
+        "max": 100,
+        "unit": "years"
+      },
+      {
+        "key": "sex",
+        "type": "choice",
+        "label": "Sex",
+        "options": "@sex",
+        "default": "F"
+      },
+      {
+        "key": "country",
+        "type": "select",
+        "label": "Country",
+        "default": "USA",
+        "optionsFrom": {
+          "dataset": "world.wpp.indicators",
+          "path": [
+            "countries"
+          ],
+          "exclude": [
+            "WLD"
+          ]
+        }
+      }
+    ],
+    "params": {
+      "dataset": "world.wpp.lifetable",
+      "shard": "{country}",
+      "table": [
+        "tables",
+        "{sex}"
+      ],
+      "fallback": [
+        "tables",
+        "B"
+      ],
+      "age": "age",
+      "who": {
+        "input": "sex",
+        "map": {
+          "F": "women",
+          "M": "men"
+        },
+        "default": "people"
+      },
+      "place": "in {label.country}"
+    },
+    "text": {
+      "headline": "About {left} more years",
+      "sentence": "On today's death rates, {who} aged {age} {place} live to about {liveTo} on average.",
+      "caveats": [
+        "A period life table: it assumes today’s death rates at every age, so most people your age will do somewhat better."
+      ]
+    }
+  }
+]

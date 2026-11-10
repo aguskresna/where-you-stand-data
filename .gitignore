@@ -1,0 +1,18 @@
+# The published site is rebuilt by every run and deployed straight to Cloudflare Pages.
+site/
+
+# Downloads cache (can be gigabytes, e.g. ACS PUMS).
+pipeline/raw/
+
+# Large hand-saved inputs: build these sources locally and commit only their output in data/.
+pipeline/manual/un_wpp/*
+!pipeline/manual/un_wpp/.gitkeep
+pipeline/manual/worldbank_pip/*
+!pipeline/manual/worldbank_pip/.gitkeep
+
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+.env
+.DS_Store

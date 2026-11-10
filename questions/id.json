@@ -1,0 +1,147 @@
+[
+  {
+    "id": "id-kelas-sosial",
+    "mode": "id",
+    "topic": "money",
+    "title": "Kelas sosial check",
+    "question": "Which social class does your household fall in?",
+    "kind": "class_by_multiple",
+    "datasets": [
+      "id.bps.poverty_line"
+    ],
+    "inputs": [
+      {
+        "key": "spending",
+        "type": "money",
+        "label": "Household spending per month",
+        "currency": "IDR",
+        "default": 8000000,
+        "min": 0,
+        "step": 100000
+      },
+      {
+        "key": "size",
+        "type": "number",
+        "label": "People in your household",
+        "default": 4,
+        "min": 1,
+        "max": 20
+      }
+    ],
+    "params": {
+      "dataset": "id.bps.poverty_line",
+      "amount": "spending",
+      "divideBy": "size",
+      "currency": "IDR",
+      "localNote": " BPS calls this {local}.",
+      "nextStat": [
+        "To reach the next class ({next})",
+        "{gap} more per person a month"
+      ],
+      "thresholdStat": [
+        "{name} from",
+        "{amount} per person a month"
+      ]
+    },
+    "text": {
+      "headline": "{class}",
+      "sentence": "Your household spends {perPerson} per person a month, {multiple} times the poverty line of {line} ({period}).{localNote}",
+      "caveats": [
+        "BPS sets these classes as multiples of the poverty line and measures spending per person, not income.",
+        "The poverty line differs by province and between towns and villages; this uses the national line."
+      ]
+    }
+  },
+  {
+    "id": "id-time-left",
+    "mode": "id",
+    "topic": "body",
+    "title": "Time left",
+    "question": "How many years does the average Indonesian your age have ahead?",
+    "kind": "life_table",
+    "datasets": [
+      "world.wpp.lifetable"
+    ],
+    "inputs": [
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age",
+        "default": 30,
+        "min": 0,
+        "max": 100,
+        "unit": "years"
+      },
+      {
+        "key": "sex",
+        "type": "choice",
+        "label": "Sex",
+        "options": "@sex",
+        "default": "F"
+      }
+    ],
+    "params": {
+      "dataset": "world.wpp.lifetable",
+      "shard": "IDN",
+      "table": [
+        "tables",
+        "{sex}"
+      ],
+      "fallback": [
+        "tables",
+        "B"
+      ],
+      "age": "age",
+      "who": {
+        "input": "sex",
+        "map": {
+          "F": "women",
+          "M": "men"
+        },
+        "default": "people"
+      },
+      "place": "in Indonesia"
+    },
+    "text": {
+      "headline": "About {left} more years",
+      "sentence": "On today's death rates, {who} aged {age} {place} live to about {liveTo} on average.",
+      "caveats": [
+        "A period life table: it assumes today’s death rates at every age, so most people your age will do somewhat better."
+      ]
+    }
+  },
+  {
+    "id": "id-age-rank",
+    "mode": "id",
+    "topic": "identity",
+    "title": "Age rank",
+    "question": "How many Indonesians are older than you?",
+    "kind": "age_rank",
+    "datasets": [
+      "world.wpp.pop_age"
+    ],
+    "inputs": [
+      {
+        "key": "birthDate",
+        "type": "date",
+        "label": "Birth date",
+        "default": "1995-06-15",
+        "min": "1900-01-01"
+      }
+    ],
+    "params": {
+      "dataset": "world.wpp.pop_age",
+      "layout": "single_mf",
+      "path": [
+        "groups",
+        "IDN"
+      ],
+      "birthDate": "birthDate",
+      "place": "in Indonesia"
+    },
+    "text": {
+      "headline": "Older than {younger}",
+      "sentence": "You're older than {younger} of the people living {place}, and younger than {older}."
+    }
+  }
+]

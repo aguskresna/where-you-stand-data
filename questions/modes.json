@@ -1,0 +1,530 @@
+{
+  "schema": 1,
+  "note": "Modes, topics, option lists and age bands shared by every question. The app reads these from the published catalog, so they can change without an app update.",
+  "modes": [
+    {
+      "id": "us",
+      "title": "You vs the US",
+      "blurb": "Compare yourself with everyone in the United States, using federal statistics."
+    },
+    {
+      "id": "world",
+      "title": "You vs the world",
+      "blurb": "Compare yourself with the whole world, using UN, World Bank and OECD data."
+    },
+    {
+      "id": "my",
+      "title": "You vs Malaysia",
+      "blurb": "Compare yourself with Malaysians, using free OpenDOSM and data.gov.my data."
+    },
+    {
+      "id": "id",
+      "title": "You vs Indonesia",
+      "blurb": "Compare yourself with Indonesians, using free BPS and UN data."
+    }
+  ],
+  "topics": {
+    "money": "Money and work",
+    "dating": "Dating and relationships",
+    "home": "Home and cost of living",
+    "body": "Body and lifespan",
+    "time": "Time and daily life",
+    "family": "Family",
+    "identity": "Names, birthdays and identity",
+    "education": "Education",
+    "people": "Population and the luck of birth"
+  },
+  "lists": {
+    "sex": [
+      [
+        "F",
+        "Woman"
+      ],
+      [
+        "M",
+        "Man"
+      ]
+    ],
+    "sex_long": [
+      [
+        "female",
+        "Woman"
+      ],
+      [
+        "male",
+        "Man"
+      ]
+    ],
+    "us_states_any": [
+      [
+        "*",
+        "Whole US"
+      ],
+      [
+        "AL",
+        "Alabama"
+      ],
+      [
+        "AK",
+        "Alaska"
+      ],
+      [
+        "AZ",
+        "Arizona"
+      ],
+      [
+        "AR",
+        "Arkansas"
+      ],
+      [
+        "CA",
+        "California"
+      ],
+      [
+        "CO",
+        "Colorado"
+      ],
+      [
+        "CT",
+        "Connecticut"
+      ],
+      [
+        "DE",
+        "Delaware"
+      ],
+      [
+        "DC",
+        "District of Columbia"
+      ],
+      [
+        "FL",
+        "Florida"
+      ],
+      [
+        "GA",
+        "Georgia"
+      ],
+      [
+        "HI",
+        "Hawaii"
+      ],
+      [
+        "ID",
+        "Idaho"
+      ],
+      [
+        "IL",
+        "Illinois"
+      ],
+      [
+        "IN",
+        "Indiana"
+      ],
+      [
+        "IA",
+        "Iowa"
+      ],
+      [
+        "KS",
+        "Kansas"
+      ],
+      [
+        "KY",
+        "Kentucky"
+      ],
+      [
+        "LA",
+        "Louisiana"
+      ],
+      [
+        "ME",
+        "Maine"
+      ],
+      [
+        "MD",
+        "Maryland"
+      ],
+      [
+        "MA",
+        "Massachusetts"
+      ],
+      [
+        "MI",
+        "Michigan"
+      ],
+      [
+        "MN",
+        "Minnesota"
+      ],
+      [
+        "MS",
+        "Mississippi"
+      ],
+      [
+        "MO",
+        "Missouri"
+      ],
+      [
+        "MT",
+        "Montana"
+      ],
+      [
+        "NE",
+        "Nebraska"
+      ],
+      [
+        "NV",
+        "Nevada"
+      ],
+      [
+        "NH",
+        "New Hampshire"
+      ],
+      [
+        "NJ",
+        "New Jersey"
+      ],
+      [
+        "NM",
+        "New Mexico"
+      ],
+      [
+        "NY",
+        "New York"
+      ],
+      [
+        "NC",
+        "North Carolina"
+      ],
+      [
+        "ND",
+        "North Dakota"
+      ],
+      [
+        "OH",
+        "Ohio"
+      ],
+      [
+        "OK",
+        "Oklahoma"
+      ],
+      [
+        "OR",
+        "Oregon"
+      ],
+      [
+        "PA",
+        "Pennsylvania"
+      ],
+      [
+        "RI",
+        "Rhode Island"
+      ],
+      [
+        "SC",
+        "South Carolina"
+      ],
+      [
+        "SD",
+        "South Dakota"
+      ],
+      [
+        "TN",
+        "Tennessee"
+      ],
+      [
+        "TX",
+        "Texas"
+      ],
+      [
+        "UT",
+        "Utah"
+      ],
+      [
+        "VT",
+        "Vermont"
+      ],
+      [
+        "VA",
+        "Virginia"
+      ],
+      [
+        "WA",
+        "Washington"
+      ],
+      [
+        "WV",
+        "West Virginia"
+      ],
+      [
+        "WI",
+        "Wisconsin"
+      ],
+      [
+        "WY",
+        "Wyoming"
+      ]
+    ],
+    "my_states_any": [
+      [
+        "Malaysia",
+        "Whole of Malaysia"
+      ],
+      [
+        "Johor",
+        "Johor"
+      ],
+      [
+        "Kedah",
+        "Kedah"
+      ],
+      [
+        "Kelantan",
+        "Kelantan"
+      ],
+      [
+        "Melaka",
+        "Melaka"
+      ],
+      [
+        "Negeri Sembilan",
+        "Negeri Sembilan"
+      ],
+      [
+        "Pahang",
+        "Pahang"
+      ],
+      [
+        "Pulau Pinang",
+        "Pulau Pinang"
+      ],
+      [
+        "Perak",
+        "Perak"
+      ],
+      [
+        "Perlis",
+        "Perlis"
+      ],
+      [
+        "Sabah",
+        "Sabah"
+      ],
+      [
+        "Sarawak",
+        "Sarawak"
+      ],
+      [
+        "Selangor",
+        "Selangor"
+      ],
+      [
+        "Terengganu",
+        "Terengganu"
+      ],
+      [
+        "W.P. Kuala Lumpur",
+        "W.P. Kuala Lumpur"
+      ],
+      [
+        "W.P. Labuan",
+        "W.P. Labuan"
+      ],
+      [
+        "W.P. Putrajaya",
+        "W.P. Putrajaya"
+      ]
+    ],
+    "id_provinces_any": [
+      [
+        "Indonesia",
+        "Whole of Indonesia"
+      ],
+      [
+        "Aceh",
+        "Aceh"
+      ],
+      [
+        "Sumatera Utara",
+        "Sumatera Utara"
+      ],
+      [
+        "Sumatera Barat",
+        "Sumatera Barat"
+      ],
+      [
+        "Riau",
+        "Riau"
+      ],
+      [
+        "Jambi",
+        "Jambi"
+      ],
+      [
+        "Sumatera Selatan",
+        "Sumatera Selatan"
+      ],
+      [
+        "Bengkulu",
+        "Bengkulu"
+      ],
+      [
+        "Lampung",
+        "Lampung"
+      ],
+      [
+        "Kepulauan Bangka Belitung",
+        "Kepulauan Bangka Belitung"
+      ],
+      [
+        "Kepulauan Riau",
+        "Kepulauan Riau"
+      ],
+      [
+        "DKI Jakarta",
+        "DKI Jakarta"
+      ],
+      [
+        "Jawa Barat",
+        "Jawa Barat"
+      ],
+      [
+        "Jawa Tengah",
+        "Jawa Tengah"
+      ],
+      [
+        "DI Yogyakarta",
+        "DI Yogyakarta"
+      ],
+      [
+        "Jawa Timur",
+        "Jawa Timur"
+      ],
+      [
+        "Banten",
+        "Banten"
+      ],
+      [
+        "Bali",
+        "Bali"
+      ],
+      [
+        "Nusa Tenggara Barat",
+        "Nusa Tenggara Barat"
+      ],
+      [
+        "Nusa Tenggara Timur",
+        "Nusa Tenggara Timur"
+      ],
+      [
+        "Kalimantan Barat",
+        "Kalimantan Barat"
+      ],
+      [
+        "Kalimantan Tengah",
+        "Kalimantan Tengah"
+      ],
+      [
+        "Kalimantan Selatan",
+        "Kalimantan Selatan"
+      ],
+      [
+        "Kalimantan Timur",
+        "Kalimantan Timur"
+      ],
+      [
+        "Kalimantan Utara",
+        "Kalimantan Utara"
+      ],
+      [
+        "Sulawesi Utara",
+        "Sulawesi Utara"
+      ],
+      [
+        "Sulawesi Tengah",
+        "Sulawesi Tengah"
+      ],
+      [
+        "Sulawesi Selatan",
+        "Sulawesi Selatan"
+      ],
+      [
+        "Sulawesi Tenggara",
+        "Sulawesi Tenggara"
+      ],
+      [
+        "Gorontalo",
+        "Gorontalo"
+      ],
+      [
+        "Sulawesi Barat",
+        "Sulawesi Barat"
+      ],
+      [
+        "Maluku",
+        "Maluku"
+      ],
+      [
+        "Maluku Utara",
+        "Maluku Utara"
+      ],
+      [
+        "Papua Barat",
+        "Papua Barat"
+      ],
+      [
+        "Papua Barat Daya",
+        "Papua Barat Daya"
+      ],
+      [
+        "Papua",
+        "Papua"
+      ],
+      [
+        "Papua Selatan",
+        "Papua Selatan"
+      ],
+      [
+        "Papua Tengah",
+        "Papua Tengah"
+      ],
+      [
+        "Papua Pegunungan",
+        "Papua Pegunungan"
+      ]
+    ]
+  },
+  "bands": {
+    "AGE": [
+      "18-24",
+      "25-34",
+      "35-44",
+      "45-54",
+      "55-64",
+      "65+"
+    ],
+    "SCF": [
+      "<35",
+      "35-44",
+      "45-54",
+      "55-64",
+      "65-74",
+      "75+"
+    ],
+    "HOUSEHOLDER": [
+      "<25",
+      "25-34",
+      "35-44",
+      "45-54",
+      "55-64",
+      "65+"
+    ],
+    "EDU": [
+      "25-34",
+      "35-44",
+      "45-54",
+      "55-64",
+      "65+"
+    ]
+  }
+}

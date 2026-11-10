@@ -1,0 +1,464 @@
+[
+  {
+    "id": "us-income-rank",
+    "mode": "us",
+    "topic": "money",
+    "title": "Income rank",
+    "question": "Where does your income rank?",
+    "kind": "group_rank",
+    "datasets": [
+      "us.acs.income_q"
+    ],
+    "inputs": [
+      {
+        "key": "income",
+        "type": "money",
+        "label": "Your yearly income",
+        "currency": "USD",
+        "default": 60000,
+        "min": 0,
+        "step": 1000
+      },
+      {
+        "key": "sex",
+        "type": "choice",
+        "label": "Sex",
+        "options": "@sex",
+        "default": "F"
+      },
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age",
+        "default": 30,
+        "min": 18,
+        "max": 100,
+        "unit": "years"
+      },
+      {
+        "key": "state",
+        "type": "select",
+        "label": "State",
+        "options": "@us_states_any",
+        "default": "*"
+      }
+    ],
+    "params": {
+      "dataset": "us.acs.income_q",
+      "path": [
+        "groups"
+      ],
+      "value": "income",
+      "parts": [
+        {
+          "input": "sex",
+          "phrase": {
+            "F": "women",
+            "M": "men",
+            "*": "adults"
+          }
+        },
+        {
+          "input": "age",
+          "bands": "@AGE",
+          "phrase": {
+            "*": "",
+            "_": "aged {band}"
+          }
+        },
+        {
+          "input": "state",
+          "phrase": {
+            "*": "in the US",
+            "_": "in {label}"
+          }
+        }
+      ],
+      "fallbackOrder": [
+        2,
+        1,
+        0
+      ],
+      "format": {
+        "type": "money",
+        "currency": "USD"
+      }
+    },
+    "text": {
+      "headline": "{rank}",
+      "sentence": "You earn more than {pct} of {group}.",
+      "stats": [
+        [
+          "Median for this group",
+          "{median}"
+        ]
+      ],
+      "caveats": [
+        "Counts adults with any income in the past 12 months, before tax."
+      ]
+    }
+  },
+  {
+    "id": "us-height-rank",
+    "mode": "us",
+    "topic": "body",
+    "title": "Height rank",
+    "question": "How tall are you compared with people like you?",
+    "kind": "group_rank",
+    "datasets": [
+      "us.nhanes.body"
+    ],
+    "inputs": [
+      {
+        "key": "sex",
+        "type": "choice",
+        "label": "Sex",
+        "options": "@sex",
+        "default": "F"
+      },
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age",
+        "default": 30,
+        "min": 18,
+        "max": 100,
+        "unit": "years"
+      },
+      {
+        "key": "height",
+        "type": "height",
+        "label": "Your height",
+        "default": 170
+      }
+    ],
+    "params": {
+      "dataset": "us.nhanes.body",
+      "path": [
+        "measures",
+        "height_cm",
+        "groups"
+      ],
+      "value": "height",
+      "parts": [
+        {
+          "input": "sex",
+          "phrase": {
+            "F": "women",
+            "M": "men",
+            "*": "adults"
+          }
+        },
+        {
+          "input": "age",
+          "bands": "@AGE",
+          "phrase": {
+            "*": "",
+            "_": "aged {band}"
+          }
+        }
+      ],
+      "fallbackOrder": [
+        1,
+        0
+      ],
+      "suffix": "in the US",
+      "format": {
+        "type": "height"
+      }
+    },
+    "text": {
+      "headline": "{rank}",
+      "sentence": "You're taller than {pct} of {group}.",
+      "stats": [
+        [
+          "Average height for this group",
+          "{median}"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "us-commute-rank",
+    "mode": "us",
+    "topic": "time",
+    "title": "Commute rank",
+    "question": "Is your commute longer than most?",
+    "kind": "group_rank",
+    "datasets": [
+      "us.acs.commute_q"
+    ],
+    "inputs": [
+      {
+        "key": "minutes",
+        "type": "number",
+        "label": "One-way commute",
+        "default": 25,
+        "min": 0,
+        "max": 180,
+        "unit": "minutes"
+      },
+      {
+        "key": "state",
+        "type": "select",
+        "label": "State",
+        "options": "@us_states_any",
+        "default": "*"
+      }
+    ],
+    "params": {
+      "dataset": "us.acs.commute_q",
+      "path": [
+        "groups"
+      ],
+      "value": "minutes",
+      "parts": [
+        {
+          "input": "state",
+          "phrase": {
+            "*": "in the US",
+            "_": "in {label}"
+          }
+        }
+      ],
+      "fallbackOrder": [
+        0
+      ],
+      "format": {
+        "type": "number",
+        "digits": 0,
+        "suffix": " minutes"
+      }
+    },
+    "text": {
+      "headline": "Longer than {pct}",
+      "sentence": "Your commute is longer than {pct} of commutes {group}.",
+      "stats": [
+        [
+          "Median one-way commute",
+          "{median}"
+        ]
+      ],
+      "caveats": [
+        "Counts people who travel to work; people working from home are left out."
+      ]
+    }
+  },
+  {
+    "id": "us-work-hours-rank",
+    "mode": "us",
+    "topic": "time",
+    "title": "Work hours rank",
+    "question": "Do you work longer hours than others?",
+    "kind": "group_rank",
+    "datasets": [
+      "us.acs.work_hours_q"
+    ],
+    "inputs": [
+      {
+        "key": "hours",
+        "type": "number",
+        "label": "Hours worked per week",
+        "default": 40,
+        "min": 1,
+        "max": 99
+      },
+      {
+        "key": "sex",
+        "type": "choice",
+        "label": "Sex",
+        "options": "@sex",
+        "default": "F"
+      },
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age",
+        "default": 30,
+        "min": 18,
+        "max": 100,
+        "unit": "years"
+      }
+    ],
+    "params": {
+      "dataset": "us.acs.work_hours_q",
+      "path": [
+        "groups"
+      ],
+      "value": "hours",
+      "parts": [
+        {
+          "input": "sex",
+          "phrase": {
+            "F": "women",
+            "M": "men",
+            "*": "adults"
+          }
+        },
+        {
+          "input": "age",
+          "bands": "@AGE",
+          "phrase": {
+            "*": "",
+            "_": "aged {band}"
+          }
+        }
+      ],
+      "fallbackOrder": [
+        1,
+        0
+      ],
+      "suffix": "in the US",
+      "format": {
+        "type": "number",
+        "digits": 0,
+        "suffix": " hours"
+      }
+    },
+    "text": {
+      "headline": "{rank}",
+      "sentence": "You work more hours than {pct} of working {group}.",
+      "stats": [
+        [
+          "Median for this group",
+          "{median}"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "us-birthday-rank",
+    "mode": "us",
+    "topic": "identity",
+    "title": "Birthday rank",
+    "question": "How common is your birthday?",
+    "kind": "date_rank",
+    "datasets": [
+      "us.births.daily"
+    ],
+    "inputs": [
+      {
+        "key": "birthday",
+        "type": "monthday",
+        "label": "Your birthday",
+        "default": {
+          "month": 6,
+          "day": 15
+        }
+      }
+    ],
+    "params": {
+      "dataset": "us.births.daily",
+      "input": "birthday",
+      "place": "in the US"
+    },
+    "text": {
+      "headline": "{rank} of {of}",
+      "sentence": "About {births} babies were born {place} on {date} in an average year, against {mean} on a typical day.",
+      "stats": [
+        [
+          "Most common birthday",
+          "{top}"
+        ],
+        [
+          "Least common birthday",
+          "{bottom}"
+        ],
+        [
+          "Years counted",
+          "{first} to {last}"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "us-time-left",
+    "mode": "us",
+    "topic": "body",
+    "title": "Time left",
+    "question": "How many years does the average person your age have ahead?",
+    "kind": "life_table",
+    "datasets": [
+      "us.nchs.lifetable"
+    ],
+    "inputs": [
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age",
+        "default": 30,
+        "min": 0,
+        "max": 100,
+        "unit": "years"
+      },
+      {
+        "key": "sex",
+        "type": "choice",
+        "label": "Sex",
+        "options": "@sex",
+        "default": "F"
+      }
+    ],
+    "params": {
+      "dataset": "us.nchs.lifetable",
+      "table": [
+        "tables",
+        "{sex}"
+      ],
+      "fallback": [
+        "tables",
+        "B"
+      ],
+      "age": "age",
+      "who": {
+        "input": "sex",
+        "map": {
+          "F": "women",
+          "M": "men"
+        },
+        "default": "people"
+      },
+      "place": "in the US"
+    },
+    "text": {
+      "headline": "About {left} more years",
+      "sentence": "On today's death rates, {who} aged {age} {place} live to about {liveTo} on average.",
+      "caveats": [
+        "A period life table: it assumes today’s death rates at every age, so most people your age will do somewhat better."
+      ]
+    }
+  },
+  {
+    "id": "us-age-rank",
+    "mode": "us",
+    "topic": "identity",
+    "title": "Age rank",
+    "question": "How many Americans are older than you?",
+    "kind": "age_rank",
+    "datasets": [
+      "us.census.pop_age"
+    ],
+    "inputs": [
+      {
+        "key": "birthDate",
+        "type": "date",
+        "label": "Birth date",
+        "default": "1995-06-15",
+        "min": "1900-01-01"
+      }
+    ],
+    "params": {
+      "dataset": "us.census.pop_age",
+      "layout": "single",
+      "path": [
+        "total"
+      ],
+      "birthDate": "birthDate",
+      "place": "in the US"
+    },
+    "text": {
+      "headline": "Older than {younger}",
+      "sentence": "You're older than {younger} of the people living {place}, and younger than {older}."
+    }
+  }
+]

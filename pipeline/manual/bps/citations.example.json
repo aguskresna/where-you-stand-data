@@ -1,0 +1,6 @@
+{
+  "spending_brackets.csv": {"title": "Persentase Penduduk menurut Golongan Pengeluaran per Kapita Sebulan", "accessed": "2026-11-10", "url": "https://www.bps.go.id/..."},
+  "wages_province_job.csv": {"title": "Rata-rata Upah/Gaji Bersih Sebulan Buruh/Karyawan/Pegawai", "accessed": "2026-11-10", "url": "https://www.bps.go.id/..."},
+  "wages_age.csv": {"title": "...", "accessed": "2026-11-10", "url": "https://www.bps.go.id/..."},
+  "cpi_groups.csv": {"title": "Inflasi Year on Year menurut Kelompok Pengeluaran", "accessed": "2026-11-10", "url": "https://www.bps.go.id/..."}
+}

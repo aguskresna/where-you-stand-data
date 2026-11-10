@@ -1,0 +1,296 @@
+{
+  "version": 1,
+  "note": "The contract between the pipeline and the app. Each built file is a JSON envelope {id, kind, sources, year, built, demo, note?, citation?, data}; 'schema' describes 'data'. Group keys join parts with '|' and use '*' for 'all'. Quantile arrays hold 101 thresholds for percentiles 0..100 unless the dataset gives 'p'.",
+  "datasets": {
+    "us.acs.sample": {
+      "sources": ["census_acs_pums"], "kind": "microdata", "file": "us/acs_sample.json",
+      "description": "Weighted random sample of US adults 18+, for questions that stack several filters.",
+      "schema": "{columns:[...], weight:'w', codes:{sex:['M','F'], race:['white','black','asian','hispanic','other'], marital:['never','married','previously'], state:[USPS codes]}, rows:{sex:[code index], age:[years], race:[...], marital:[...], edu:[0-4], income:[USD], kids:[0|1], bilingual:[0|1], state:[...], w:[weight]}, population: sum of weights}"
+    },
+    "us.acs.income_q": {
+      "sources": ["census_acs_pums"], "kind": "quantiles", "file": "us/acs_income_quantiles.json",
+      "description": "Personal income percentiles for adults 18+ with income above zero.",
+      "schema": "{unit:'USD/year', groups:{'<sex M|F|*>|<age band|*>|<state|*>': [101 values]}}"
+    },
+    "us.acs.hh_income": {
+      "sources": ["census_acs_pums"], "kind": "quantiles", "file": "us/acs_household_income.json",
+      "description": "Household income adjusted to a three-person household (income x sqrt(3/size)).",
+      "schema": "{unit:'USD/year', median_adj3: number, groups:{'<state|*>': [101 values]}}"
+    },
+    "us.acs.ever_married": {
+      "sources": ["census_acs_pums"], "kind": "shares", "file": "us/acs_ever_married.json",
+      "description": "Share of adults who have ever married.",
+      "schema": "{byAge:{'<sex>|<age 18-80>': share}, byBandState:{'<sex>|<band>|<state>': share}}"
+    },
+    "us.acs.with_parents": {
+      "sources": ["census_acs_pums"], "kind": "shares", "file": "us/acs_with_parents.json",
+      "description": "Share of adults 18-40 living in a parent's home (as the householder's child).",
+      "schema": "{groups:{'<sex M|F|*>|<age 18-40>': share}}"
+    },
+    "us.acs.ownership": {
+      "sources": ["census_acs_pums"], "kind": "shares", "file": "us/acs_ownership.json",
+      "description": "Share of householders who own their home, by age band and state.",
+      "schema": "{groups:{'<band <25|25-34|35-44|45-54|55-64|65+|*>|<state|*>': share}, then?:{year, groups:{...same keys}}}"
+    },
+    "us.acs.rent_burden": {
+      "sources": ["census_acs_pums"], "kind": "quantiles", "file": "us/acs_rent_burden.json",
+      "description": "Gross rent as a percent of household income, renter households.",
+      "schema": "{unit:'% of income', groups:{'<state|*>': [101 values]}}"
+    },
+    "us.acs.housing": {
+      "sources": ["census_acs_pums"], "kind": "table", "file": "us/acs_housing.json",
+      "description": "Median home value (owner-occupied) and median household income.",
+      "schema": "{groups:{'<state|*>': {value: USD, income: USD}}}"
+    },
+    "us.acs.commute_q": {
+      "sources": ["census_acs_pums"], "kind": "quantiles", "file": "us/acs_commute.json",
+      "description": "One-way travel time to work in minutes, workers who travel.",
+      "schema": "{unit:'minutes', groups:{'<state|*>': [101 values]}}"
+    },
+    "us.acs.work_hours_q": {
+      "sources": ["census_acs_pums"], "kind": "quantiles", "file": "us/acs_work_hours.json",
+      "description": "Usual hours worked per week, people who worked.",
+      "schema": "{unit:'hours/week', groups:{'<sex>|<band>': [101 values]}}"
+    },
+    "us.acs.children": {
+      "sources": ["census_acs_pums"], "kind": "distribution", "file": "us/acs_children.json",
+      "description": "Own children living in the household, for householders and their spouses or partners.",
+      "schema": "{categories:['0','1','2','3','4+'], groups:{'<band|*>': [share per category]}}"
+    },
+    "us.acs.education": {
+      "sources": ["census_acs_pums"], "kind": "distribution", "file": "us/acs_education.json",
+      "description": "Highest education level, adults 25+.",
+      "schema": "{levels:[5 labels, lowest first], groups:{'<band 25-34..65+|*>': [share per level]}}"
+    },
+    "us.acs.degree_earnings": {
+      "sources": ["census_acs_pums"], "kind": "table", "file": "us/acs_degree_earnings.json",
+      "description": "Earnings of full-time workers 25-64 with a bachelor's degree or higher, by first field of degree.",
+      "schema": "{overall:{median}, fields:{'<FOD1P code>': {label, median, p25, p75, n}}}"
+    },
+    "us.acs.couples": {
+      "sources": ["census_acs_pums"], "kind": "table", "file": "us/acs_couples.json",
+      "description": "Couples sharing a household: age gaps and pairings.",
+      "schema": "{gap:[101 values, years], manOlder:share, womanOlder:share, sameAge:share, eduPairs:{'<man edu>|<woman edu>': share}, racePairs:{'<man race>|<woman race>': share}, manEarnsMore:{'<man edu>|<woman edu>': share}}"
+    },
+    "us.acs.occ_pay_gap": {
+      "sources": ["census_acs_pums"], "kind": "table", "file": "us/acs_occupation_pay_gap.json",
+      "description": "Median earnings by sex for full-time workers, by Census occupation code.",
+      "schema": "{all:{F, M}, occupations:{'<OCCP>': {label, F, M, nF, nM}}}"
+    },
+    "us.acs.languages": {
+      "sources": ["census_acs_pums"], "kind": "table", "file": "us/acs_languages.json",
+      "description": "People 5+ who speak a language other than English at home.",
+      "schema": "{languages:{'<LANP>': {label, speakers, states:[[USPS, speakers], ...top 5]}}}"
+    },
+    "us.acs.diaspora": {
+      "sources": ["census_acs_pums"], "kind": "table", "file": "us/acs_diaspora.json",
+      "description": "People born outside the US, by place of birth.",
+      "schema": "{countries:{'<POBP>': {label, people, medianIncome, states:[[USPS, people], ...top 5]}}}"
+    },
+    "us.nhanes.body": {
+      "sources": ["nchs_nhanes"], "kind": "quantiles", "file": "us/nhanes_body.json",
+      "description": "Measured body sizes of adults 18+.",
+      "schema": "{measures:{height_cm|weight_kg|waist_cm|bmi: {unit, groups:{'<sex M|F|*>|<band|*>': [101 values]}}}, shares:{obese:{groups:{'<sex>|<band>': share}}}}"
+    },
+    "us.nhis.traits": {
+      "sources": ["nchs_nhis"], "kind": "shares", "file": "us/nhis_traits.json",
+      "description": "Orientation and smoking shares by sex and age band.",
+      "schema": "{groups:{'<sex>|<band|*>': {straight, gay, bisexual, nonsmoker}}}"
+    },
+    "us.nsfg.marriage": {
+      "sources": ["nchs_nsfg"], "kind": "shares", "file": "us/nsfg_marriage.json",
+      "description": "Share of first marriages still intact after 10 and 20 years.",
+      "schema": "{groups:{'<age at marriage <20|20-24|25-29|30+|*>|<edu 0-4|*>': {y10, y20}}}"
+    },
+    "us.nchs.lifetable": {
+      "sources": ["nchs_lifetables"], "kind": "lifetable", "file": "us/nchs_lifetable.json",
+      "description": "US period life table by single year of age.",
+      "schema": "{tables:{M|F|B: {ages:[0..100], lx:[...], ex:[...]}}}"
+    },
+    "us.nchs.state_e0": {
+      "sources": ["nchs_lifetables"], "kind": "table", "file": "us/nchs_state_life_expectancy.json",
+      "description": "Life expectancy at birth by state.",
+      "schema": "{states:{'<USPS>': {B, M, F}}}"
+    },
+    "us.nchs.births_history": {
+      "sources": ["nchs_births_history"], "kind": "table", "file": "us/nchs_births_history.json",
+      "description": "US births and total fertility rate by year.",
+      "schema": "{years:{'<YYYY>': {births, tfr}}}"
+    },
+    "us.cdc.causes": {
+      "sources": ["cdc_wonder"], "kind": "table", "file": "us/cdc_causes.json",
+      "description": "Lifetime odds of dying from selected causes. No self-harm causes.",
+      "schema": "{causes:{'<id>': {label, oneIn}}}"
+    },
+    "us.cdc.natality": {
+      "sources": ["cdc_wonder"], "kind": "quantiles", "file": "us/cdc_natality.json",
+      "description": "Percentiles from US birth certificates.",
+      "schema": "{measures:{birth_weight_g|mother_age|first_birth_age: [101 values]}}"
+    },
+    "us.bls.oews": {
+      "sources": ["bls_oews"], "kind": "quantiles", "file": "us/bls_oews.json",
+      "description": "Annual wage percentiles by occupation and area.",
+      "schema": "{p:[10,25,50,75,90], occupations:{'<SOC>': title}, areas:{'<USPS|US>': name}, groups:{'<SOC>|<area>': [5 values]}}"
+    },
+    "us.bls.projections": {
+      "sources": ["bls_projections"], "kind": "table", "file": "us/bls_projections.json",
+      "description": "Ten-year employment projections by occupation.",
+      "schema": "{baseYear, projYear, all:{change}, occupations:{'<SOC>': {title, base, proj, change}}}"
+    },
+    "us.bls.atus": {
+      "sources": ["bls_atus"], "kind": "quantiles", "file": "us/bls_atus.json",
+      "description": "Time use: sleep percentiles and average hours per day.",
+      "schema": "{sleep:{groups:{'<band|*>': [101 values]}}, averages:{sleep, work, screens, travel}}"
+    },
+    "us.bls.cpi": {
+      "sources": ["bls_cpi"], "kind": "table", "file": "us/bls_cpi.json",
+      "description": "Latest 12-month price change and weight for the major CPI groups.",
+      "schema": "{asOf:'YYYY-MM', overall: change, groups:{'<code>': {label, change, weight}}}"
+    },
+    "us.bea.rpp": {
+      "sources": ["bea_rpp"], "kind": "table", "file": "us/bea_rpp.json",
+      "description": "All-items regional price parity by state (US = 100).",
+      "schema": "{states:{'<USPS>': rpp}}"
+    },
+    "us.fed.scf": {
+      "sources": ["fed_scf"], "kind": "quantiles", "file": "us/fed_scf.json",
+      "description": "Household wealth and debt percentiles by age of the head of household.",
+      "schema": "{bands:['<35','35-44','45-54','55-64','65-74','75+'], networth:{groups:{'<band|*>': [101]}}, retirement:{groups:{...}}, debt:{total:{holding:{'<band|*>': share}, groups:{...}}, types:{mortgage|education|vehicle|card|other: {label, holding:{...}, groups:{...}}}}}"
+    },
+    "us.fhfa.hpi": {
+      "sources": ["fhfa_hpi"], "kind": "table", "file": "us/fhfa_hpi.json",
+      "description": "Average yearly house price growth by state over the last 10 years.",
+      "schema": "{states:{'<USPS|*>': growth}}"
+    },
+    "us.ahs.size": {
+      "sources": ["census_ahs"], "kind": "quantiles", "file": "us/ahs_home_size.json",
+      "description": "Home floor area in square feet.",
+      "schema": "{unit:'sq ft', groups:{all|owner|renter: [101 values]}}"
+    },
+    "us.aei.tasks": {
+      "sources": ["anthropic_aei", "onet"], "kind": "table", "file": "us/aei_tasks.json",
+      "description": "Share of an occupation's tasks that appear in AI use, with the most common tasks.",
+      "schema": "{occupations:{'<SOC>': {title, taskShare, tasks:[[task text, share of AI use], ...]}}}"
+    },
+    "us.census.pop_age": {
+      "sources": ["census_popest"], "kind": "table", "file": "us/census_population_by_age.json",
+      "description": "US resident population by single year of age.",
+      "schema": "{total:[101 values, ages 0..100+]}"
+    },
+    "us.ssa.names": {
+      "sources": ["ssa_names"], "kind": "table", "file": "us/names/{shard}.json", "sharded": true,
+      "description": "Babies by first name, sex and year. Sharded by the first two letters of the name, lowercase.",
+      "schema": "{names:{'<Name>|<F|M>': {y:[years], c:[counts], r:[rank that year]}}}"
+    },
+    "us.ssa.totals": {
+      "sources": ["ssa_names"], "kind": "table", "file": "us/ssa_totals.json",
+      "description": "Babies counted in the names file, by sex and year.",
+      "schema": "{F:{'<YYYY>': count}, M:{'<YYYY>': count}}"
+    },
+    "us.births.daily": {
+      "sources": ["births_538"], "kind": "table", "file": "us/births_daily.json",
+      "description": "Average births per calendar date.",
+      "schema": "{years:[first, last], byDate:{'MM-DD': average births on that date}}"
+    },
+    "world.wpp.indicators": {
+      "sources": ["un_wpp"], "kind": "table", "file": "world/wpp_indicators.json",
+      "description": "Population, births, fertility, mean age at childbearing and life expectancy by country and year.",
+      "schema": "{first:1950, last:2030, countries:{'<ISO3|WLD>': name}, series:{'<ISO3|WLD>': {pop:[thousands], births:[thousands], tfr:[...], mac:[...], e0:[...]}}}"
+    },
+    "world.wpp.pop_age": {
+      "sources": ["un_wpp"], "kind": "table", "file": "world/wpp_population_by_age.json",
+      "description": "Population by single year of age and sex for the current year.",
+      "schema": "{year, groups:{'<ISO3|WLD>': {m:[101, thousands], f:[101, thousands]}}}"
+    },
+    "world.wpp.lifetable": {
+      "sources": ["un_wpp"], "kind": "lifetable", "file": "world/lifetable/{shard}.json", "sharded": true,
+      "description": "Complete life tables for the current year. Sharded by ISO3 country code.",
+      "schema": "{tables:{M|F|B: {ages:[0..100], lx:[...], ex:[...]}}}"
+    },
+    "world.pip.percentiles": {
+      "sources": ["worldbank_pip"], "kind": "quantiles", "file": "world/pip_percentiles.json",
+      "description": "Income or consumption per person per day (2021 PPP dollars), 100 percentiles per country, latest survey year.",
+      "schema": "{unit:'2021 PPP $ per person per day', countries:{'<ISO3>': {year, welfare:'income'|'consumption', pop, q:[101 values]}}}"
+    },
+    "world.wdi": {
+      "sources": ["worldbank_wdi"], "kind": "table", "file": "world/wdi.json",
+      "description": "Selected World Development Indicators whose license is CC BY.",
+      "schema": "{indicators:{'<code>': {label, series:{'<ISO3>': {'<YYYY>': value}}}}}"
+    },
+    "world.aei.country": {
+      "sources": ["anthropic_aei"], "kind": "table", "file": "world/aei_country_usage.json",
+      "description": "AI usage per person by country, as an index.",
+      "schema": "{countries:{'<ISO3>': {name, index, rank}}, count}"
+    },
+    "world.factbook.religion": {
+      "sources": ["cia_factbook"], "kind": "table", "file": "world/factbook_religion.json",
+      "description": "Religion shares by country, from the final Factbook edition.",
+      "schema": "{countries:{'<ISO3>': {name, groups:[[label, percent], ...]}}}"
+    },
+    "world.oecd.housing": {
+      "sources": ["oecd"], "kind": "table", "file": "world/oecd_housing.json",
+      "description": "Typical home price as years of typical household income, OECD members.",
+      "schema": "{countries:{'<ISO3>': {name, priceToIncome, year}}}"
+    },
+    "world.oecd.time_use": {
+      "sources": ["oecd"], "kind": "table", "file": "world/oecd_time_use.json",
+      "description": "Average minutes per day by activity, OECD members.",
+      "schema": "{countries:{'<ISO3>': {name, minutes:{sleep, paidWork, unpaidWork, leisure}}}}"
+    },
+    "world.oecd.hours": {
+      "sources": ["oecd"], "kind": "table", "file": "world/oecd_hours.json",
+      "description": "Average annual hours actually worked per worker, OECD members.",
+      "schema": "{countries:{'<ISO3>': {name, hours, year}}}"
+    },
+    "my.hies.percentile": {
+      "sources": ["opendosm"], "kind": "quantiles", "file": "my/hies_percentile.json",
+      "description": "Monthly gross household income by percentile, Malaysia and each state.",
+      "schema": "{unit:'RM/month', groups:{'Malaysia'|'<state>': [101 values]}, years:{'<group>': YYYY}}"
+    },
+    "my.wages": {
+      "sources": ["opendosm"], "kind": "table", "file": "my/wages.json",
+      "description": "Median and mean monthly salaries and wages of Malaysian citizen employees.",
+      "schema": "{byState:{'<state|Malaysia>|<both|male|female>': {median, mean}}, byAge:{'<age group|overall>|<sex>': {...}}, byEducation:{'<level>|<sex>': {...}}, educationLevels:[...]}"
+    },
+    "my.births.daily": {
+      "sources": ["datagovmy_births"], "kind": "table", "file": "my/births_daily.json",
+      "description": "Average births per calendar date in Malaysia.",
+      "schema": "{years:[first, last], byDate:{'MM-DD': average births on that date}}"
+    },
+    "my.lifetables": {
+      "sources": ["opendosm"], "kind": "lifetable", "file": "my/lifetables.json",
+      "description": "Abridged life tables by state and sex (oldest group 80+).",
+      "schema": "{tables:{'<Malaysia|state>|<both|male|female>': {ages:[0,1,5,...,80], lx:[...], ex:[...]}}}"
+    },
+    "my.population": {
+      "sources": ["opendosm"], "kind": "table", "file": "my/population.json",
+      "description": "Population by state, sex, five-year age group and ethnicity, latest year.",
+      "schema": "{ageGroups:['0-4',...,'85+'], ethnicities:[...], groups:{'<Malaysia|state>|<both|male|female>|<ethnicity>': [thousands per age group]}}"
+    },
+    "my.cpi": {
+      "sources": ["opendosm"], "kind": "table", "file": "my/cpi.json",
+      "description": "Latest 12-month price change by CPI division.",
+      "schema": "{asOf:'YYYY-MM', overall: change, groups:{'<division>': {label, change, weight?}}}"
+    },
+    "id.bps.poverty_line": {
+      "sources": ["bps"], "kind": "table", "file": "id/poverty_line.json",
+      "description": "National poverty line per person per month, and BPS's class bands as multiples of it.",
+      "schema": "{value: rupiah, period, bands:[[label, from multiple, to multiple], ...]}"
+    },
+    "id.bps.spending": {
+      "sources": ["bps"], "kind": "distribution", "file": "id/spending_brackets.json",
+      "description": "Share of people in each monthly spending-per-person bracket, by province.",
+      "schema": "{provinces:{'<province|Indonesia>': [[from, to, share], ...]}}"
+    },
+    "id.bps.wages": {
+      "sources": ["bps"], "kind": "table", "file": "id/wages.json",
+      "description": "Average monthly net wages of employees.",
+      "schema": "{jobs:[...], byProvinceJob:{'<province|Indonesia>|<job|all>': rupiah}, byAge:{'<age group>': rupiah}}"
+    },
+    "id.bps.cpi": {
+      "sources": ["bps"], "kind": "table", "file": "id/cpi.json",
+      "description": "Latest 12-month price change by CPI group.",
+      "schema": "{asOf:'YYYY-MM', overall: change, groups:{'<code>': {label, change, weight?}}}"
+    }
+  }
+}

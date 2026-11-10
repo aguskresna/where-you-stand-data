@@ -1,0 +1,259 @@
+[
+  {
+    "id": "my-income-rank",
+    "mode": "my",
+    "topic": "money",
+    "title": "Household income rank",
+    "question": "Where does your household income rank in Malaysia?",
+    "kind": "group_rank",
+    "datasets": [
+      "my.hies.percentile"
+    ],
+    "inputs": [
+      {
+        "key": "income",
+        "type": "money",
+        "label": "Household income per month",
+        "currency": "MYR",
+        "default": 6000,
+        "min": 0,
+        "step": 100
+      },
+      {
+        "key": "state",
+        "type": "select",
+        "label": "State",
+        "options": "@my_states_any",
+        "default": "Malaysia"
+      }
+    ],
+    "params": {
+      "dataset": "my.hies.percentile",
+      "path": [
+        "groups"
+      ],
+      "value": "income",
+      "fallbackOrder": [
+        0
+      ],
+      "parts": [
+        {
+          "input": "state",
+          "all": "Malaysia",
+          "phrase": {
+            "Malaysia": "in Malaysia",
+            "_": "in {label}"
+          }
+        }
+      ],
+      "format": {
+        "type": "money",
+        "currency": "MYR"
+      }
+    },
+    "text": {
+      "headline": "{rank}",
+      "sentence": "Your household earns more than {pct} of households {group}.",
+      "stats": [
+        [
+          "Median household income",
+          "{median}"
+        ]
+      ],
+      "caveats": [
+        "Gross household income: everything everyone in the household earns, before tax."
+      ]
+    }
+  },
+  {
+    "id": "my-birthday-rank",
+    "mode": "my",
+    "topic": "identity",
+    "title": "Birthday rank",
+    "question": "How common is your birthday in Malaysia?",
+    "kind": "date_rank",
+    "datasets": [
+      "my.births.daily"
+    ],
+    "inputs": [
+      {
+        "key": "birthday",
+        "type": "monthday",
+        "label": "Your birthday",
+        "default": {
+          "month": 6,
+          "day": 15
+        }
+      }
+    ],
+    "params": {
+      "dataset": "my.births.daily",
+      "input": "birthday",
+      "place": "in Malaysia"
+    },
+    "text": {
+      "headline": "{rank} of {of}",
+      "sentence": "About {births} babies were born {place} on {date} in an average year, against {mean} on a typical day.",
+      "stats": [
+        [
+          "Most common birthday",
+          "{top}"
+        ],
+        [
+          "Least common birthday",
+          "{bottom}"
+        ],
+        [
+          "Years counted",
+          "{first} to {last}"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "my-time-left",
+    "mode": "my",
+    "topic": "body",
+    "title": "Time left",
+    "question": "How many years does the average person your age have ahead?",
+    "kind": "life_table",
+    "datasets": [
+      "my.lifetables"
+    ],
+    "inputs": [
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age",
+        "default": 30,
+        "min": 0,
+        "max": 80,
+        "unit": "years"
+      },
+      {
+        "key": "sex",
+        "type": "choice",
+        "label": "Sex",
+        "options": "@sex_long",
+        "default": "female"
+      },
+      {
+        "key": "state",
+        "type": "select",
+        "label": "State",
+        "options": "@my_states_any",
+        "default": "Malaysia"
+      }
+    ],
+    "params": {
+      "dataset": "my.lifetables",
+      "table": [
+        "tables",
+        "{state}|{sex}"
+      ],
+      "fallback": [
+        "tables",
+        "Malaysia|{sex}"
+      ],
+      "age": "age",
+      "who": {
+        "input": "sex",
+        "map": {
+          "female": "women",
+          "male": "men"
+        },
+        "default": "people"
+      },
+      "place": {
+        "input": "state",
+        "map": {
+          "Malaysia": "in Malaysia"
+        },
+        "default": "in {label.state}"
+      }
+    },
+    "text": {
+      "headline": "About {left} more years",
+      "sentence": "On today's death rates, {who} aged {age} {place} live to about {liveTo} on average.",
+      "caveats": [
+        "A period life table: it assumes today’s death rates at every age, so most people your age will do somewhat better."
+      ]
+    }
+  },
+  {
+    "id": "my-age-rank",
+    "mode": "my",
+    "topic": "identity",
+    "title": "Age rank",
+    "question": "How many Malaysians are older than you?",
+    "kind": "age_rank",
+    "datasets": [
+      "my.population"
+    ],
+    "inputs": [
+      {
+        "key": "birthDate",
+        "type": "date",
+        "label": "Birth date",
+        "default": "1995-06-15",
+        "min": "1900-01-01"
+      },
+      {
+        "key": "state",
+        "type": "select",
+        "label": "State",
+        "options": "@my_states_any",
+        "default": "Malaysia"
+      },
+      {
+        "key": "ethnicity",
+        "type": "select",
+        "label": "Ethnic group",
+        "default": "overall",
+        "optionsFrom": {
+          "dataset": "my.population",
+          "path": [
+            "ethnicities"
+          ]
+        }
+      }
+    ],
+    "params": {
+      "dataset": "my.population",
+      "layout": "grouped",
+      "path": [
+        "groups",
+        "{state}|both|{ethnicity}"
+      ],
+      "labelsPath": [
+        "ageGroups"
+      ],
+      "birthDate": "birthDate",
+      "place": {
+        "input": "state",
+        "map": {
+          "Malaysia": "in Malaysia"
+        },
+        "default": "in {label.state}"
+      },
+      "who": {
+        "input": "ethnicity",
+        "map": {
+          "overall": "the people",
+          "bumi": "Bumiputera",
+          "bumi_malay": "Malays",
+          "bumi_other": "other Bumiputera",
+          "chinese": "Chinese Malaysians",
+          "indian": "Indian Malaysians",
+          "other_citizen": "other citizens",
+          "other_noncitizen": "non-citizens"
+        },
+        "default": "the people"
+      }
+    },
+    "text": {
+      "headline": "Older than {younger}",
+      "sentence": "You're older than {younger} of {who} living {place}, and younger than {older}."
+    }
+  }
+]

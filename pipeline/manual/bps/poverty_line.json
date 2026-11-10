@@ -1,0 +1,25 @@
+{
+  "value": 669235,
+  "unit": "rupiah per person per month",
+  "period": "March 2026",
+  "bands": [
+    ["Poor (miskin)", 0, 1],
+    ["Vulnerable (rentan miskin)", 1, 1.5],
+    ["Aspiring middle class (menuju kelas menengah)", 1.5, 3.5],
+    ["Middle class (kelas menengah)", 3.5, 17],
+    ["Upper class (kelas atas)", 17, null]
+  ],
+  "citation": {
+    "title": "Persentase Penduduk Miskin Maret 2026 turun menjadi 8,07 persen",
+    "publisher": "Badan Pusat Statistik (BPS-Statistics Indonesia)",
+    "released": "2026-08-05",
+    "accessed": "2026-11-10",
+    "url": "https://www.bps.go.id/id/pressrelease/2026/08/05/2594/persentase-penduduk-miskin-maret-2026-turun-menjadi-8-07-persen-.html"
+  },
+  "checked_against_source": false,
+  "secondary_sources": [
+    "https://www.cnbcindonesia.com/news/20260805123045-4-756741/bps-garis-kemiskinan-ri-naik-jadi-rp-669235-kapita-per-bulan",
+    "https://investortrust.id/macro/111873/bps-catat-garis-kemiskinan-maret-2026-naik-4-33-menjadi-rp-669235-per-kapita"
+  ],
+  "note": "National poverty line per person per month, March 2026. The class bands are multiples of it, as BPS uses them (following the World Bank's Aspiring Indonesia method). The value was taken from press reports of the BPS release; confirm it on the BPS page, then set checked_against_source to true."
+}

@@ -1,0 +1,8 @@
+province,from,to,share,period
+Indonesia,0,500000,0.08,March 2026
+Indonesia,500000,750000,0.12,March 2026
+Indonesia,750000,1000000,0.14,March 2026
+Indonesia,1000000,1500000,0.22,March 2026
+Indonesia,1500000,2000000,0.15,March 2026
+Indonesia,2000000,3000000,0.15,March 2026
+Indonesia,3000000,,0.14,March 2026
