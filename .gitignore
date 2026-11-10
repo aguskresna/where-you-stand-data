@@ -16,3 +16,4 @@ __pycache__/
 .venv/
 .env
 .DS_Store
+live-index.json

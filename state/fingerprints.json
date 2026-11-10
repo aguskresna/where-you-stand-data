@@ -1,1 +1,87 @@
-{}
+{
+  "births_538": {
+    "fingerprint": "d4b0d35a588047560162d099c112967b8e50bf7d588deee7efa291914ee9313c",
+    "built": "2026-11-10T15:49:07+00:00",
+    "datasets": [
+      "us.births.daily"
+    ]
+  },
+  "bps": {
+    "fingerprint": "344c290ac0e2cbdb7f3ee6de189fca4013bb315b99dd501cb7519c08c151b166",
+    "built": "2026-11-10T15:49:50+00:00",
+    "datasets": [
+      "id.bps.poverty_line"
+    ]
+  },
+  "census_acs_pums": {
+    "fingerprint": "62005d0873791bfb087aaa33c377d207bb8973a294e144335066a73626a804d1",
+    "built": "2026-11-10T15:49:04+00:00",
+    "datasets": [
+      "us.acs.sample",
+      "us.acs.income_q",
+      "us.acs.hh_income",
+      "us.acs.ever_married",
+      "us.acs.with_parents",
+      "us.acs.ownership",
+      "us.acs.rent_burden",
+      "us.acs.housing",
+      "us.acs.commute_q",
+      "us.acs.work_hours_q",
+      "us.acs.children",
+      "us.acs.education",
+      "us.acs.degree_earnings",
+      "us.acs.couples",
+      "us.acs.occ_pay_gap",
+      "us.acs.languages",
+      "us.acs.diaspora"
+    ]
+  },
+  "datagovmy_births": {
+    "fingerprint": "4d151c131305957a828e0d62b908c5980535d3d74736f61bff049416d61d0229",
+    "built": "2026-11-10T15:49:50+00:00",
+    "datasets": [
+      "my.births.daily"
+    ]
+  },
+  "nchs_nhanes": {
+    "fingerprint": "1c22acda65db75789c089b1aefebbc5295a700173e53b22140fb0e35c8f697cf",
+    "built": "2026-11-10T15:49:06+00:00",
+    "datasets": [
+      "us.nhanes.body"
+    ]
+  },
+  "opendosm": {
+    "fingerprint": "be2499b5a0eebfead566ca94ee0b855fc50e8a3513c571aacf32686c7bef463c",
+    "built": "2026-11-10T15:49:50+00:00",
+    "datasets": [
+      "my.hies.percentile",
+      "my.wages",
+      "my.population",
+      "my.lifetables",
+      "my.cpi"
+    ]
+  },
+  "un_wpp": {
+    "fingerprint": "929ced2f8372089c3465f21c81c1bbf7fae13fb181e02fab90fd4e4075eb0451",
+    "built": "2026-11-10T15:49:46+00:00",
+    "datasets": [
+      "world.wpp.indicators",
+      "world.wpp.pop_age",
+      "world.wpp.lifetable"
+    ]
+  },
+  "worldbank_pip": {
+    "fingerprint": "503a44cd20e295ff1d17f3765f1b2e5847a15b3bb78af1d4fcaac33d19c2dd92",
+    "built": "2026-11-10T15:49:48+00:00",
+    "datasets": [
+      "world.pip.percentiles"
+    ]
+  },
+  "worldbank_wdi": {
+    "fingerprint": "04646c08751c32b5b6b050fe537c7583778e0efe4e84ed6fb0b9085f84d5a21a",
+    "built": "2026-11-10T15:49:47+00:00",
+    "datasets": [
+      "world.wdi"
+    ]
+  }
+}

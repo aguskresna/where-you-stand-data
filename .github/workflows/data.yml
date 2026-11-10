@@ -2,7 +2,8 @@
 # Setup (once): create a Cloudflare Pages project, then add repository secrets
 #   CLOUDFLARE_API_TOKEN  (a token with "Cloudflare Pages: Edit")
 #   CLOUDFLARE_ACCOUNT_ID
-# and optionally a repository variable PAGES_PROJECT with the project name.
+# and optionally repository variables PAGES_PROJECT (the project name) and PAGES_URL (the site address,
+# if it isn't https://<project>.pages.dev/).
 name: Update data
 
 on:
@@ -34,11 +35,11 @@ jobs:
       run:
         working-directory: pipeline
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
-          python-version: "3.12"
+          python-version: "3.13"
           cache: pip
           cache-dependency-path: pipeline/requirements.txt
 
@@ -66,11 +67,21 @@ jobs:
           fi
 
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy site --project-name=${{ vars.PAGES_PROJECT || 'where-you-stand-data' }} --branch=main
+
+      # Fails the run (and GitHub emails you) if the live site doesn't serve the index.
+      - name: Check the live site
+        working-directory: .
+        env:
+          SITE: ${{ vars.PAGES_URL || format('https://{0}.pages.dev/', vars.PAGES_PROJECT || 'where-you-stand-data') }}
+        run: |
+          sleep 20
+          curl -fsS --retry 6 --retry-delay 15 --retry-all-errors "${SITE%/}/index.json" -o live-index.json
+          python -c "import json; i = json.load(open('live-index.json')); print(len(i['datasets']), 'datasets live, generated', i['generated'])"
 
       # GitHub switches off schedules in public repositories after 60 days without activity.
       - name: Keep the schedule alive
