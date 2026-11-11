@@ -1,0 +1,78 @@
+[
+  {
+    "id": "id-family-size",
+    "mode": "id",
+    "topic": "family",
+    "title": "Family size vs Indonesia",
+    "question": "How does your family size compare, then and now?",
+    "kind": "wpp_series",
+    "datasets": [
+      "world.wpp.indicators"
+    ],
+    "inputs": [
+      {
+        "key": "kids",
+        "type": "number",
+        "label": "Your children",
+        "default": 2,
+        "min": 0,
+        "max": 20
+      },
+      {
+        "key": "birthYear",
+        "type": "number",
+        "label": "Birth year",
+        "default": 1990,
+        "min": 1950,
+        "max": 2026
+      }
+    ],
+    "params": {
+      "dataset": "world.wpp.indicators",
+      "points": {
+        "then": {
+          "series": "tfr",
+          "country": "IDN",
+          "year": "{v.birthYear}",
+          "format": "num",
+          "digits": 1,
+          "required": "There are no birth figures for that year."
+        },
+        "now": {
+          "series": "tfr",
+          "country": "IDN",
+          "year": "{thisYear}",
+          "format": "num",
+          "digits": 1,
+          "required": "There are no birth figures for that year."
+        }
+      },
+      "compare": {
+        "input": "kids",
+        "with": "now",
+        "tolerance": 0.05,
+        "digits": 1,
+        "same": "Right on average",
+        "more": "{diff} above average",
+        "less": "{diff} below average"
+      },
+      "trend": {
+        "of": "now",
+        "from": "then",
+        "lower": "down",
+        "higher": "up"
+      },
+      "projection": {
+        "after": 2023,
+        "caveat": "Figures after 2023 are UN projections."
+      }
+    },
+    "text": {
+      "headline": "{compare}",
+      "sentence": "On today's birth rates, Indonesian women are on track to have {now} children each, {trend} from {then} in {v.birthYear}, the year you were born. You have {v.kids}.",
+      "caveats": [
+        "Births per woman is the total fertility rate: the children a woman would have over her life at that year’s birth rates."
+      ]
+    }
+  }
+]

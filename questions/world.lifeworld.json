@@ -1,0 +1,1317 @@
+[
+  {
+    "id": "world-income-rank",
+    "mode": "world",
+    "topic": "money",
+    "title": "Global income rank",
+    "question": "Where does your income rank among everyone in the world?",
+    "kind": "global_income",
+    "datasets": [
+      "world.pip.percentiles",
+      "world.wdi",
+      "world.wpp.indicators"
+    ],
+    "inputs": [
+      {
+        "key": "country",
+        "type": "select",
+        "label": "Where you live",
+        "default": "USA",
+        "optionsFrom": {
+          "dataset": "world.wpp.indicators",
+          "path": [
+            "countries"
+          ],
+          "exclude": [
+            "WLD"
+          ],
+          "onlyWith": {
+            "dataset": "world.wdi",
+            "path": [
+              "indicators",
+              "PA.NUS.PRVT.PP",
+              "series"
+            ]
+          }
+        }
+      },
+      {
+        "key": "income",
+        "type": "money",
+        "label": "Household income per year",
+        "currency": "USD",
+        "default": 60000,
+        "min": 0,
+        "step": 100,
+        "currencyFrom": "country"
+      },
+      {
+        "key": "size",
+        "type": "number",
+        "label": "People in your household",
+        "default": 1,
+        "min": 1,
+        "max": 20
+      }
+    ],
+    "params": {
+      "pip": "world.pip.percentiles",
+      "wdi": "world.wdi",
+      "wpp": "world.wpp.indicators",
+      "country": "country",
+      "income": "income",
+      "size": "size",
+      "ppp": "PA.NUS.PRVT.PP",
+      "cpi": "FP.CPI.TOTL",
+      "baseYear": 2021,
+      "line": 3,
+      "noPpp": "There's no purchasing-power rate for {name} yet.",
+      "cpiNote": "Your income is taken back to 2021 prices using consumer prices up to {cpiYear}.",
+      "noCpiNote": "There is no consumer price series for this country, so your income is treated as if earned at 2021 prices.",
+      "stats": [
+        {
+          "stat": [
+            "Your rank in {name}",
+            "{ownRank}"
+          ],
+          "when": "own"
+        },
+        [
+          "World median",
+          "{median} a day"
+        ],
+        [
+          "Living on under $3 a day, the extreme poverty line",
+          "{under}"
+        ]
+      ]
+    },
+    "text": {
+      "headline": "{rank}",
+      "sentence": "Your household's income comes to about {perDay} per person a day at 2021 US prices, more than {pct}% of the world's people live on.",
+      "caveats": [
+        "Each country's figures come from its latest household survey; some measure spending, which runs lower than income."
+      ]
+    }
+  },
+  {
+    "id": "world-100-people",
+    "mode": "world",
+    "topic": "people",
+    "title": "If the world were 100 people",
+    "question": "Where would you stand among 100 people?",
+    "kind": "global_income",
+    "datasets": [
+      "world.pip.percentiles",
+      "world.wdi",
+      "world.wpp.pop_age",
+      "world.wpp.indicators"
+    ],
+    "inputs": [
+      {
+        "key": "country",
+        "type": "select",
+        "label": "Where you live",
+        "default": "USA",
+        "optionsFrom": {
+          "dataset": "world.wpp.indicators",
+          "path": [
+            "countries"
+          ],
+          "exclude": [
+            "WLD"
+          ],
+          "onlyWith": {
+            "dataset": "world.wdi",
+            "path": [
+              "indicators",
+              "PA.NUS.PRVT.PP",
+              "series"
+            ]
+          }
+        }
+      },
+      {
+        "key": "income",
+        "type": "money",
+        "label": "Household income per year",
+        "currency": "USD",
+        "default": 60000,
+        "min": 0,
+        "step": 100,
+        "currencyFrom": "country"
+      },
+      {
+        "key": "size",
+        "type": "number",
+        "label": "People in your household",
+        "default": 1,
+        "min": 1,
+        "max": 20
+      },
+      {
+        "key": "birthDate",
+        "type": "date",
+        "label": "Birth date",
+        "default": "1995-06-15",
+        "min": "1900-01-01"
+      }
+    ],
+    "params": {
+      "pip": "world.pip.percentiles",
+      "wdi": "world.wdi",
+      "wpp": "world.wpp.indicators",
+      "country": "country",
+      "income": "income",
+      "size": "size",
+      "ppp": "PA.NUS.PRVT.PP",
+      "cpi": "FP.CPI.TOTL",
+      "baseYear": 2021,
+      "line": 3,
+      "noPpp": "There's no purchasing-power rate for {name} yet.",
+      "cpiNote": "Your income is taken back to 2021 prices using consumer prices up to {cpiYear}.",
+      "noCpiNote": "There is no consumer price series for this country, so your income is treated as if earned at 2021 prices.",
+      "ages": {
+        "dataset": "world.wpp.pop_age",
+        "path": [
+          "groups",
+          "WLD"
+        ],
+        "birthDate": "birthDate",
+        "missing": "There are no world population figures yet."
+      },
+      "online": "IT.NET.USER.ZS",
+      "sentenceParts": [
+        "{richer} would live on less than you",
+        "{younger} would be younger than you",
+        {
+          "text": "{online} would use the internet",
+          "when": "online"
+        }
+      ],
+      "bars": {
+        "title": "Of 100 people",
+        "unit": "share",
+        "items": [
+          {
+            "label": "Live on less than you",
+            "value": "richer"
+          },
+          {
+            "label": "Are younger than you",
+            "value": "younger"
+          },
+          {
+            "label": "Use the internet ({onlineYear})",
+            "value": "online",
+            "when": "online"
+          }
+        ]
+      },
+      "gridCaption": "The shaded figures live on less than you."
+    },
+    "text": {
+      "headline": "{richer} live on less",
+      "sentence": "If the world were 100 people, {parts}.",
+      "caveats": [
+        "Income compares household income or spending per person at 2021 purchasing-power rates."
+      ]
+    }
+  },
+  {
+    "id": "world-your-generation",
+    "mode": "world",
+    "topic": "identity",
+    "title": "Your generation",
+    "question": "How many people born the same year as you are alive today?",
+    "kind": "cohort_size",
+    "datasets": [
+      "world.wpp.pop_age",
+      "world.wpp.indicators"
+    ],
+    "inputs": [
+      {
+        "key": "birthYear",
+        "type": "number",
+        "label": "Birth year",
+        "default": 1990,
+        "min": 1920,
+        "max": 2026
+      },
+      {
+        "key": "place",
+        "type": "select",
+        "label": "Compare with",
+        "default": "WLD",
+        "optionsFrom": {
+          "dataset": "world.wpp.indicators",
+          "path": [
+            "countries"
+          ],
+          "exclude": [
+            "WLD"
+          ],
+          "first": [
+            [
+              "WLD",
+              "The whole world"
+            ]
+          ]
+        }
+      }
+    ],
+    "params": {
+      "dataset": "world.wpp.pop_age",
+      "path": [
+        "groups",
+        "{place}"
+      ],
+      "layout": "single_mf",
+      "method": "bornIn",
+      "yearPath": [
+        "year"
+      ],
+      "scale": 1000,
+      "birthYear": "birthYear",
+      "missing": "There are no population figures for {label.place} yet.",
+      "rangeError": "Pick a birth year between {from} and {to}.",
+      "births": {
+        "dataset": "world.wpp.indicators",
+        "series": "births",
+        "country": "{place}",
+        "year": "{year}",
+        "scale": 1000
+      },
+      "place": {
+        "input": "place",
+        "map": {
+          "WLD": "in the world"
+        },
+        "default": "in {label.place}"
+      },
+      "birthsLine": " {births} babies were born there that year.",
+      "gridCaption": {
+        "input": "place",
+        "map": {
+          "WLD": "Of 100 babies born that year, the shaded figures are alive today."
+        },
+        "default": ""
+      },
+      "stats": [
+        {
+          "stat": [
+            {
+              "input": "place",
+              "map": {
+                "WLD": "Still alive, of everyone born that year"
+              },
+              "default": ""
+            },
+            "{aliveShare}"
+          ],
+          "when": "births"
+        }
+      ],
+      "caveats": [
+        {
+          "input": "place",
+          "map": {
+            "WLD": ""
+          },
+          "default": "Counts everyone living there today, including people who moved there, and leaves out those who left."
+        }
+      ],
+      "projection": {
+        "after": 2023,
+        "caveat": "Figures after 2023 are UN projections."
+      }
+    },
+    "text": {
+      "headline": "{alive}",
+      "sentence": "About {alive} people born in {year} are alive {place} today.{birthsLine}"
+    }
+  },
+  {
+    "id": "world-pop-when-born",
+    "mode": "world",
+    "topic": "people",
+    "title": "World population when you were born",
+    "question": "How many people were there when you were born?",
+    "kind": "wpp_series",
+    "datasets": [
+      "world.wpp.indicators"
+    ],
+    "inputs": [
+      {
+        "key": "birthYear",
+        "type": "number",
+        "label": "Birth year",
+        "default": 1990,
+        "min": 1950,
+        "max": 2026
+      },
+      {
+        "key": "place",
+        "type": "select",
+        "label": "Show",
+        "default": "WLD",
+        "optionsFrom": {
+          "dataset": "world.wpp.indicators",
+          "path": [
+            "countries"
+          ],
+          "exclude": [
+            "WLD"
+          ],
+          "first": [
+            [
+              "WLD",
+              "The whole world"
+            ]
+          ]
+        }
+      }
+    ],
+    "params": {
+      "dataset": "world.wpp.indicators",
+      "name": {
+        "input": "place",
+        "map": {
+          "WLD": "the world"
+        },
+        "default": "{label.place}"
+      },
+      "points": {
+        "then": {
+          "series": "pop",
+          "country": "{place}",
+          "year": "{v.birthYear}",
+          "scale": 1000,
+          "format": "compact",
+          "required": "There are no population figures for that year."
+        },
+        "today": {
+          "series": "pop",
+          "country": "{place}",
+          "year": "{thisYear}",
+          "scale": 1000,
+          "format": "compact",
+          "required": "There are no population figures for this year."
+        }
+      },
+      "sums": {
+        "since": {
+          "series": "births",
+          "country": "{place}",
+          "from": "{v.birthYear}",
+          "to": "{thisYear}",
+          "scale": 1000,
+          "format": "compact"
+        }
+      },
+      "ratios": {
+        "ratio": {
+          "of": "today",
+          "to": "then",
+          "format": "num",
+          "digits": 1
+        }
+      },
+      "projection": {
+        "after": 2023,
+        "caveat": "Figures after 2023 are UN projections."
+      }
+    },
+    "text": {
+      "headline": "{then}",
+      "sentence": "When you were born in {v.birthYear}, {name} had {then} people. In {thisYear} it has about {today}, {ratio} times as many.",
+      "stats": [
+        [
+          "Babies born there since {v.birthYear}",
+          "{since}"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "world-family-size",
+    "mode": "world",
+    "topic": "family",
+    "title": "Family size vs your country",
+    "question": "How does your family size compare with your country’s?",
+    "kind": "wpp_series",
+    "datasets": [
+      "world.wpp.indicators"
+    ],
+    "inputs": [
+      {
+        "key": "kids",
+        "type": "number",
+        "label": "Your children",
+        "default": 2,
+        "min": 0,
+        "max": 20
+      },
+      {
+        "key": "country",
+        "type": "select",
+        "label": "Country",
+        "default": "USA",
+        "optionsFrom": {
+          "dataset": "world.wpp.indicators",
+          "path": [
+            "countries"
+          ],
+          "exclude": [
+            "WLD"
+          ]
+        }
+      }
+    ],
+    "params": {
+      "dataset": "world.wpp.indicators",
+      "points": {
+        "tfr": {
+          "series": "tfr",
+          "country": "{country}",
+          "year": "{thisYear}",
+          "format": "num",
+          "digits": 1,
+          "required": "There are no birth figures for {label.country} yet."
+        },
+        "world": {
+          "series": "tfr",
+          "country": "WLD",
+          "year": "{thisYear}",
+          "format": "num",
+          "digits": 1
+        }
+      },
+      "compare": {
+        "input": "kids",
+        "with": "tfr",
+        "tolerance": 0.05,
+        "digits": 1,
+        "same": "Right on average",
+        "more": "{diff} above average",
+        "less": "{diff} below average"
+      },
+      "extremes": {
+        "series": "tfr",
+        "year": "{thisYear}",
+        "digits": 1
+      },
+      "stats": [
+        {
+          "stat": [
+            "Highest",
+            "{highest}, {highestValue}"
+          ],
+          "when": "extremes"
+        },
+        {
+          "stat": [
+            "Lowest",
+            "{lowest}, {lowestValue}"
+          ],
+          "when": "extremes"
+        }
+      ],
+      "projection": {
+        "after": 2023,
+        "caveat": "Figures after 2023 are UN projections."
+      }
+    },
+    "text": {
+      "headline": "{compare}",
+      "sentence": "On today's birth rates, women in {label.country} are on track to have {tfr} children each. You have {v.kids}.",
+      "stats": [
+        [
+          "Whole world",
+          "{world} children per woman"
+        ]
+      ],
+      "caveats": [
+        "Births per woman is the total fertility rate: the children a woman would have over her life at this year’s birth rates."
+      ]
+    }
+  },
+  {
+    "id": "world-family-lottery",
+    "mode": "world",
+    "topic": "family",
+    "title": "Family-size lottery",
+    "question": "How big were families where and when you were born?",
+    "kind": "wpp_series",
+    "datasets": [
+      "world.wpp.indicators"
+    ],
+    "inputs": [
+      {
+        "key": "birthYear",
+        "type": "number",
+        "label": "Birth year",
+        "default": 1990,
+        "min": 1950,
+        "max": 2026
+      },
+      {
+        "key": "country",
+        "type": "select",
+        "label": "Country you were born in",
+        "default": "USA",
+        "optionsFrom": {
+          "dataset": "world.wpp.indicators",
+          "path": [
+            "countries"
+          ],
+          "exclude": [
+            "WLD"
+          ]
+        }
+      }
+    ],
+    "params": {
+      "dataset": "world.wpp.indicators",
+      "points": {
+        "then": {
+          "series": "tfr",
+          "country": "{country}",
+          "year": "{v.birthYear}",
+          "format": "num",
+          "digits": 1,
+          "required": "There are no birth figures for that year."
+        },
+        "today": {
+          "series": "tfr",
+          "country": "{country}",
+          "year": "{thisYear}",
+          "format": "num",
+          "digits": 1,
+          "required": "There are no birth figures for this year."
+        },
+        "worldThen": {
+          "series": "tfr",
+          "country": "WLD",
+          "year": "{v.birthYear}",
+          "format": "num",
+          "digits": 1
+        },
+        "worldNow": {
+          "series": "tfr",
+          "country": "WLD",
+          "year": "{thisYear}",
+          "format": "num",
+          "digits": 1
+        }
+      },
+      "bars": {
+        "title": "Children per woman in {label.country}",
+        "series": "tfr",
+        "country": "{country}",
+        "every": 10,
+        "to": "{thisYear}",
+        "markInput": "birthYear",
+        "unit": "number"
+      },
+      "projection": {
+        "after": 2023,
+        "caveat": "Figures after 2023 are UN projections."
+      }
+    },
+    "text": {
+      "headline": "{then} children",
+      "sentence": "When you were born in {v.birthYear}, women in {label.country} were on track to have {then} children each. In {thisYear} it's {today}.",
+      "stats": [
+        [
+          "Whole world, {v.birthYear}",
+          "{worldThen}"
+        ],
+        [
+          "Whole world, {thisYear}",
+          "{worldNow}"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "world-parenthood-age",
+    "mode": "world",
+    "topic": "family",
+    "title": "Parenthood age vs your country",
+    "question": "Were you older or younger than most mothers in your country?",
+    "kind": "wpp_series",
+    "datasets": [
+      "world.wpp.indicators"
+    ],
+    "inputs": [
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Your age when your child was born",
+        "default": 29,
+        "min": 12,
+        "max": 60
+      },
+      {
+        "key": "year",
+        "type": "number",
+        "label": "Year your child was born",
+        "default": 2020,
+        "min": 1950,
+        "max": 2026
+      },
+      {
+        "key": "country",
+        "type": "select",
+        "label": "Country",
+        "default": "USA",
+        "optionsFrom": {
+          "dataset": "world.wpp.indicators",
+          "path": [
+            "countries"
+          ],
+          "exclude": [
+            "WLD"
+          ]
+        }
+      }
+    ],
+    "params": {
+      "dataset": "world.wpp.indicators",
+      "points": {
+        "mac": {
+          "series": "mac",
+          "country": "{country}",
+          "year": "{v.year}",
+          "format": "num",
+          "digits": 1,
+          "required": "There are no figures for that year."
+        },
+        "world": {
+          "series": "mac",
+          "country": "WLD",
+          "year": "{v.year}",
+          "format": "num",
+          "digits": 1
+        }
+      },
+      "compare": {
+        "input": "age",
+        "with": "mac",
+        "tolerance": 0.5,
+        "digits": 1,
+        "same": "About average",
+        "more": "{diff} years older",
+        "less": "{diff} years younger"
+      },
+      "stats": [
+        {
+          "stat": [
+            "Whole world, {v.year}",
+            "{world} years"
+          ],
+          "when": "world"
+        }
+      ]
+    },
+    "text": {
+      "headline": "{compare}",
+      "sentence": "Mothers in {label.country} were {mac} on average when they gave birth in {v.year}. You were {v.age}.",
+      "caveats": [
+        "The average counts mothers at every birth, not only first children."
+      ]
+    }
+  },
+  {
+    "id": "world-chinese-zodiac",
+    "mode": "world",
+    "topic": "identity",
+    "title": "Chinese zodiac share",
+    "question": "How many people alive today share your zodiac animal?",
+    "kind": "chinese_zodiac",
+    "datasets": [
+      "world.wpp.pop_age",
+      "world.wpp.indicators"
+    ],
+    "inputs": [
+      {
+        "key": "birthYear",
+        "type": "number",
+        "label": "Birth year",
+        "default": 1990,
+        "min": 1920,
+        "max": 2026
+      },
+      {
+        "key": "place",
+        "type": "select",
+        "label": "Compare with",
+        "default": "WLD",
+        "optionsFrom": {
+          "dataset": "world.wpp.indicators",
+          "path": [
+            "countries"
+          ],
+          "exclude": [
+            "WLD"
+          ],
+          "first": [
+            [
+              "WLD",
+              "The whole world"
+            ]
+          ]
+        }
+      }
+    ],
+    "params": {
+      "dataset": "world.wpp.pop_age",
+      "path": [
+        "groups",
+        "{place}"
+      ],
+      "layout": "single_mf",
+      "yearPath": [
+        "year"
+      ],
+      "birthYear": "birthYear",
+      "animals": [
+        "Rat",
+        "Ox",
+        "Tiger",
+        "Rabbit",
+        "Dragon",
+        "Snake",
+        "Horse",
+        "Goat",
+        "Monkey",
+        "Rooster",
+        "Dog",
+        "Pig"
+      ],
+      "missing": "There are no population figures for {label.place} yet.",
+      "place": {
+        "input": "place",
+        "map": {
+          "WLD": "in the world"
+        },
+        "default": "in {label.place}"
+      },
+      "barsTitle": "Every animal"
+    },
+    "text": {
+      "headline": "{share}",
+      "sentence": "{share} of people alive {place} today were born in a Year of the {animal}, against {even} if births were spread evenly.",
+      "caveats": [
+        "Years are counted from January; the zodiac year starts at Lunar New Year in January or February, so people born early in a year may belong to the previous animal."
+      ]
+    }
+  },
+  {
+    "id": "world-birth-lottery",
+    "mode": "world",
+    "topic": "people",
+    "title": "Birth lottery",
+    "question": "How lucky was the place you were born?",
+    "kind": "birth_lottery",
+    "datasets": [
+      "world.wpp.indicators",
+      "world.wdi"
+    ],
+    "inputs": [
+      {
+        "key": "birthYear",
+        "type": "number",
+        "label": "Birth year",
+        "default": 1995,
+        "min": 1990,
+        "max": 2026
+      },
+      {
+        "key": "country",
+        "type": "select",
+        "label": "Country you were born in",
+        "default": "USA",
+        "optionsFrom": {
+          "dataset": "world.wpp.indicators",
+          "path": [
+            "countries"
+          ],
+          "exclude": [
+            "WLD"
+          ]
+        }
+      }
+    ],
+    "params": {
+      "wpp": "world.wpp.indicators",
+      "wdi": "world.wdi",
+      "birthYear": "birthYear",
+      "country": "country",
+      "scale": 1000,
+      "gdp": "NY.GDP.PCAP.PP.KD",
+      "power": "EG.ELC.ACCS.ZS",
+      "online": "IT.NET.USER.ZS",
+      "onlineThreshold": 50,
+      "noYear": "There are no income figures for {year} yet. The birth lottery starts in 1990.",
+      "noCountry": "There's no income figure for {name} in {year}.",
+      "gridCaption": "Of 100 babies born that year, the shaded figures were born in poorer countries.",
+      "stats": [
+        {
+          "stat": [
+            "Babies born in {year} into homes with electricity",
+            "{power}"
+          ],
+          "when": "power"
+        },
+        {
+          "stat": [
+            "Born where most people were online",
+            "{online}"
+          ],
+          "when": "online"
+        },
+        [
+          "Income per person in {name}, {year}",
+          "{gdp} a year"
+        ]
+      ],
+      "caveats": [
+        "Income per person is GDP per person at 2021 purchasing-power rates; families within a country vary widely.",
+        "Electricity is estimated from each country’s share of people with access.",
+        {
+          "text": "Countries without income figures for {year} are left out ({missingShare} of births).",
+          "when": "missing"
+        }
+      ]
+    },
+    "text": {
+      "headline": "Richer than {pct}%",
+      "sentence": "Of the {allBirths} babies born in {year}, about {pct}% were born in countries poorer than {name}, going by income per person."
+    }
+  },
+  {
+    "id": "world-dream-partner",
+    "mode": "world",
+    "topic": "dating",
+    "title": "Global dream partner (age and income)",
+    "question": "How many people worldwide fit your age and income standards?",
+    "kind": "world_partner",
+    "datasets": [
+      "world.wpp.pop_age",
+      "world.pip.percentiles",
+      "world.wdi",
+      "world.wpp.indicators"
+    ],
+    "inputs": [
+      {
+        "key": "seeking",
+        "type": "choice",
+        "label": "Looking for",
+        "options": [
+          [
+            "M",
+            "Men"
+          ],
+          [
+            "F",
+            "Women"
+          ]
+        ],
+        "default": "M"
+      },
+      {
+        "key": "ages",
+        "type": "range",
+        "label": "Age range",
+        "min": 18,
+        "max": 80,
+        "step": 1,
+        "default": [
+          25,
+          35
+        ]
+      },
+      {
+        "key": "country",
+        "type": "select",
+        "label": "Your country, for the currency",
+        "default": "USA",
+        "optionsFrom": {
+          "dataset": "world.wpp.indicators",
+          "path": [
+            "countries"
+          ],
+          "exclude": [
+            "WLD"
+          ],
+          "onlyWith": {
+            "dataset": "world.wdi",
+            "path": [
+              "indicators",
+              "PA.NUS.PRVT.PP",
+              "series"
+            ]
+          }
+        }
+      },
+      {
+        "key": "minIncome",
+        "type": "money",
+        "label": "Minimum household income per person, a year",
+        "currency": "USD",
+        "default": 0,
+        "min": 0,
+        "step": 100,
+        "currencyFrom": "country"
+      }
+    ],
+    "params": {
+      "popAge": "world.wpp.pop_age",
+      "pip": "world.pip.percentiles",
+      "wdi": "world.wdi",
+      "wpp": "world.wpp.indicators",
+      "seeking": "seeking",
+      "ages": "ages",
+      "country": "country",
+      "minIncome": "minIncome",
+      "sexKeys": {
+        "F": "f",
+        "M": "m"
+      },
+      "scale": 1000,
+      "limit": 10,
+      "ppp": "PA.NUS.PRVT.PP",
+      "cpi": "FP.CPI.TOTL",
+      "baseYear": 2021,
+      "noPpp": "There's no purchasing-power rate for {name} yet.",
+      "people": {
+        "input": "seeking",
+        "map": {
+          "F": "women aged {lo}–{hi}",
+          "M": "men aged {lo}–{hi}"
+        },
+        "default": "people aged {lo}–{hi}"
+      },
+      "sentenceAnyIncome": "There are about {total} {people} in the world.",
+      "barsTitle": "Where they live",
+      "stats": [
+        [
+          "Share of everyone that age",
+          "{share}"
+        ],
+        {
+          "stat": [
+            "In {ownName}",
+            "{own}"
+          ],
+          "when": "own"
+        }
+      ],
+      "caveats": [
+        {
+          "text": "Income is household income or spending per person from national surveys, not personal earnings.",
+          "when": "income"
+        },
+        {
+          "text": "Age and income are combined as if unrelated.",
+          "when": "income"
+        },
+        {
+          "text": "Countries without income surveys are left out ({missingShare} of people that age).",
+          "when": "missing"
+        },
+        {
+          "text": "Your income is taken back to 2021 prices using consumer prices up to {cpiYear}.",
+          "when": "cpi"
+        },
+        {
+          "text": "There is no consumer price series for this country, so your income is treated as if earned at 2021 prices.",
+          "when": "noCpi"
+        },
+        "Height, body type and marital status filters wait until their data is cleared for commercial use."
+      ]
+    },
+    "text": {
+      "headline": "{total}",
+      "sentence": "About {total} {people} worldwide live in households with at least {threshold} per person a day at 2021 US prices."
+    }
+  },
+  {
+    "id": "world-years-to-home",
+    "mode": "world",
+    "topic": "home",
+    "title": "Years to a home (OECD)",
+    "question": "How long until you could afford a down payment?",
+    "kind": "years_to_home",
+    "datasets": [
+      "world.oecd.housing"
+    ],
+    "inputs": [
+      {
+        "key": "country",
+        "type": "select",
+        "label": "Country",
+        "default": "USA",
+        "optionsFrom": {
+          "dataset": "world.oecd.housing",
+          "path": [
+            "countries"
+          ]
+        }
+      },
+      {
+        "key": "income",
+        "type": "money",
+        "label": "Household income per year",
+        "currency": "USD",
+        "default": 60000,
+        "min": 0,
+        "step": 100,
+        "currencyFrom": "country"
+      },
+      {
+        "key": "saved",
+        "type": "money",
+        "label": "Saved so far",
+        "currency": "USD",
+        "default": 10000,
+        "min": 0,
+        "step": 100,
+        "currencyFrom": "country"
+      },
+      {
+        "key": "monthly",
+        "type": "money",
+        "label": "Saved each month",
+        "currency": "USD",
+        "default": 800,
+        "min": 0,
+        "step": 10,
+        "currencyFrom": "country"
+      },
+      {
+        "key": "down",
+        "type": "number",
+        "label": "Down payment",
+        "default": 20,
+        "min": 3,
+        "max": 100,
+        "unit": "%"
+      }
+    ],
+    "params": {
+      "dataset": "world.oecd.housing",
+      "groups": [
+        "countries"
+      ],
+      "place": "country",
+      "ratioField": "priceToIncome",
+      "income": "income",
+      "saved": "saved",
+      "monthly": "monthly",
+      "down": "down",
+      "missing": "There are no figures for that country.",
+      "labels": {
+        "ready": "Ready now",
+        "over": "Over 100 years",
+        "years": "{years}"
+      },
+      "when": {
+        "ready": "nothing more",
+        "over": "more than 100 years",
+        "years": "{years}"
+      },
+      "bars": {
+        "title": "Home price in years of household income",
+        "labelField": "name",
+        "valueField": "priceToIncome",
+        "limit": 12,
+        "unit": "number"
+      }
+    },
+    "text": {
+      "headline": "{wait}",
+      "sentence": "A typical home in {name} costs about {typicalRatio} years of typical household income. If your income is typical there, that's about {price}, and your {v.down}% down payment takes {when}.",
+      "caveats": [
+        "Assumes your income is typical for the country and that prices stay where they are.",
+        "Ratio for {dataYear}."
+      ]
+    }
+  },
+  {
+    "id": "world-life-in-hours",
+    "mode": "world",
+    "topic": "time",
+    "title": "Your life in hours (OECD)",
+    "question": "How many of your remaining years go to sleep, work and leisure?",
+    "kind": "life_hours",
+    "datasets": [
+      "world.oecd.time_use",
+      "world.wpp.lifetable"
+    ],
+    "inputs": [
+      {
+        "key": "country",
+        "type": "select",
+        "label": "Country",
+        "default": "USA",
+        "optionsFrom": {
+          "dataset": "world.oecd.time_use",
+          "path": [
+            "countries"
+          ]
+        }
+      },
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age",
+        "default": 30,
+        "min": 18,
+        "max": 100,
+        "unit": "years"
+      },
+      {
+        "key": "sex",
+        "type": "choice",
+        "label": "Sex",
+        "options": "@sex",
+        "default": "F"
+      },
+      {
+        "key": "sleep",
+        "type": "number",
+        "label": "Sleep, hours a day",
+        "default": 8,
+        "min": 0,
+        "max": 24,
+        "step": 0.5
+      },
+      {
+        "key": "paidWork",
+        "type": "number",
+        "label": "Paid work or study, hours a day (average over the week)",
+        "default": 5,
+        "min": 0,
+        "max": 24,
+        "step": 0.5
+      },
+      {
+        "key": "unpaidWork",
+        "type": "number",
+        "label": "Housework and care, hours a day",
+        "default": 2,
+        "min": 0,
+        "max": 24,
+        "step": 0.5
+      },
+      {
+        "key": "leisure",
+        "type": "number",
+        "label": "Leisure, hours a day",
+        "default": 4,
+        "min": 0,
+        "max": 24,
+        "step": 0.5
+      }
+    ],
+    "params": {
+      "dataset": "world.wpp.lifetable",
+      "shard": "{country}",
+      "table": [
+        "tables",
+        "{sex}"
+      ],
+      "fallback": [
+        "tables",
+        "B"
+      ],
+      "age": "age",
+      "place": {
+        "dataset": "world.oecd.time_use",
+        "path": [
+          "countries",
+          "{country}"
+        ],
+        "nameField": "name",
+        "missing": "There are no time-use figures for that country."
+      },
+      "noTable": "There's no life table for {name} yet.",
+      "activities": [
+        {
+          "key": "sleep",
+          "label": "Sleep"
+        },
+        {
+          "key": "paidWork",
+          "label": "Paid work or study"
+        },
+        {
+          "key": "unpaidWork",
+          "label": "Housework and care"
+        },
+        {
+          "key": "leisure",
+          "label": "Leisure"
+        }
+      ],
+      "rest": "Everything else",
+      "averages": {
+        "dataset": "world.oecd.time_use",
+        "path": [
+          "countries",
+          "{country}",
+          "minutes"
+        ],
+        "divide": 60
+      },
+      "who": {
+        "input": "sex",
+        "map": {
+          "F": "woman"
+        },
+        "default": "man"
+      },
+      "barsTitle": "Your remaining years",
+      "stats": [
+        {
+          "stat": [
+            "Average sleep in {name}",
+            "{avg.sleep} hours a day"
+          ],
+          "when": "averages"
+        },
+        {
+          "stat": [
+            "Average paid work or study in {name}",
+            "{avg.paidWork} hours a day"
+          ],
+          "when": "averages"
+        },
+        {
+          "stat": [
+            "Average housework and care in {name}",
+            "{avg.unpaidWork} hours a day"
+          ],
+          "when": "averages"
+        },
+        {
+          "stat": [
+            "Average leisure in {name}",
+            "{avg.leisure} hours a day"
+          ],
+          "when": "averages"
+        }
+      ]
+    },
+    "text": {
+      "headline": "{years.leisure} years of leisure",
+      "sentence": "Of the roughly {left} years an average {who} your age has left in {name}, you'd spend {years.sleep} asleep and {years.paidWork} at work or study.",
+      "caveats": [
+        "Country averages cover people aged 15 to 64 and every day of the week."
+      ]
+    }
+  }
+]

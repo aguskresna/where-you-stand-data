@@ -1,0 +1,310 @@
+[
+  {
+    "id": "us-your-generation",
+    "mode": "us",
+    "topic": "identity",
+    "title": "Your generation",
+    "question": "How many people born the same year live in the US today?",
+    "kind": "cohort_size",
+    "datasets": [
+      "us.census.pop_age"
+    ],
+    "inputs": [
+      {
+        "key": "birthYear",
+        "type": "number",
+        "label": "Birth year",
+        "default": 1990,
+        "min": 1920,
+        "max": 2026
+      }
+    ],
+    "params": {
+      "dataset": "us.census.pop_age",
+      "path": [
+        "total"
+      ],
+      "layout": "single",
+      "method": "age",
+      "birthYear": "birthYear",
+      "rangeError": "Pick a birth year between 100 years ago and this year.",
+      "births": {
+        "dataset": "us.nchs.births_history",
+        "path": [
+          "years",
+          "{year}",
+          "births"
+        ]
+      },
+      "birthsLine": " {births} babies were born in the US that year.",
+      "caveats": [
+        {
+          "text": "Today’s count includes people who moved to the US and leaves out those who left.",
+          "when": "births"
+        }
+      ]
+    },
+    "text": {
+      "headline": "{alive}",
+      "sentence": "About {alive} people born in {year} live in the US today.{birthsLine}"
+    },
+    "uses": [
+      "us.nchs.births_history"
+    ]
+  },
+  {
+    "id": "us-years-to-home",
+    "mode": "us",
+    "topic": "home",
+    "title": "Years to a home",
+    "question": "How long until you can afford a down payment?",
+    "kind": "years_to_home",
+    "datasets": [
+      "us.acs.housing"
+    ],
+    "inputs": [
+      {
+        "key": "state",
+        "type": "select",
+        "label": "Where you want to buy",
+        "options": "@us_states_any",
+        "default": "*"
+      },
+      {
+        "key": "income",
+        "type": "money",
+        "label": "Household income per year",
+        "currency": "USD",
+        "default": 90000,
+        "min": 0,
+        "step": 1000
+      },
+      {
+        "key": "saved",
+        "type": "money",
+        "label": "Saved so far",
+        "currency": "USD",
+        "default": 15000,
+        "min": 0,
+        "step": 1000
+      },
+      {
+        "key": "monthly",
+        "type": "money",
+        "label": "Saved each month",
+        "currency": "USD",
+        "default": 800,
+        "min": 0,
+        "step": 50
+      },
+      {
+        "key": "down",
+        "type": "number",
+        "label": "Down payment",
+        "default": 20,
+        "min": 3,
+        "max": 100,
+        "unit": "%"
+      }
+    ],
+    "params": {
+      "dataset": "us.acs.housing",
+      "groups": [
+        "groups"
+      ],
+      "place": "state",
+      "all": "*",
+      "priceField": "value",
+      "incomeField": "income",
+      "income": "income",
+      "saved": "saved",
+      "monthly": "monthly",
+      "down": "down",
+      "growth": {
+        "dataset": "us.fhfa.hpi",
+        "path": [
+          "states"
+        ]
+      },
+      "missing": "There are no figures for that state yet.",
+      "placePhrase": {
+        "input": "state",
+        "map": {
+          "*": "in the US"
+        },
+        "default": "in {label.state}"
+      },
+      "labels": {
+        "ready": "Ready now",
+        "over": "Over 100 years",
+        "years": "{years}"
+      },
+      "when": {
+        "ready": "right away",
+        "over": "in more than 100 years",
+        "years": "in {years}"
+      },
+      "stats": [
+        [
+          "Typical price-to-income there",
+          "{typicalRatio} times"
+        ],
+        {
+          "stat": [
+            "If prices keep rising {growth} a year",
+            "{growthLabel}"
+          ],
+          "when": "growth"
+        }
+      ],
+      "caveats": [
+        {
+          "text": "The rising-prices figure uses the average yearly rise over the last 10 years and assumes you keep saving the same amount.",
+          "when": "growth"
+        },
+        "Uses states for now; cities need a metro-area build in the pipeline."
+      ]
+    },
+    "text": {
+      "headline": "{wait}",
+      "sentence": "A typical home {place} costs about {price}, {priceRatio} times your income. At today's prices, saving {monthly} a month gets you a {v.down}% down payment {when}."
+    },
+    "uses": [
+      "us.fhfa.hpi"
+    ]
+  },
+  {
+    "id": "us-life-in-hours",
+    "mode": "us",
+    "topic": "time",
+    "title": "Your life in hours",
+    "question": "How many of your remaining years go to sleep, work and screens?",
+    "kind": "life_hours",
+    "datasets": [
+      "us.nchs.lifetable"
+    ],
+    "inputs": [
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age",
+        "default": 30,
+        "min": 18,
+        "max": 100,
+        "unit": "years"
+      },
+      {
+        "key": "sex",
+        "type": "choice",
+        "label": "Sex",
+        "options": "@sex",
+        "default": "F"
+      },
+      {
+        "key": "sleep",
+        "type": "number",
+        "label": "Sleep, hours a day",
+        "default": 8,
+        "min": 0,
+        "max": 24,
+        "step": 0.5
+      },
+      {
+        "key": "work",
+        "type": "number",
+        "label": "Work, hours a day (average over the week)",
+        "default": 6,
+        "min": 0,
+        "max": 24,
+        "step": 0.5
+      },
+      {
+        "key": "screens",
+        "type": "number",
+        "label": "Screens outside work, hours a day",
+        "default": 4,
+        "min": 0,
+        "max": 24,
+        "step": 0.5
+      },
+      {
+        "key": "commute",
+        "type": "number",
+        "label": "Commuting, hours a day",
+        "default": 1,
+        "min": 0,
+        "max": 24,
+        "step": 0.25
+      }
+    ],
+    "params": {
+      "dataset": "us.nchs.lifetable",
+      "table": [
+        "tables",
+        "{sex}"
+      ],
+      "fallback": [
+        "tables",
+        "B"
+      ],
+      "age": "age",
+      "activities": [
+        {
+          "key": "sleep",
+          "label": "Sleep"
+        },
+        {
+          "key": "work",
+          "label": "Work"
+        },
+        {
+          "key": "screens",
+          "label": "Screens"
+        },
+        {
+          "key": "commute",
+          "label": "Commuting"
+        }
+      ],
+      "rest": "Everything else",
+      "averages": {
+        "dataset": "us.bls.atus",
+        "path": [
+          "averages"
+        ],
+        "divide": 1
+      },
+      "who": {
+        "input": "sex",
+        "map": {
+          "F": "woman"
+        },
+        "default": "man"
+      },
+      "barsTitle": "Your remaining years",
+      "stats": [
+        {
+          "stat": [
+            "Average sleep in the US",
+            "{avg.sleep} hours"
+          ],
+          "when": "averages"
+        },
+        {
+          "stat": [
+            "Average screen time",
+            "{avg.screens} hours"
+          ],
+          "when": "averages"
+        }
+      ]
+    },
+    "text": {
+      "headline": "{years.screens} years on screens",
+      "sentence": "Of the roughly {left} years an average {who} your age has left, you'd spend {years.sleep} asleep and {years.work} working."
+    },
+    "uses": [
+      "us.bls.atus"
+    ]
+  }
+]

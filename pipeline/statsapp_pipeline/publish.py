@@ -61,7 +61,8 @@ def publish(out: Path, *, data_dir: Path = DATA_DIR, qdir: Path = QUESTIONS_DIR,
     manifest = load_json(data_dir / "manifest.json")
     catalog = qmod.check(qdir, contract)
     shown = qmod.visible(catalog, manifest)
-    needed = sorted({d for q in shown["questions"] for d in q["datasets"]})
+    built = manifest.get("datasets", {})
+    needed = sorted({d for q in shown["questions"] for d in [*q["datasets"], *q.get("uses", [])] if d in built})
 
     if out.exists():
         shutil.rmtree(out)

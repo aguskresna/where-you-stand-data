@@ -101,6 +101,12 @@ def validate(catalog: dict, contract: dict) -> list[str]:
         for d in q.get("datasets", []):
             if d not in datasets:
                 bad(f"unknown dataset {d}")
+        # "uses": optional datasets, read when built; the question shows without them.
+        for d in q.get("uses", []):
+            if d not in datasets:
+                bad(f"unknown optional dataset {d}")
+            elif d in q.get("datasets", []):
+                bad(f"{d} is in both datasets and uses")
         params = q.get("params", {})
         if params.get("dataset") and params["dataset"] not in q.get("datasets", []):
             bad(f"params.dataset {params['dataset']} isn't in datasets")
