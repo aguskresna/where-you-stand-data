@@ -18,12 +18,33 @@ SCHEMA = 1
 
 # Calculation kinds and the first app build that implements them. The app hides questions whose
 # kind it doesn't know, so a catalog can list kinds that only newer app versions understand.
+# Every kind ships in app build 1: no build has been released yet, so nothing older needs hiding
+# from. From the first store release on, a new kind gets the next build number.
 KINDS = {
     "group_rank": 1,
     "class_by_multiple": 1,
     "age_rank": 1,
     "date_rank": 1,
     "life_table": 1,
+    "group_share": 1,
+    "category_rank": 1,
+    "rank_tiers": 1,
+    "debt_rank": 1,
+    "count_in_range": 1,
+    "item_record": 1,
+    "compare_set": 1,
+    "pay_vs_typical": 1,
+    "personal_inflation": 1,
+    "name_popularity": 1,
+    "sign_share": 1,
+    "chinese_zodiac": 1,
+    "cohort_size": 1,
+    "wpp_series": 1,
+    "global_income": 1,
+    "birth_lottery": 1,
+    "world_partner": 1,
+    "years_to_home": 1,
+    "life_hours": 1,
 }
 
 INPUT_TYPES = {"number", "money", "height", "choice", "select", "date", "monthday", "toggle", "text", "range", "multi", "weights"}
@@ -36,10 +57,11 @@ def load(qdir: Path = QUESTIONS_DIR) -> dict:
         catalog = json.load(f)
     questions = []
     for name in MODE_FILES:
-        path = qdir / f"{name}.json"
-        if path.exists():
-            with open(path, encoding="utf-8") as f:
-                questions.extend(json.load(f))
+        # <mode>.json, then any <mode>.<part>.json files (a mode's questions may be split by topic).
+        for path in [qdir / f"{name}.json", *sorted(qdir.glob(f"{name}.*.json"))]:
+            if path.exists():
+                with open(path, encoding="utf-8") as f:
+                    questions.extend(json.load(f))
     catalog["questions"] = questions
     return catalog
 
@@ -102,8 +124,19 @@ def validate(catalog: dict, contract: dict) -> list[str]:
             src = field.get("optionsFrom")
             if src and src.get("dataset") not in q.get("datasets", []):
                 bad(f"input {key} takes options from {src.get('dataset')}, which isn't in datasets")
-            if field.get("type") in ("choice", "select") and not opts and not src:
+            if field.get("type") in ("choice", "select", "multi") and not opts and not src:
                 bad(f"input {key} has no options")
+            wsrc = field.get("weightsFrom")
+            if field.get("type") == "weights" and (not wsrc or wsrc.get("dataset") not in q.get("datasets", [])):
+                bad(f"weights input {key} needs weightsFrom with a dataset the question reads")
+            if field.get("type") == "range" and not (isinstance(field.get("default"), list) and len(field["default"]) == 2):
+                bad(f"range input {key} needs a [low, high] default")
+        for field in q.get("inputs", []):
+            for other in (field.get("showIf") or {}):
+                if other not in keys:
+                    bad(f"input {field.get('key')} shows only for unknown input {other}")
+            if field.get("currencyFrom") and field["currencyFrom"] not in keys:
+                bad(f"input {field.get('key')} takes its currency from unknown input {field['currencyFrom']}")
         for part in params.get("parts", []):
             if part.get("input") not in keys:
                 bad(f"group part uses unknown input {part.get('input')}")
