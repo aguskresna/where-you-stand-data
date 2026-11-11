@@ -7,8 +7,8 @@
     ]
   },
   "bps": {
-    "fingerprint": "344c290ac0e2cbdb7f3ee6de189fca4013bb315b99dd501cb7519c08c151b166",
-    "built": "2026-11-10T15:49:50+00:00",
+    "fingerprint": "900e5267be3ffcdf9a1a26647547dda070c221a8c886d9c030c011cd8783d380",
+    "built": "2026-11-11T11:19:48+00:00",
     "datasets": [
       "id.bps.poverty_line"
     ]
