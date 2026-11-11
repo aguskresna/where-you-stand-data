@@ -21,7 +21,8 @@ def test_the_shipped_catalog_is_valid():
     catalog = questions.load(QDIR)
     assert questions.validate(catalog, contract()) == []
     assert len(catalog["questions"]) >= 16
-    assert not any("parents" in q["title"].lower() for q in catalog["questions"])
+    # "Time left with your parents" was left out on purpose by the owner.
+    assert not any("time left with" in q["title"].lower() for q in catalog["questions"])
 
 
 def test_option_lists_match_the_builders_place_codes():

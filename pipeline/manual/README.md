@@ -11,6 +11,8 @@ here, one folder per source id (the ids in `data/sources.json`), with the exact 
 | `worldbank_wdi/` | Optional `license_overrides.json` (`{"INDICATOR.CODE": "why its license allows commercial use"}`) |
 | `opendosm/` | Only if a download fails: `<catalogue id>.csv` from https://open.dosm.gov.my/data-catalogue/<id> |
 | `datagovmy_births/` | Only if a download fails: `births.csv` from https://data.gov.my/data-catalogue/births |
+| `bls_oews/` | `oesm25all.zip`: "All data" for May 2025 from https://www.bls.gov/oes/tables.htm (www.bls.gov refuses scripts). Large: build `bls_oews` on your computer and commit `data/`. |
+| `bls_cpi/` | `relative-importance-2025.xlsx` (or the page saved as `relative-importance-2025.htm`) from https://www.bls.gov/cpi/tables/relative-importance/2025.htm. Without it the CPI groups have no weights. |
 | `bps/` | See `bps/README.md` |
 
 Downloads the pipeline fetches itself are cached in `pipeline/raw/` (not committed).

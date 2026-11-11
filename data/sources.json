@@ -34,7 +34,10 @@
       "licenseCode": "NCHS",
       "license": "Public domain, with NCHS data-use rules",
       "licenseUrl": "https://cdc.gov/nchs/data_access/restrictions.htm",
-      "rules": ["Use for statistical reporting and analysis only", "Make no attempt to identify any person"],
+      "rules": [
+        "Use for statistical reporting and analysis only",
+        "Make no attempt to identify any person"
+      ],
       "credit": "CDC National Center for Health Statistics, NHANES",
       "url": "https://wwwn.cdc.gov/nchs/nhanes/",
       "pipeline": "auto",
@@ -47,7 +50,10 @@
       "licenseCode": "NCHS",
       "license": "Public domain, with NCHS data-use rules",
       "licenseUrl": "https://cdc.gov/nchs/data_access/restrictions.htm",
-      "rules": ["Use for statistical reporting and analysis only", "Make no attempt to identify any person"],
+      "rules": [
+        "Use for statistical reporting and analysis only",
+        "Make no attempt to identify any person"
+      ],
       "credit": "CDC National Center for Health Statistics, NHIS",
       "url": "https://www.cdc.gov/nchs/nhis/",
       "pipeline": "pending",
@@ -61,7 +67,10 @@
       "licenseCode": "NCHS",
       "license": "Public domain, with NCHS data-use rules",
       "licenseUrl": "https://cdc.gov/nchs/data_access/restrictions.htm",
-      "rules": ["Use for statistical reporting and analysis only", "Make no attempt to identify any person"],
+      "rules": [
+        "Use for statistical reporting and analysis only",
+        "Make no attempt to identify any person"
+      ],
       "credit": "CDC National Center for Health Statistics, NSFG",
       "url": "https://www.cdc.gov/nchs/nsfg/",
       "pipeline": "pending",
@@ -101,7 +110,12 @@
       "licenseCode": "NCHS",
       "license": "Public domain, with CDC WONDER data-use rules",
       "licenseUrl": "https://wonder.cdc.gov/datause.html",
-      "rules": ["Use for statistical reporting and analysis only", "Never show counts of 9 or fewer, or rates based on them", "Make no attempt to identify any person", "Leave self-harm causes out of the app"],
+      "rules": [
+        "Use for statistical reporting and analysis only",
+        "Never show counts of 9 or fewer, or rates based on them",
+        "Make no attempt to identify any person",
+        "Leave self-harm causes out of the app"
+      ],
       "credit": "CDC WONDER, National Center for Health Statistics",
       "url": "https://wonder.cdc.gov/",
       "pipeline": "pending",
@@ -117,7 +131,7 @@
       "licenseUrl": "https://www.bls.gov/opub/copyright-information.htm",
       "credit": "U.S. Bureau of Labor Statistics, OEWS",
       "url": "https://www.bls.gov/oes/",
-      "pipeline": "pending",
+      "pipeline": "manual",
       "refresh": "Yearly (May reference month)",
       "todo": "From the all-data file, keep annual wage percentiles (10, 25, 50, 75, 90) by detailed occupation for the US and each state. Write us.bls.oews."
     },
@@ -129,8 +143,8 @@
       "license": "US federal public domain; credit BLS",
       "licenseUrl": "https://www.bls.gov/opub/copyright-information.htm",
       "credit": "U.S. Bureau of Labor Statistics, Employment Projections",
-      "url": "https://www.bls.gov/emp/",
-      "pipeline": "pending",
+      "url": "https://data.bls.gov/projections/occupationProj",
+      "pipeline": "auto",
       "refresh": "Yearly",
       "todo": "Copy base and projected employment and percent change by occupation into us.bls.projections."
     },
@@ -156,7 +170,7 @@
       "licenseUrl": "https://www.bls.gov/opub/copyright-information.htm",
       "credit": "U.S. Bureau of Labor Statistics, CPI",
       "url": "https://www.bls.gov/cpi/",
-      "pipeline": "pending",
+      "pipeline": "auto",
       "refresh": "Monthly",
       "todo": "For the eight major CPI groups, record the latest 12-month change and the relative importance weight. Write us.bls.cpi."
     },
@@ -166,10 +180,10 @@
       "region": "us",
       "licenseCode": "PD",
       "license": "US federal public domain",
-      "licenseUrl": "https://resources.data.gov/open-licenses/",
+      "licenseUrl": "https://www.bea.gov/about/policies-and-information/linking",
       "credit": "U.S. Bureau of Economic Analysis, Regional Price Parities",
       "url": "https://www.bea.gov/data/prices-inflation/regional-price-parities-state-and-metro-area",
-      "pipeline": "pending",
+      "pipeline": "auto",
       "refresh": "Yearly",
       "todo": "Copy the all-items price parity (US = 100) for each state into us.bea.rpp."
     },
@@ -192,10 +206,10 @@
       "region": "us",
       "licenseCode": "PD",
       "license": "US federal public domain",
-      "licenseUrl": "https://resources.data.gov/open-licenses/",
+      "licenseUrl": "https://www.fhfa.gov/about/fhfa-policies/website-privacy-policy",
       "credit": "Federal Housing Finance Agency, House Price Index",
       "url": "https://www.fhfa.gov/data/hpi",
-      "pipeline": "pending",
+      "pipeline": "auto",
       "refresh": "Quarterly",
       "todo": "Optional: record each state's average yearly price growth over the last 10 years in us.fhfa.hpi so 'Years to a home' can account for rising prices."
     },
@@ -231,7 +245,10 @@
       "licenseCode": "CC BY 4.0",
       "license": "CC BY 4.0 (FiveThirtyEight data repository); the 1994-1999 CDC part follows NCHS rules",
       "licenseUrl": "https://github.com/fivethirtyeight/data",
-      "rules": ["Credit FiveThirtyEight", "CDC part: statistical reporting only"],
+      "rules": [
+        "Credit FiveThirtyEight",
+        "CDC part: statistical reporting only"
+      ],
       "credit": "FiveThirtyEight, from Social Security Administration and CDC/NCHS data",
       "url": "https://github.com/fivethirtyeight/data/tree/master/births",
       "pipeline": "auto",
@@ -244,7 +261,10 @@
       "licenseCode": "CC BY 4.0",
       "license": "CC BY 4.0, with O*NET's credit line and trademark rules",
       "licenseUrl": "https://www.onetcenter.org/license_db.html",
-      "rules": ["Show O*NET's exact credit line from the license page", "Write O*NET only as an adjective, with the trademark symbol"],
+      "rules": [
+        "Show O*NET's exact credit line from the license page",
+        "Write O*NET only as an adjective, with the trademark symbol"
+      ],
       "credit": "Includes information from the O*NET Database by USDOL/ETA, used under CC BY 4.0. O*NET® is a trademark of USDOL/ETA. TODO: replace with the exact credit line from the license page.",
       "url": "https://www.onetcenter.org/database.html",
       "pipeline": "pending",
@@ -275,7 +295,13 @@
       "url": "https://population.un.org/wpp/downloads",
       "pipeline": "manual",
       "refresh": "Next revision reportedly July 2027",
-      "manualFiles": ["WPP2024_Demographic_Indicators_Medium.csv.gz", "WPP2024_PopulationBySingleAgeSex_Medium_2024-2100.csv.gz", "WPP2024_Life_Table_Complete_Medium_Both_2024-2100.csv.gz", "WPP2024_Life_Table_Complete_Medium_Female_2024-2100.csv.gz", "WPP2024_Life_Table_Complete_Medium_Male_2024-2100.csv.gz"]
+      "manualFiles": [
+        "WPP2024_Demographic_Indicators_Medium.csv.gz",
+        "WPP2024_PopulationBySingleAgeSex_Medium_2024-2100.csv.gz",
+        "WPP2024_Life_Table_Complete_Medium_Both_2024-2100.csv.gz",
+        "WPP2024_Life_Table_Complete_Medium_Female_2024-2100.csv.gz",
+        "WPP2024_Life_Table_Complete_Medium_Male_2024-2100.csv.gz"
+      ]
     },
     "worldbank_pip": {
       "name": "Poverty and Inequality Platform: Percentiles",
@@ -284,12 +310,16 @@
       "licenseCode": "CC0",
       "license": "CC0",
       "licenseUrl": "https://datacatalog.worldbank.org/search/dataset/0063646",
-      "rules": ["Do not imply the World Bank endorses the app or use its logo"],
+      "rules": [
+        "Do not imply the World Bank endorses the app or use its logo"
+      ],
       "credit": "World Bank, Poverty and Inequality Platform (2021 PPP)",
       "url": "https://datacatalog.worldbank.org/search/dataset/0063646",
       "pipeline": "manual",
       "refresh": "About twice a year",
-      "manualFiles": ["Survey-years percentiles, 2021 PPP values (.csv)"]
+      "manualFiles": [
+        "Survey-years percentiles, 2021 PPP values (.csv)"
+      ]
     },
     "worldbank_wdi": {
       "name": "World Development Indicators",
@@ -298,7 +328,10 @@
       "licenseCode": "CC BY 4.0",
       "license": "CC BY 4.0 unless an indicator's metadata says otherwise; the pipeline checks each indicator",
       "licenseUrl": "https://www.worldbank.org/en/about/legal/terms-of-use-for-datasets",
-      "rules": ["Do not imply the World Bank endorses the app or use its logo", "Only use indicators whose metadata license is CC BY"],
+      "rules": [
+        "Do not imply the World Bank endorses the app or use its logo",
+        "Only use indicators whose metadata license is CC BY"
+      ],
       "credit": "World Bank, World Development Indicators, CC BY 4.0",
       "url": "https://data.worldbank.org/",
       "pipeline": "auto",
@@ -361,12 +394,21 @@
       "licenseCode": "BPS",
       "license": "Free commercial use with a citation (title, access date, link)",
       "licenseUrl": "https://www.bps.go.id/assets/term-of-use",
-      "rules": ["Cite each table with its title, access date and a direct link", "Do not imply BPS endorses the app"],
+      "rules": [
+        "Cite each table with its title, access date and a direct link",
+        "Do not imply BPS endorses the app"
+      ],
       "credit": "Badan Pusat Statistik (BPS)",
       "url": "https://www.bps.go.id/",
       "pipeline": "manual",
       "refresh": "Poverty line each March and September; wages and CPI per release",
-      "manualFiles": ["pipeline/manual/bps/poverty_line.json", "pipeline/manual/bps/spending_brackets.csv", "pipeline/manual/bps/wages_province_job.csv", "pipeline/manual/bps/wages_age.csv", "pipeline/manual/bps/cpi_groups.csv"]
+      "manualFiles": [
+        "pipeline/manual/bps/poverty_line.json",
+        "pipeline/manual/bps/spending_brackets.csv",
+        "pipeline/manual/bps/wages_province_job.csv",
+        "pipeline/manual/bps/wages_age.csv",
+        "pipeline/manual/bps/cpi_groups.csv"
+      ]
     }
   }
 }
