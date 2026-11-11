@@ -1,0 +1,1842 @@
+[
+  {
+    "id": "us-singles-near-you",
+    "mode": "us",
+    "topic": "dating",
+    "title": "Singles near you",
+    "question": "How many single people fit your age range where you live?",
+    "kind": "count_in_range",
+    "datasets": [
+      "us.acs.singles"
+    ],
+    "inputs": [
+      {
+        "key": "seeking",
+        "type": "choice",
+        "label": "Looking for",
+        "options": [
+          [
+            "M",
+            "Men"
+          ],
+          [
+            "F",
+            "Women"
+          ]
+        ],
+        "default": "M"
+      },
+      {
+        "key": "ages",
+        "type": "range",
+        "label": "Age range",
+        "min": 18,
+        "max": 80,
+        "step": 1,
+        "default": [
+          25,
+          35
+        ]
+      },
+      {
+        "key": "state",
+        "type": "select",
+        "label": "State",
+        "options": "@us_states_any",
+        "default": "*"
+      }
+    ],
+    "params": {
+      "dataset": "us.acs.singles",
+      "path": [
+        "groups"
+      ],
+      "agesPath": [
+        "ages"
+      ],
+      "range": "ages",
+      "countField": "single",
+      "totalField": "all",
+      "parts": [
+        {
+          "input": "seeking",
+          "phrase": {
+            "F": "women",
+            "M": "men"
+          }
+        },
+        {
+          "input": "state",
+          "phrase": {
+            "*": "in the US",
+            "_": "in {label}"
+          }
+        }
+      ],
+      "fallbackOrder": [
+        1
+      ],
+      "fallbackCaveat": "There are too few survey records for some of those ages in {label.state}, so this uses the whole US.",
+      "missing": "There are no figures for that group yet.",
+      "empty": "No one matches that age range and place."
+    },
+    "text": {
+      "headline": "{count}",
+      "sentence": "About {count} single {seeking} aged {lo}–{hi} live {state}, {share} of everyone that age there.",
+      "caveats": [
+        "Single means never married, divorced, separated or widowed; some of them have partners."
+      ]
+    }
+  },
+  {
+    "id": "us-age-gap",
+    "mode": "us",
+    "topic": "dating",
+    "title": "Is our age gap normal?",
+    "question": "How common is an age gap like yours?",
+    "kind": "group_rank",
+    "datasets": [
+      "us.acs.couples"
+    ],
+    "inputs": [
+      {
+        "key": "you",
+        "type": "number",
+        "label": "Your age",
+        "default": 30,
+        "min": 18,
+        "max": 100,
+        "step": 1,
+        "unit": "years"
+      },
+      {
+        "key": "partner",
+        "type": "number",
+        "label": "Your partner's age",
+        "default": 33,
+        "min": 18,
+        "max": 100,
+        "step": 1,
+        "unit": "years"
+      }
+    ],
+    "params": {
+      "dataset": "us.acs.couples",
+      "path": [
+        "gap"
+      ],
+      "valueExpr": "abs(you - partner)",
+      "valueFormat": {
+        "type": "number",
+        "digits": 0
+      },
+      "format": {
+        "type": "number",
+        "digits": 0,
+        "suffix": " years"
+      },
+      "fields": {
+        "manOlder": {
+          "path": [
+            "manOlder"
+          ],
+          "format": {
+            "type": "percent"
+          }
+        },
+        "womanOlder": {
+          "path": [
+            "womanOlder"
+          ],
+          "format": {
+            "type": "percent"
+          }
+        },
+        "sameAge": {
+          "path": [
+            "sameAge"
+          ],
+          "format": {
+            "type": "percent"
+          }
+        }
+      },
+      "whenZero": {
+        "headline": "Same age",
+        "sentence": "{sameAge} of couples living together are the same age."
+      }
+    },
+    "text": {
+      "headline": "{value}-year gap",
+      "sentence": "{pctAbove} of couples living together have an age gap this big or bigger.",
+      "stats": [
+        [
+          "He is older",
+          "{manOlder}"
+        ],
+        [
+          "She is older",
+          "{womanOlder}"
+        ],
+        [
+          "Same age",
+          "{sameAge}"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "us-marriage-timing",
+    "mode": "us",
+    "topic": "dating",
+    "title": "Marriage timing",
+    "question": "How many people your age have married?",
+    "kind": "group_share",
+    "datasets": [
+      "us.acs.ever_married"
+    ],
+    "inputs": [
+      {
+        "key": "sex",
+        "type": "choice",
+        "label": "Sex",
+        "options": "@sex",
+        "default": "F"
+      },
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age",
+        "default": 30,
+        "min": 18,
+        "max": 80,
+        "unit": "years"
+      },
+      {
+        "key": "state",
+        "type": "select",
+        "label": "State",
+        "options": "@us_states_any",
+        "default": "*"
+      }
+    ],
+    "params": {
+      "dataset": "us.acs.ever_married",
+      "parts": [
+        {
+          "input": "sex",
+          "phrase": {
+            "F": "women",
+            "M": "men",
+            "*": "adults"
+          }
+        },
+        {
+          "input": "age",
+          "round": true,
+          "clamp": [
+            18,
+            80
+          ]
+        },
+        {
+          "input": "age",
+          "name": "band",
+          "round": true,
+          "clamp": [
+            18,
+            80
+          ],
+          "bands": "@AGE"
+        },
+        {
+          "input": "state",
+          "phrase": {
+            "*": "in the US",
+            "_": "in {label}"
+          }
+        }
+      ],
+      "lookups": [
+        {
+          "path": [
+            "byBandState"
+          ],
+          "key": [
+            "sex",
+            "band",
+            "state"
+          ],
+          "fallbackOrder": [
+            2
+          ],
+          "exact": true,
+          "skipIf": {
+            "state": "*"
+          },
+          "missCaveat": "Too few records for {label.state}, so this uses the whole US."
+        },
+        {
+          "path": [
+            "byAge"
+          ],
+          "key": [
+            "sex",
+            "age"
+          ],
+          "fallbackOrder": []
+        }
+      ],
+      "crossing": {
+        "path": [
+          "byAge"
+        ],
+        "key": [
+          "sex",
+          "#"
+        ],
+        "from": 18,
+        "to": 80,
+        "at": 0.5,
+        "name": "half",
+        "found": "age {age}",
+        "none": "not by 80"
+      },
+      "missing": "There are no figures for that age yet."
+    },
+    "text": {
+      "headline": "{share}",
+      "sentence": "{share} of {sex} aged {age} {state} have been married at least once.",
+      "stats": [
+        [
+          "Half have married by",
+          "{half}"
+        ]
+      ],
+      "caveats": [
+        "The age by which half have married is read across today’s age groups, not followed through one generation."
+      ]
+    }
+  },
+  {
+    "id": "us-will-it-last",
+    "mode": "us",
+    "topic": "dating",
+    "title": "Will it last?",
+    "question": "How many first marriages like yours stay together?",
+    "kind": "group_share",
+    "datasets": [
+      "us.nsfg.marriage"
+    ],
+    "inputs": [
+      {
+        "key": "ageAtMarriage",
+        "type": "number",
+        "label": "Age when you married",
+        "default": 27,
+        "min": 16,
+        "max": 70,
+        "step": 1,
+        "unit": "years"
+      },
+      {
+        "key": "edu",
+        "type": "select",
+        "label": "Your education",
+        "options": [
+          [
+            "0",
+            "Less than high school"
+          ],
+          [
+            "1",
+            "High school or GED"
+          ],
+          [
+            "2",
+            "Some college or associate degree"
+          ],
+          [
+            "3",
+            "Bachelor's degree"
+          ],
+          [
+            "4",
+            "Graduate or professional degree"
+          ]
+        ],
+        "default": "3"
+      }
+    ],
+    "params": {
+      "dataset": "us.nsfg.marriage",
+      "path": [
+        "groups"
+      ],
+      "parts": [
+        {
+          "input": "ageAtMarriage",
+          "bands": [
+            "<20",
+            "20-24",
+            "25-29",
+            "30+"
+          ]
+        },
+        {
+          "input": "edu"
+        }
+      ],
+      "fallbackOrder": [
+        1,
+        0
+      ],
+      "field": "y10",
+      "fields": {
+        "y20": {
+          "key": "y20",
+          "format": {
+            "type": "percent"
+          }
+        }
+      },
+      "fallbackCaveat": "Too few couples match exactly, so this uses a broader group.",
+      "missing": "There are no figures for that group yet."
+    },
+    "text": {
+      "headline": "{share}",
+      "sentence": "{share} of first marriages like yours are still together after 10 years, and {y20} after 20."
+    }
+  },
+  {
+    "id": "us-middle-class",
+    "mode": "us",
+    "topic": "money",
+    "title": "Am I middle class?",
+    "question": "Which income tier is your household in?",
+    "kind": "rank_tiers",
+    "datasets": [
+      "us.acs.hh_income"
+    ],
+    "inputs": [
+      {
+        "key": "income",
+        "type": "money",
+        "label": "Household income per year",
+        "currency": "USD",
+        "default": 90000,
+        "min": 0,
+        "step": 1000
+      },
+      {
+        "key": "size",
+        "type": "number",
+        "label": "People in your household",
+        "default": 3,
+        "min": 1,
+        "max": 12,
+        "step": 1
+      },
+      {
+        "key": "state",
+        "type": "select",
+        "label": "State",
+        "options": "@us_states_any",
+        "default": "*"
+      }
+    ],
+    "params": {
+      "dataset": "us.acs.hh_income",
+      "mode": "ratio",
+      "value": "income",
+      "scale": "sqrt(3 / size)",
+      "medianPath": [
+        "median_adj3"
+      ],
+      "path": [
+        "groups"
+      ],
+      "parts": [
+        {
+          "input": "state",
+          "phrase": {
+            "*": "in the US",
+            "_": "in {label}"
+          }
+        }
+      ],
+      "fallbackOrder": [
+        0
+      ],
+      "fallbackCaveat": "",
+      "missing": "There are no figures for that state yet.",
+      "format": {
+        "type": "money",
+        "currency": "USD"
+      },
+      "tiers": [
+        {
+          "name": "Lower income",
+          "below": "2/3"
+        },
+        {
+          "name": "Middle income",
+          "upTo": 2
+        },
+        {
+          "name": "Upper income"
+        }
+      ]
+    },
+    "text": {
+      "headline": "{tier}",
+      "sentence": "For a household of {n.size}, middle income runs from {cut1} to {cut2} a year. You're at {ratio} times the national median.",
+      "stats": [
+        [
+          "Your rank {group}",
+          "{rank}"
+        ]
+      ],
+      "caveats": [
+        "Uses the common rule of two-thirds to double the median household income, adjusted for household size."
+      ]
+    }
+  },
+  {
+    "id": "us-net-worth",
+    "mode": "us",
+    "topic": "money",
+    "title": "Net worth rank",
+    "question": "How does your household wealth compare with people your age?",
+    "kind": "group_rank",
+    "datasets": [
+      "us.fed.scf"
+    ],
+    "inputs": [
+      {
+        "key": "netWorth",
+        "type": "money",
+        "label": "Household net worth",
+        "currency": "USD",
+        "default": 150000,
+        "min": -10000000,
+        "step": 5000
+      },
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age",
+        "default": 40,
+        "min": 18,
+        "max": 100,
+        "unit": "years"
+      }
+    ],
+    "params": {
+      "dataset": "us.fed.scf",
+      "path": [
+        "networth",
+        "groups"
+      ],
+      "value": "netWorth",
+      "parts": [
+        {
+          "input": "age",
+          "bands": "@SCF",
+          "phrase": {
+            "*": "all households",
+            "_": "households headed by someone aged {band}"
+          }
+        }
+      ],
+      "fallbackCaveat": "",
+      "missing": "There are no figures for that age group yet.",
+      "format": {
+        "type": "money",
+        "currency": "USD"
+      }
+    },
+    "text": {
+      "headline": "{rank}",
+      "sentence": "Your household is worth more than {pct} of {group}.",
+      "stats": [
+        [
+          "Median for your age group",
+          "{median}"
+        ]
+      ],
+      "caveats": [
+        "Net worth is everything owned minus everything owed, for the whole household."
+      ]
+    }
+  },
+  {
+    "id": "us-millionaire-odds",
+    "mode": "us",
+    "topic": "money",
+    "title": "Millionaire odds",
+    "question": "How many households your age are worth $1 million?",
+    "kind": "group_rank",
+    "datasets": [
+      "us.fed.scf"
+    ],
+    "inputs": [
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age",
+        "default": 40,
+        "min": 18,
+        "max": 100,
+        "unit": "years"
+      }
+    ],
+    "params": {
+      "dataset": "us.fed.scf",
+      "path": [
+        "networth",
+        "groups"
+      ],
+      "value": 1000000,
+      "parts": [
+        {
+          "input": "age",
+          "bands": "@SCF",
+          "phrase": {
+            "*": "all households",
+            "_": "households headed by someone aged {band}"
+          }
+        }
+      ],
+      "fallbackCaveat": "",
+      "missing": "There are no figures for that age group yet.",
+      "format": {
+        "type": "money",
+        "currency": "USD"
+      },
+      "grid": "above",
+      "alsoFor": [
+        {
+          "group": "*",
+          "stat": [
+            "All households",
+            "{pctAbove}"
+          ]
+        }
+      ]
+    },
+    "text": {
+      "headline": "{pctAbove}",
+      "sentence": "{pctAbove} of {group} are worth $1 million or more."
+    }
+  },
+  {
+    "id": "us-retirement-savings",
+    "mode": "us",
+    "topic": "money",
+    "title": "Retirement savings check",
+    "question": "Are your retirement savings ahead of people your age?",
+    "kind": "group_rank",
+    "datasets": [
+      "us.fed.scf"
+    ],
+    "inputs": [
+      {
+        "key": "savings",
+        "type": "money",
+        "label": "Retirement savings",
+        "currency": "USD",
+        "default": 60000,
+        "min": 0,
+        "step": 1000
+      },
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age",
+        "default": 40,
+        "min": 18,
+        "max": 100,
+        "unit": "years"
+      }
+    ],
+    "params": {
+      "dataset": "us.fed.scf",
+      "path": [
+        "retirement",
+        "groups"
+      ],
+      "value": "savings",
+      "parts": [
+        {
+          "input": "age",
+          "bands": "@SCF",
+          "phrase": {
+            "*": "all households",
+            "_": "households headed by someone aged {band}"
+          }
+        }
+      ],
+      "fallbackCaveat": "",
+      "missing": "There are no figures for that age group yet.",
+      "format": {
+        "type": "money",
+        "currency": "USD"
+      }
+    },
+    "text": {
+      "headline": "{rank}",
+      "sentence": "You have more saved for retirement than {pct} of {group}.",
+      "stats": [
+        [
+          "Median for your age group",
+          "{median}"
+        ]
+      ],
+      "caveats": [
+        "Counts every household, including those with no retirement account."
+      ]
+    }
+  },
+  {
+    "id": "us-debt-check",
+    "mode": "us",
+    "topic": "money",
+    "title": "Debt check",
+    "question": "How does your debt compare with people your age?",
+    "kind": "debt_rank",
+    "datasets": [
+      "us.fed.scf"
+    ],
+    "inputs": [
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age",
+        "default": 40,
+        "min": 18,
+        "max": 100,
+        "unit": "years"
+      },
+      {
+        "key": "mortgage",
+        "type": "money",
+        "label": "Mortgage balance",
+        "currency": "USD",
+        "default": 180000,
+        "min": 0,
+        "step": 1000
+      },
+      {
+        "key": "education",
+        "type": "money",
+        "label": "Student loans",
+        "currency": "USD",
+        "default": 0,
+        "min": 0,
+        "step": 1000
+      },
+      {
+        "key": "vehicle",
+        "type": "money",
+        "label": "Car loans",
+        "currency": "USD",
+        "default": 12000,
+        "min": 0,
+        "step": 1000
+      },
+      {
+        "key": "card",
+        "type": "money",
+        "label": "Credit card balance",
+        "currency": "USD",
+        "default": 2000,
+        "min": 0,
+        "step": 100
+      },
+      {
+        "key": "other",
+        "type": "money",
+        "label": "Other debt",
+        "currency": "USD",
+        "default": 0,
+        "min": 0,
+        "step": 1000
+      }
+    ],
+    "params": {
+      "dataset": "us.fed.scf",
+      "parts": [
+        {
+          "input": "age",
+          "bands": "@SCF",
+          "phrase": {
+            "*": "any age",
+            "_": "{band}"
+          }
+        }
+      ],
+      "amounts": [
+        "mortgage",
+        "education",
+        "vehicle",
+        "card",
+        "other"
+      ],
+      "totalPath": [
+        "debt",
+        "total"
+      ],
+      "missing": "There are no figures for that age group yet.",
+      "format": {
+        "type": "money",
+        "currency": "USD"
+      },
+      "typesPath": [
+        "debt",
+        "types"
+      ],
+      "barsTitle": "Each debt among people who have that kind",
+      "whenZero": {
+        "headline": "Debt-free",
+        "sentence": "{none} of households headed by someone aged {age} have no debt either.",
+        "stats": []
+      }
+    },
+    "text": {
+      "headline": "{rank}",
+      "sentence": "Your total debt of {total} is more than {pct} of households aged {age} that owe anything.",
+      "stats": [
+        [
+          "Households your age with any debt",
+          "{holding}"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "us-pay-in-job",
+    "mode": "us",
+    "topic": "money",
+    "title": "Pay in your job",
+    "question": "Where does your pay sit for your occupation?",
+    "kind": "group_rank",
+    "datasets": [
+      "us.bls.oews"
+    ],
+    "inputs": [
+      {
+        "key": "occupation",
+        "type": "select",
+        "label": "Occupation",
+        "default": "15-1252",
+        "optionsFrom": {
+          "dataset": "us.bls.oews",
+          "path": [
+            "occupations"
+          ]
+        }
+      },
+      {
+        "key": "area",
+        "type": "select",
+        "label": "Area",
+        "default": "US",
+        "optionsFrom": {
+          "dataset": "us.bls.oews",
+          "path": [
+            "areas"
+          ],
+          "exclude": [
+            "US"
+          ],
+          "first": [
+            [
+              "US",
+              "Whole US"
+            ]
+          ]
+        }
+      },
+      {
+        "key": "salary",
+        "type": "money",
+        "label": "Your yearly pay",
+        "currency": "USD",
+        "default": 65000,
+        "min": 0,
+        "step": 1000
+      }
+    ],
+    "params": {
+      "dataset": "us.bls.oews",
+      "path": [
+        "groups"
+      ],
+      "positions": [
+        "p"
+      ],
+      "value": "salary",
+      "parts": [
+        {
+          "input": "occupation",
+          "phrase": {
+            "_": "people working as {lower}"
+          }
+        },
+        {
+          "input": "area",
+          "all": "US",
+          "phrase": {
+            "US": "in the US",
+            "_": "in {label}"
+          }
+        }
+      ],
+      "fallbackOrder": [
+        1
+      ],
+      "fallbackCaveat": "No figures for that area, so this uses the whole US.",
+      "missing": "There are no pay figures for that occupation yet.",
+      "format": {
+        "type": "money",
+        "currency": "USD"
+      }
+    },
+    "text": {
+      "headline": "{rank}",
+      "sentence": "You're paid more than about {pct} of {group}.",
+      "stats": [
+        [
+          "Median",
+          "{median}"
+        ],
+        [
+          "Middle half earns",
+          "{p25} to {p75}"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "us-rent-burden",
+    "mode": "us",
+    "topic": "home",
+    "title": "Rent burden",
+    "question": "Do you spend more of your income on rent than others?",
+    "kind": "group_rank",
+    "datasets": [
+      "us.acs.rent_burden"
+    ],
+    "inputs": [
+      {
+        "key": "rent",
+        "type": "money",
+        "label": "Monthly rent",
+        "currency": "USD",
+        "default": 1500,
+        "min": 0,
+        "step": 50
+      },
+      {
+        "key": "income",
+        "type": "money",
+        "label": "Monthly household income",
+        "currency": "USD",
+        "default": 6000,
+        "min": 0,
+        "step": 100
+      },
+      {
+        "key": "state",
+        "type": "select",
+        "label": "State",
+        "options": "@us_states_any",
+        "default": "*"
+      }
+    ],
+    "params": {
+      "dataset": "us.acs.rent_burden",
+      "path": [
+        "groups"
+      ],
+      "valueExpr": "rent / income * 100",
+      "requirePositive": {
+        "income": "Enter a monthly income above zero."
+      },
+      "parts": [
+        {
+          "input": "state",
+          "phrase": {
+            "*": "in the US",
+            "_": "in {label}"
+          }
+        }
+      ],
+      "fallbackOrder": [
+        0
+      ],
+      "fallbackCaveat": "",
+      "missing": "There are no figures for that state yet.",
+      "valueFormat": {
+        "type": "number",
+        "digits": 0
+      },
+      "format": {
+        "type": "number",
+        "digits": 0,
+        "suffix": "%"
+      },
+      "shareAbove": [
+        {
+          "name": "over30",
+          "at": 30
+        }
+      ]
+    },
+    "text": {
+      "headline": "{value}% of income",
+      "sentence": "{pctAbove} of renters {group} spend a bigger share of their income on rent than you.",
+      "stats": [
+        [
+          "Renters paying over 30%",
+          "{over30}"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "us-home-size",
+    "mode": "us",
+    "topic": "home",
+    "title": "Home size",
+    "question": "How big is your home compared with others?",
+    "kind": "group_rank",
+    "datasets": [
+      "us.ahs.size"
+    ],
+    "inputs": [
+      {
+        "key": "sqft",
+        "type": "number",
+        "label": "Floor area",
+        "default": 1500,
+        "min": 100,
+        "max": 20000,
+        "step": 50,
+        "unit": "sq ft"
+      },
+      {
+        "key": "tenure",
+        "type": "choice",
+        "label": "You",
+        "options": [
+          [
+            "all",
+            "Any home"
+          ],
+          [
+            "owner",
+            "Own"
+          ],
+          [
+            "renter",
+            "Rent"
+          ]
+        ],
+        "default": "all"
+      }
+    ],
+    "params": {
+      "dataset": "us.ahs.size",
+      "path": [
+        "groups"
+      ],
+      "value": "sqft",
+      "parts": [
+        {
+          "input": "tenure",
+          "all": "all",
+          "phrase": {
+            "all": "homes",
+            "owner": "owner-occupied homes",
+            "renter": "rented homes"
+          }
+        }
+      ],
+      "fallbackOrder": [
+        0
+      ],
+      "fallbackCaveat": "",
+      "suffix": "in the US",
+      "format": {
+        "type": "number",
+        "digits": 0,
+        "suffix": " sq ft"
+      }
+    },
+    "text": {
+      "headline": "{rank}",
+      "sentence": "Your home is bigger than {pct} of {group}.",
+      "stats": [
+        [
+          "Median size",
+          "{median}"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "us-own-home-age",
+    "mode": "us",
+    "topic": "home",
+    "title": "Own a home at your age",
+    "question": "How many people your age own their home?",
+    "kind": "group_share",
+    "datasets": [
+      "us.acs.ownership"
+    ],
+    "inputs": [
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age",
+        "default": 30,
+        "min": 18,
+        "max": 100,
+        "unit": "years"
+      },
+      {
+        "key": "state",
+        "type": "select",
+        "label": "State",
+        "options": "@us_states_any",
+        "default": "*"
+      }
+    ],
+    "params": {
+      "dataset": "us.acs.ownership",
+      "path": [
+        "groups"
+      ],
+      "parts": [
+        {
+          "input": "age",
+          "name": "band",
+          "bands": "@HOUSEHOLDER",
+          "phrase": {
+            "*": "any age",
+            "_": "{band}"
+          }
+        },
+        {
+          "input": "state",
+          "phrase": {
+            "*": "in the US",
+            "_": "in {label}"
+          }
+        }
+      ],
+      "fallbackOrder": [
+        1,
+        0
+      ],
+      "then": {
+        "path": [
+          "then",
+          "groups"
+        ],
+        "yearPath": [
+          "then",
+          "year"
+        ],
+        "stat": [
+          "In {thenYear}",
+          "{then}"
+        ]
+      },
+      "missing": "There are no figures for that group yet."
+    },
+    "text": {
+      "headline": "{share}",
+      "sentence": "{share} of households headed by someone aged {band} {state} own their home.",
+      "caveats": [
+        "Counts the person whose name the home is in or rented under."
+      ]
+    }
+  },
+  {
+    "id": "us-weight-rank",
+    "mode": "us",
+    "topic": "body",
+    "title": "Weight rank",
+    "question": "How does your weight compare?",
+    "kind": "group_rank",
+    "datasets": [
+      "us.nhanes.body"
+    ],
+    "inputs": [
+      {
+        "key": "sex",
+        "type": "choice",
+        "label": "Sex",
+        "options": "@sex",
+        "default": "F"
+      },
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age",
+        "default": 30,
+        "min": 18,
+        "max": 100,
+        "unit": "years"
+      },
+      {
+        "key": "weight",
+        "type": "number",
+        "label": "Your weight",
+        "default": 70,
+        "min": 20,
+        "max": 300,
+        "step": 0.5,
+        "unit": "kg"
+      }
+    ],
+    "params": {
+      "dataset": "us.nhanes.body",
+      "path": [
+        "measures",
+        "weight_kg",
+        "groups"
+      ],
+      "value": "weight",
+      "parts": [
+        {
+          "input": "sex",
+          "phrase": {
+            "F": "women",
+            "M": "men",
+            "*": "adults"
+          }
+        },
+        {
+          "input": "age",
+          "bands": "@AGE",
+          "phrase": {
+            "*": "",
+            "_": "aged {band}"
+          }
+        }
+      ],
+      "fallbackOrder": [
+        1,
+        0
+      ],
+      "suffix": "in the US",
+      "fallbackCaveat": "",
+      "missing": "There are no figures for that group yet.",
+      "format": {
+        "type": "number",
+        "digits": 1,
+        "suffix": " kg"
+      }
+    },
+    "text": {
+      "headline": "{rank}",
+      "sentence": "{pct} of {group} have a lower weight than you.",
+      "caveats": [
+        "A comparison only; there is no ideal value here."
+      ]
+    }
+  },
+  {
+    "id": "us-waist-rank",
+    "mode": "us",
+    "topic": "body",
+    "title": "Waist rank",
+    "question": "How does your waist measurement compare?",
+    "kind": "group_rank",
+    "datasets": [
+      "us.nhanes.body"
+    ],
+    "inputs": [
+      {
+        "key": "sex",
+        "type": "choice",
+        "label": "Sex",
+        "options": "@sex",
+        "default": "F"
+      },
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age",
+        "default": 30,
+        "min": 18,
+        "max": 100,
+        "unit": "years"
+      },
+      {
+        "key": "waist",
+        "type": "number",
+        "label": "Your waist",
+        "default": 90,
+        "min": 20,
+        "max": 300,
+        "step": 0.5,
+        "unit": "cm"
+      }
+    ],
+    "params": {
+      "dataset": "us.nhanes.body",
+      "path": [
+        "measures",
+        "waist_cm",
+        "groups"
+      ],
+      "value": "waist",
+      "parts": [
+        {
+          "input": "sex",
+          "phrase": {
+            "F": "women",
+            "M": "men",
+            "*": "adults"
+          }
+        },
+        {
+          "input": "age",
+          "bands": "@AGE",
+          "phrase": {
+            "*": "",
+            "_": "aged {band}"
+          }
+        }
+      ],
+      "fallbackOrder": [
+        1,
+        0
+      ],
+      "suffix": "in the US",
+      "fallbackCaveat": "",
+      "missing": "There are no figures for that group yet.",
+      "format": {
+        "type": "number",
+        "digits": 1,
+        "suffix": " cm"
+      }
+    },
+    "text": {
+      "headline": "{rank}",
+      "sentence": "{pct} of {group} have a lower waist measurement than you.",
+      "caveats": [
+        "A comparison only; there is no ideal value here."
+      ]
+    }
+  },
+  {
+    "id": "us-birth-weight-rank",
+    "mode": "us",
+    "topic": "body",
+    "title": "Birth weight rank",
+    "question": "How does a birth weight compare with other US babies?",
+    "kind": "group_rank",
+    "datasets": [
+      "us.cdc.natality"
+    ],
+    "inputs": [
+      {
+        "key": "weight",
+        "type": "number",
+        "label": "Birth weight",
+        "default": 3300,
+        "min": 1,
+        "max": 6500,
+        "step": 1,
+        "unit": "g"
+      }
+    ],
+    "params": {
+      "dataset": "us.cdc.natality",
+      "path": [
+        "measures",
+        "birth_weight_g"
+      ],
+      "value": "weight",
+      "format": {
+        "type": "number",
+        "digits": 0,
+        "suffix": " g"
+      }
+    },
+    "text": {
+      "headline": "{rank}",
+      "sentence": "{pct} of babies born in the US weighed less.",
+      "stats": [
+        [
+          "Median",
+          "{median}"
+        ]
+      ],
+      "caveats": []
+    }
+  },
+  {
+    "id": "us-mother-age-rank",
+    "mode": "us",
+    "topic": "body",
+    "title": "Mother's age at birth",
+    "question": "How does a mother's age at birth compare?",
+    "kind": "group_rank",
+    "datasets": [
+      "us.cdc.natality"
+    ],
+    "inputs": [
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Mother's age at birth",
+        "default": 30,
+        "min": 12,
+        "max": 60,
+        "step": 1,
+        "unit": "years"
+      }
+    ],
+    "params": {
+      "dataset": "us.cdc.natality",
+      "path": [
+        "measures",
+        "mother_age"
+      ],
+      "value": "age",
+      "format": {
+        "type": "number",
+        "digits": 0,
+        "suffix": " years"
+      }
+    },
+    "text": {
+      "headline": "{rank}",
+      "sentence": "{pct} of US babies were born to younger mothers.",
+      "stats": [
+        [
+          "Median",
+          "{median}"
+        ]
+      ],
+      "caveats": []
+    }
+  },
+  {
+    "id": "us-sleep-rank",
+    "mode": "us",
+    "topic": "time",
+    "title": "Sleep rank",
+    "question": "Do you sleep more than people your age?",
+    "kind": "group_rank",
+    "datasets": [
+      "us.bls.atus"
+    ],
+    "inputs": [
+      {
+        "key": "hours",
+        "type": "number",
+        "label": "Hours of sleep a night",
+        "default": 7,
+        "min": 2,
+        "max": 14,
+        "step": 0.25,
+        "unit": "hours"
+      },
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age",
+        "default": 30,
+        "min": 18,
+        "max": 100,
+        "unit": "years"
+      }
+    ],
+    "params": {
+      "dataset": "us.bls.atus",
+      "path": [
+        "sleep",
+        "groups"
+      ],
+      "value": "hours",
+      "parts": [
+        {
+          "input": "age",
+          "bands": "@AGE",
+          "phrase": {
+            "*": "",
+            "_": "aged {band}"
+          }
+        }
+      ],
+      "prefix": "Americans",
+      "fallbackCaveat": "",
+      "missing": "There are no figures for that age group yet.",
+      "format": {
+        "type": "number",
+        "digits": 1,
+        "suffix": " hours"
+      }
+    },
+    "text": {
+      "headline": "More than {pct}",
+      "sentence": "You sleep more than {pct} of {group}.",
+      "stats": [
+        [
+          "Median for your age group",
+          "{median}"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "us-family-size",
+    "mode": "us",
+    "topic": "family",
+    "title": "Family size rank",
+    "question": "Do you have more children at home than people your age?",
+    "kind": "category_rank",
+    "datasets": [
+      "us.acs.children"
+    ],
+    "inputs": [
+      {
+        "key": "kids",
+        "type": "number",
+        "label": "Children living with you",
+        "default": 2,
+        "min": 0,
+        "max": 15,
+        "step": 1
+      },
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age",
+        "default": 35,
+        "min": 18,
+        "max": 100,
+        "unit": "years"
+      }
+    ],
+    "params": {
+      "dataset": "us.acs.children",
+      "path": [
+        "groups"
+      ],
+      "index": "kids",
+      "parts": [
+        {
+          "input": "age",
+          "bands": "@AGE",
+          "phrase": {
+            "*": "any age",
+            "_": "{band}"
+          }
+        }
+      ],
+      "missing": "There are no figures for that age group yet."
+    },
+    "text": {
+      "headline": "{rank}",
+      "sentence": "You have more children at home than about {pct} of householders and their partners aged {age}, counting half of those with the same number.",
+      "stats": [
+        [
+          "Same number as you",
+          "{same}"
+        ]
+      ],
+      "caveats": [
+        "Counts your own children who live in your home, of any age."
+      ]
+    }
+  },
+  {
+    "id": "us-age-first-child",
+    "mode": "us",
+    "topic": "family",
+    "title": "Age at first child",
+    "question": "Were you younger or older than most first-time mothers?",
+    "kind": "group_rank",
+    "datasets": [
+      "us.cdc.natality"
+    ],
+    "inputs": [
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age when your first child was born",
+        "default": 28,
+        "min": 12,
+        "max": 60,
+        "step": 1,
+        "unit": "years"
+      }
+    ],
+    "params": {
+      "dataset": "us.cdc.natality",
+      "path": [
+        "measures",
+        "first_birth_age"
+      ],
+      "value": "age",
+      "format": {
+        "type": "number",
+        "digits": 1,
+        "suffix": " years"
+      }
+    },
+    "text": {
+      "headline": "Older than {pct}",
+      "sentence": "You were older than {pct} of US mothers having their first child.",
+      "stats": [
+        [
+          "Median age at first birth",
+          "{median}"
+        ]
+      ],
+      "caveats": [
+        "Birth certificates record mothers' first births; fathers' aren't recorded the same way."
+      ]
+    }
+  },
+  {
+    "id": "us-living-with-parents",
+    "mode": "us",
+    "topic": "family",
+    "title": "Still living with parents?",
+    "question": "How many people your age live with their parents?",
+    "kind": "group_share",
+    "datasets": [
+      "us.acs.with_parents"
+    ],
+    "inputs": [
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age",
+        "default": 25,
+        "min": 18,
+        "max": 40,
+        "unit": "years"
+      },
+      {
+        "key": "sex",
+        "type": "choice",
+        "label": "Show",
+        "options": [
+          [
+            "*",
+            "Everyone"
+          ],
+          [
+            "F",
+            "Women"
+          ],
+          [
+            "M",
+            "Men"
+          ]
+        ],
+        "default": "*"
+      }
+    ],
+    "params": {
+      "dataset": "us.acs.with_parents",
+      "path": [
+        "groups"
+      ],
+      "parts": [
+        {
+          "input": "sex",
+          "phrase": {
+            "F": "women",
+            "M": "men",
+            "*": "adults"
+          }
+        },
+        {
+          "input": "age",
+          "round": true,
+          "clamp": [
+            18,
+            40
+          ]
+        }
+      ],
+      "fallbackOrder": [
+        0
+      ],
+      "missing": "There are no figures for that age yet."
+    },
+    "text": {
+      "headline": "{share}",
+      "sentence": "{share} of {sex} aged {age} in the US live in a parent's home.",
+      "caveats": [
+        "Counts adults living in a home their parent owns or rents."
+      ]
+    }
+  },
+  {
+    "id": "us-education-rank",
+    "mode": "us",
+    "topic": "education",
+    "title": "Education rank",
+    "question": "How does your education compare with people your age?",
+    "kind": "category_rank",
+    "datasets": [
+      "us.acs.education"
+    ],
+    "inputs": [
+      {
+        "key": "level",
+        "type": "select",
+        "label": "Highest education",
+        "options": [
+          [
+            "0",
+            "Less than high school"
+          ],
+          [
+            "1",
+            "High school or GED"
+          ],
+          [
+            "2",
+            "Some college or associate degree"
+          ],
+          [
+            "3",
+            "Bachelor's degree"
+          ],
+          [
+            "4",
+            "Graduate or professional degree"
+          ]
+        ],
+        "default": "3"
+      },
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age",
+        "default": 30,
+        "min": 25,
+        "max": 100,
+        "unit": "years"
+      }
+    ],
+    "params": {
+      "dataset": "us.acs.education",
+      "path": [
+        "groups"
+      ],
+      "index": "level",
+      "parts": [
+        {
+          "input": "age",
+          "bands": "@EDU",
+          "phrase": {
+            "*": "25 and over",
+            "_": "{band}"
+          }
+        }
+      ],
+      "missing": "There are no figures for that age group yet."
+    },
+    "text": {
+      "headline": "{rank}",
+      "sentence": "You have more education than about {pct} of Americans aged {age}, counting half of those at your level.",
+      "stats": [
+        [
+          "At your level",
+          "{same}"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "us-student-debt",
+    "mode": "us",
+    "topic": "education",
+    "title": "Student debt check",
+    "question": "How does your student debt compare?",
+    "kind": "debt_rank",
+    "datasets": [
+      "us.fed.scf"
+    ],
+    "inputs": [
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age",
+        "default": 30,
+        "min": 18,
+        "max": 100,
+        "unit": "years"
+      },
+      {
+        "key": "debt",
+        "type": "money",
+        "label": "Student loan balance",
+        "currency": "USD",
+        "default": 30000,
+        "min": 0,
+        "step": 1000
+      }
+    ],
+    "params": {
+      "dataset": "us.fed.scf",
+      "parts": [
+        {
+          "input": "age",
+          "bands": "@SCF",
+          "phrase": {
+            "*": "any age",
+            "_": "{band}"
+          }
+        }
+      ],
+      "amounts": [
+        "debt"
+      ],
+      "totalPath": [
+        "debt",
+        "types",
+        "education"
+      ],
+      "missing": "There are no figures for that age group yet.",
+      "format": {
+        "type": "money",
+        "currency": "USD"
+      },
+      "whenZero": {
+        "headline": "No student debt",
+        "sentence": "{none} of households headed by someone aged {age} have no student debt either.",
+        "stats": []
+      }
+    },
+    "text": {
+      "headline": "{rank}",
+      "sentence": "You owe more than {pct} of households aged {age} that have student debt.",
+      "stats": [
+        [
+          "Households your age with student debt",
+          "{holding}"
+        ],
+        [
+          "Median balance",
+          "{median}"
+        ]
+      ]
+    }
+  }
+]

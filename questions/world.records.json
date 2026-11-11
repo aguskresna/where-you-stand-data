@@ -1,0 +1,463 @@
+[
+  {
+    "id": "world-life-exp-anywhere",
+    "mode": "world",
+    "topic": "body",
+    "title": "Life expectancy anywhere",
+    "question": "How long would you expect to live if you were born somewhere else?",
+    "kind": "compare_set",
+    "datasets": [
+      "world.wpp.indicators"
+    ],
+    "inputs": [
+      {
+        "key": "countries",
+        "type": "multi",
+        "label": "Countries",
+        "optionsFrom": {
+          "dataset": "world.wpp.indicators",
+          "path": [
+            "countries"
+          ],
+          "exclude": [
+            "WLD"
+          ]
+        },
+        "default": [
+          "IDN",
+          "MYS",
+          "USA",
+          "JPN",
+          "NGA"
+        ]
+      }
+    ],
+    "params": {
+      "dataset": "world.wpp.indicators",
+      "items": {
+        "input": "countries"
+      },
+      "value": {
+        "path": [
+          "series",
+          "{item}",
+          "e0"
+        ],
+        "series": {
+          "first": [
+            "first"
+          ],
+          "last": [
+            "last"
+          ]
+        }
+      },
+      "labels": {
+        "dataset": "world.wpp.indicators",
+        "path": [
+          "countries"
+        ]
+      },
+      "sort": "desc",
+      "format": {
+        "type": "years"
+      },
+      "extra": {
+        "world": "WLD"
+      },
+      "empty": "Pick at least one country.",
+      "phrases": {
+        "summary": {
+          "many": "A baby born in {firstLabel} in {year} can expect to live {spread} years longer than one born in {lastLabel}.",
+          "one": "A baby born in {firstLabel} in {year} can expect to live {first}."
+        }
+      },
+      "stats": [
+        [
+          "Whole world",
+          "{world}",
+          "world"
+        ]
+      ],
+      "caveats": [
+        {
+          "text": "Figures after 2023 are UN projections.",
+          "if": "year",
+          "above": 2023
+        }
+      ],
+      "bars": {
+        "title": "Life expectancy at birth, {year}",
+        "unit": "years"
+      }
+    },
+    "text": {
+      "headline": "{first}",
+      "sentence": "{summary}",
+      "caveats": [
+        "Life expectancy at birth on that year’s death rates."
+      ]
+    }
+  },
+  {
+    "id": "world-salary-across",
+    "mode": "world",
+    "topic": "money",
+    "title": "Salary across countries",
+    "question": "What is your salary worth in other countries?",
+    "kind": "compare_set",
+    "datasets": [
+      "world.wdi",
+      "world.wpp.indicators"
+    ],
+    "inputs": [
+      {
+        "key": "home",
+        "type": "select",
+        "label": "Where you earn it",
+        "optionsFrom": {
+          "dataset": "world.wpp.indicators",
+          "path": [
+            "countries"
+          ],
+          "exclude": [
+            "WLD"
+          ]
+        },
+        "default": "USA"
+      },
+      {
+        "key": "salary",
+        "type": "money",
+        "label": "Yearly salary",
+        "currencyFrom": "home",
+        "default": 60000,
+        "min": 0,
+        "step": 100
+      },
+      {
+        "key": "compare",
+        "type": "multi",
+        "label": "Compare with",
+        "optionsFrom": {
+          "dataset": "world.wpp.indicators",
+          "path": [
+            "countries"
+          ],
+          "exclude": [
+            "WLD"
+          ]
+        },
+        "default": [
+          "IDN",
+          "MYS",
+          "SGP",
+          "JPN",
+          "DEU",
+          "GBR"
+        ]
+      }
+    ],
+    "params": {
+      "dataset": "world.wdi",
+      "items": {
+        "input": "compare",
+        "exclude": "home"
+      },
+      "value": {
+        "ppp": {
+          "series": [
+            "indicators",
+            "PA.NUS.PRVT.PP",
+            "series"
+          ],
+          "home": "home",
+          "amount": "salary",
+          "format": {
+            "type": "money",
+            "currency": "USD"
+          },
+          "error": "There's no purchasing-power rate for {homeName} yet."
+        }
+      },
+      "labels": {
+        "dataset": "world.wpp.indicators",
+        "path": [
+          "countries"
+        ]
+      },
+      "format": {
+        "type": "money",
+        "currencyOfItem": true
+      },
+      "allowEmpty": true,
+      "shown": {
+        "homeName": {
+          "labelOf": "home"
+        },
+        "salaryText": {
+          "input": "salary",
+          "format": {
+            "type": "money",
+            "currencyOf": "salary"
+          }
+        }
+      },
+      "phrases": {
+        "summary": {
+          "input": "home",
+          "map": {
+            "USA": "Here is what it would take to live as well as {salaryText} a year lets you in the US."
+          },
+          "default": "{salaryText} a year in {homeName} buys about as much as {converted} would in the US."
+        }
+      },
+      "rowStats": {
+        "label": "Same living standard in {label}"
+      }
+    },
+    "text": {
+      "headline": "{converted}",
+      "sentence": "{summary}",
+      "caveats": [
+        "Purchasing-power rates compare the cost of a typical basket of household spending; your rent, taxes and habits may differ.",
+        "Rates for {homeYear}; each comparison uses the latest year both countries have."
+      ]
+    }
+  },
+  {
+    "id": "world-ai-use",
+    "mode": "world",
+    "topic": "money",
+    "title": "AI use in your country",
+    "question": "How much does your country use AI compared with others?",
+    "kind": "item_record",
+    "datasets": [
+      "world.aei.country"
+    ],
+    "inputs": [
+      {
+        "key": "country",
+        "type": "select",
+        "label": "Country",
+        "optionsFrom": {
+          "dataset": "world.aei.country",
+          "path": [
+            "countries"
+          ]
+        },
+        "default": "USA"
+      }
+    ],
+    "params": {
+      "dataset": "world.aei.country",
+      "items": {
+        "c": {
+          "path": [
+            "countries",
+            "{country}"
+          ]
+        },
+        "d": {
+          "path": []
+        }
+      },
+      "error": "There are no figures for that country yet.",
+      "values": {
+        "index": {
+          "field": "c.index",
+          "format": {
+            "type": "times"
+          }
+        },
+        "indexNum": {
+          "field": "c.index",
+          "format": {
+            "type": "num",
+            "digits": 2
+          }
+        },
+        "name": {
+          "field": "c.name"
+        },
+        "rank": {
+          "field": "c.rank",
+          "format": {
+            "type": "ordinal"
+          }
+        },
+        "count": {
+          "field": "d.count",
+          "format": {
+            "type": "int"
+          }
+        }
+      },
+      "bars": {
+        "title": "Usage per working-age person, against expected",
+        "unit": "ratio",
+        "rank": {
+          "path": [
+            "countries"
+          ],
+          "by": "index",
+          "label": "name",
+          "top": 5,
+          "mark": "c"
+        }
+      }
+    },
+    "text": {
+      "headline": "{index}",
+      "sentence": "People in {name} use Claude {indexNum} times as much as their share of the world's working-age population would predict, ranking {rank} of {count} countries.",
+      "caveats": [
+        "Measures use of Claude, one AI assistant, not all AI use.",
+        "Countries with too little use to report are left out."
+      ]
+    }
+  },
+  {
+    "id": "world-religion",
+    "mode": "world",
+    "topic": "people",
+    "title": "Religion by country",
+    "question": "What religions do people follow in a country?",
+    "kind": "item_record",
+    "datasets": [
+      "world.factbook.religion"
+    ],
+    "inputs": [
+      {
+        "key": "country",
+        "type": "select",
+        "label": "Country",
+        "optionsFrom": {
+          "dataset": "world.factbook.religion",
+          "path": [
+            "countries"
+          ]
+        },
+        "default": "USA"
+      }
+    ],
+    "params": {
+      "dataset": "world.factbook.religion",
+      "items": {
+        "c": {
+          "path": [
+            "countries",
+            "{country}"
+          ],
+          "nonEmpty": "groups"
+        }
+      },
+      "error": "There are no figures for that country.",
+      "values": {
+        "name": {
+          "field": "c.name"
+        },
+        "largest": {
+          "top": "c.groups",
+          "take": 0
+        },
+        "largestPct": {
+          "top": "c.groups",
+          "take": 1,
+          "scale": 0.01,
+          "format": {
+            "type": "pct"
+          }
+        }
+      },
+      "bars": {
+        "title": "Religion in {name}",
+        "list": "c.groups",
+        "sort": "desc",
+        "scale": 0.01,
+        "unit": "share"
+      }
+    },
+    "text": {
+      "headline": "{largestPct}",
+      "sentence": "{largest} is the largest group in {name}, at {largestPct} of people.",
+      "caveats": [
+        "From the final CIA World Factbook edition (publication ended in February 2026), so figures are frozen and come from different years."
+      ]
+    }
+  },
+  {
+    "id": "world-work-hours",
+    "mode": "world",
+    "topic": "time",
+    "title": "Work hours rank (OECD)",
+    "question": "Do you work more hours than the average worker in rich countries?",
+    "kind": "compare_set",
+    "datasets": [
+      "world.oecd.hours"
+    ],
+    "inputs": [
+      {
+        "key": "weekly",
+        "type": "number",
+        "label": "Hours worked a week",
+        "default": 40,
+        "min": 1,
+        "max": 100,
+        "step": 1
+      },
+      {
+        "key": "weeks",
+        "type": "number",
+        "label": "Weeks worked a year",
+        "default": 46,
+        "min": 1,
+        "max": 52,
+        "step": 1
+      }
+    ],
+    "params": {
+      "dataset": "world.oecd.hours",
+      "items": {
+        "keysOf": [
+          "countries"
+        ]
+      },
+      "value": {
+        "path": [
+          "countries",
+          "{item}",
+          "hours"
+        ]
+      },
+      "labels": {
+        "dataset": "world.oecd.hours",
+        "path": [
+          "countries"
+        ],
+        "field": "name"
+      },
+      "sort": "desc",
+      "format": {
+        "type": "int"
+      },
+      "you": {
+        "label": "You",
+        "product": [
+          "weekly",
+          "weeks"
+        ]
+      },
+      "bars": {
+        "title": "Hours actually worked per worker, a year",
+        "unit": "number"
+      }
+    },
+    "text": {
+      "headline": "{you} hours a year",
+      "sentence": "That's more than the average worker in {fewer} of {total} OECD countries.",
+      "caveats": [
+        "Country averages include part-time workers and holidays, so they run lower than a full-time schedule."
+      ]
+    }
+  }
+]

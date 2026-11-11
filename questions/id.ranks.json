@@ -1,0 +1,69 @@
+[
+  {
+    "id": "id-spending-rank",
+    "mode": "id",
+    "topic": "money",
+    "title": "Spending rank by province",
+    "question": "How does your spending compare with others in your province?",
+    "kind": "category_rank",
+    "datasets": [
+      "id.bps.spending"
+    ],
+    "inputs": [
+      {
+        "key": "spending",
+        "type": "money",
+        "label": "Your spending per person, a month",
+        "currency": "IDR",
+        "default": 2000000,
+        "min": 0,
+        "step": 50000
+      },
+      {
+        "key": "province",
+        "type": "select",
+        "label": "Province",
+        "options": "@id_provinces_any",
+        "default": "Indonesia"
+      }
+    ],
+    "params": {
+      "dataset": "id.bps.spending",
+      "mode": "brackets",
+      "path": [
+        "provinces"
+      ],
+      "value": "spending",
+      "parts": [
+        {
+          "input": "province",
+          "all": "Indonesia",
+          "phrase": {
+            "Indonesia": "Indonesia",
+            "_": "{label}"
+          }
+        }
+      ],
+      "fallbackOrder": [
+        0
+      ],
+      "format": {
+        "type": "money",
+        "currency": "IDR"
+      },
+      "rangeText": {
+        "closed": "{from} to {to}",
+        "open": "{from} or more"
+      },
+      "fallbackCaveat": "There's no table for {label.province}, so this uses Indonesia as a whole.",
+      "missing": "There are no spending figures yet."
+    },
+    "text": {
+      "headline": "{rank}",
+      "sentence": "You spend more per person than about {pct} of people in {province}. Your bracket, {range} a month, holds {bracketShare} of them.",
+      "caveats": [
+        "Within a bracket, spending is assumed to be spread evenly."
+      ]
+    }
+  }
+]

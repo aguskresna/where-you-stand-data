@@ -1,0 +1,1339 @@
+[
+  {
+    "id": "us-pay-gap-job",
+    "mode": "us",
+    "topic": "money",
+    "title": "Pay gap in your job",
+    "question": "How do women and men in your job compare?",
+    "kind": "item_record",
+    "datasets": [
+      "us.acs.occ_pay_gap"
+    ],
+    "inputs": [
+      {
+        "key": "occupation",
+        "type": "select",
+        "label": "Occupation",
+        "optionsFrom": {
+          "dataset": "us.acs.occ_pay_gap",
+          "path": [
+            "occupations"
+          ]
+        },
+        "default": "1021"
+      }
+    ],
+    "params": {
+      "dataset": "us.acs.occ_pay_gap",
+      "items": {
+        "o": {
+          "path": [
+            "occupations",
+            "{occupation}"
+          ]
+        },
+        "all": {
+          "path": [
+            "all"
+          ]
+        }
+      },
+      "error": "There are no figures for that occupation yet.",
+      "values": {
+        "cents": {
+          "ratio": [
+            "o.F",
+            "o.M"
+          ],
+          "scale": 100,
+          "format": {
+            "type": "int"
+          }
+        },
+        "job": {
+          "field": "o.label",
+          "format": {
+            "type": "text",
+            "case": "lower"
+          }
+        },
+        "women": {
+          "field": "o.F",
+          "format": {
+            "type": "money",
+            "currency": "USD"
+          }
+        },
+        "men": {
+          "field": "o.M",
+          "format": {
+            "type": "money",
+            "currency": "USD"
+          }
+        },
+        "allCents": {
+          "ratio": [
+            "all.F",
+            "all.M"
+          ],
+          "scale": 100,
+          "format": {
+            "type": "int"
+          }
+        }
+      }
+    },
+    "text": {
+      "headline": "{cents}¢ per $1",
+      "sentence": "Women working full time as {job} earn a median {women}, against {men} for men.",
+      "stats": [
+        [
+          "Across all occupations",
+          "{allCents}¢ per $1"
+        ]
+      ],
+      "caveats": [
+        "Medians for full-time workers; the gap also reflects differences in hours, experience and specialty."
+      ]
+    }
+  },
+  {
+    "id": "us-job-outlook",
+    "mode": "us",
+    "topic": "money",
+    "title": "Job outlook",
+    "question": "Is your occupation projected to grow?",
+    "kind": "item_record",
+    "datasets": [
+      "us.bls.projections"
+    ],
+    "inputs": [
+      {
+        "key": "occupation",
+        "type": "select",
+        "label": "Occupation",
+        "optionsFrom": {
+          "dataset": "us.bls.projections",
+          "path": [
+            "occupations"
+          ],
+          "labelField": "title"
+        },
+        "default": null
+      }
+    ],
+    "params": {
+      "dataset": "us.bls.projections",
+      "items": {
+        "o": {
+          "path": [
+            "occupations",
+            "{occupation}"
+          ]
+        },
+        "d": {
+          "path": []
+        }
+      },
+      "error": "There are no projections for that occupation yet.",
+      "values": {
+        "change": {
+          "field": "o.change",
+          "format": {
+            "type": "change"
+          }
+        },
+        "job": {
+          "field": "o.title",
+          "format": {
+            "type": "text",
+            "case": "lower"
+          }
+        },
+        "verb": {
+          "field": "o.change",
+          "atLeast": 0,
+          "then": "grow",
+          "else": "shrink"
+        },
+        "size": {
+          "field": "o.change",
+          "abs": true,
+          "format": {
+            "type": "pct",
+            "digits": 1
+          }
+        },
+        "baseYear": {
+          "field": "d.baseYear"
+        },
+        "projYear": {
+          "field": "d.projYear"
+        },
+        "allChange": {
+          "field": "d.all.change",
+          "format": {
+            "type": "change"
+          }
+        },
+        "baseJobs": {
+          "field": "o.base",
+          "format": {
+            "type": "compact"
+          }
+        },
+        "projJobs": {
+          "field": "o.proj",
+          "format": {
+            "type": "compact"
+          }
+        }
+      }
+    },
+    "text": {
+      "headline": "{change}",
+      "sentence": "Jobs as {job} are projected to {verb} {size} from {baseYear} to {projYear}, against {allChange} for all jobs.",
+      "stats": [
+        [
+          "Jobs in {baseYear}",
+          "{baseJobs}"
+        ],
+        [
+          "Jobs in {projYear}",
+          "{projJobs}"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "us-ai-exposure",
+    "mode": "us",
+    "topic": "money",
+    "title": "AI exposure of your job",
+    "question": "Which of your job’s tasks do people already do with AI?",
+    "kind": "item_record",
+    "datasets": [
+      "us.aei.tasks"
+    ],
+    "inputs": [
+      {
+        "key": "occupation",
+        "type": "select",
+        "label": "Occupation",
+        "optionsFrom": {
+          "dataset": "us.aei.tasks",
+          "path": [
+            "occupations"
+          ],
+          "labelField": "title"
+        },
+        "default": null
+      }
+    ],
+    "params": {
+      "dataset": "us.aei.tasks",
+      "items": {
+        "o": {
+          "path": [
+            "occupations",
+            "{occupation}"
+          ]
+        }
+      },
+      "error": "There are no figures for that occupation yet.",
+      "values": {
+        "share": {
+          "field": "o.taskShare",
+          "format": {
+            "type": "pct"
+          }
+        },
+        "job": {
+          "field": "o.title",
+          "format": {
+            "type": "text",
+            "case": "lower"
+          }
+        }
+      },
+      "grid": {
+        "share": "share"
+      },
+      "bars": {
+        "title": "Most common tasks",
+        "list": "o.tasks",
+        "limit": 5,
+        "unit": "share"
+      }
+    },
+    "text": {
+      "headline": "{share}",
+      "sentence": "{share} of the tasks listed for {job} show up in the Anthropic Economic Index, which tracks how people use Claude.",
+      "caveats": [
+        "Shows where AI is used today, not whether a job will be replaced."
+      ]
+    }
+  },
+  {
+    "id": "us-degree-earns",
+    "mode": "us",
+    "topic": "education",
+    "title": "What your degree earns",
+    "question": "What do people with your degree earn?",
+    "kind": "item_record",
+    "datasets": [
+      "us.acs.degree_earnings"
+    ],
+    "inputs": [
+      {
+        "key": "field",
+        "type": "select",
+        "label": "Field of your degree",
+        "optionsFrom": {
+          "dataset": "us.acs.degree_earnings",
+          "path": [
+            "fields"
+          ]
+        },
+        "default": null
+      }
+    ],
+    "params": {
+      "dataset": "us.acs.degree_earnings",
+      "items": {
+        "f": {
+          "path": [
+            "fields",
+            "{field}"
+          ]
+        },
+        "all": {
+          "path": [
+            "overall"
+          ]
+        }
+      },
+      "error": "There are no figures for that field yet.",
+      "values": {
+        "median": {
+          "field": "f.median",
+          "format": {
+            "type": "money",
+            "currency": "USD"
+          }
+        },
+        "label": {
+          "field": "f.label"
+        },
+        "overall": {
+          "field": "all.median",
+          "format": {
+            "type": "money",
+            "currency": "USD"
+          }
+        },
+        "p25": {
+          "field": "f.p25",
+          "format": {
+            "type": "money",
+            "currency": "USD"
+          }
+        },
+        "p75": {
+          "field": "f.p75",
+          "format": {
+            "type": "money",
+            "currency": "USD"
+          }
+        }
+      }
+    },
+    "text": {
+      "headline": "{median}",
+      "sentence": "Full-time workers aged 25 to 64 with a degree in {label} earn a median {median} a year, against {overall} across all fields.",
+      "stats": [
+        [
+          "Middle half earns",
+          "{p25} to {p75}"
+        ]
+      ],
+      "caveats": [
+        "Uses the first field listed on the degree, including people with further degrees."
+      ]
+    }
+  },
+  {
+    "id": "us-language-community",
+    "mode": "us",
+    "topic": "identity",
+    "title": "Language community",
+    "question": "How many people speak your language at home?",
+    "kind": "item_record",
+    "datasets": [
+      "us.acs.languages"
+    ],
+    "inputs": [
+      {
+        "key": "language",
+        "type": "select",
+        "label": "Language",
+        "optionsFrom": {
+          "dataset": "us.acs.languages",
+          "path": [
+            "languages"
+          ]
+        },
+        "default": "1200"
+      }
+    ],
+    "params": {
+      "dataset": "us.acs.languages",
+      "items": {
+        "l": {
+          "path": [
+            "languages",
+            "{language}"
+          ]
+        }
+      },
+      "error": "There are no figures for that language yet.",
+      "values": {
+        "speakers": {
+          "field": "l.speakers",
+          "format": {
+            "type": "compact"
+          }
+        },
+        "language": {
+          "field": "l.label"
+        }
+      },
+      "bars": {
+        "title": "Where they live",
+        "list": "l.states",
+        "labels": "@us_states_any",
+        "unit": "number"
+      }
+    },
+    "text": {
+      "headline": "{speakers}",
+      "sentence": "About {speakers} people aged 5 and over speak {language} at home in the US."
+    }
+  },
+  {
+    "id": "us-diaspora",
+    "mode": "us",
+    "topic": "identity",
+    "title": "Your diaspora",
+    "question": "How many people from your birth country live in the US?",
+    "kind": "item_record",
+    "datasets": [
+      "us.acs.diaspora"
+    ],
+    "inputs": [
+      {
+        "key": "country",
+        "type": "select",
+        "label": "Country of birth",
+        "optionsFrom": {
+          "dataset": "us.acs.diaspora",
+          "path": [
+            "countries"
+          ]
+        },
+        "default": "303"
+      }
+    ],
+    "params": {
+      "dataset": "us.acs.diaspora",
+      "items": {
+        "c": {
+          "path": [
+            "countries",
+            "{country}"
+          ]
+        }
+      },
+      "error": "There are no figures for that country yet.",
+      "values": {
+        "people": {
+          "field": "c.people",
+          "format": {
+            "type": "compact"
+          }
+        },
+        "country": {
+          "field": "c.label"
+        },
+        "income": {
+          "field": "c.medianIncome",
+          "format": {
+            "type": "money",
+            "currency": "USD"
+          }
+        }
+      },
+      "bars": {
+        "title": "Where they live",
+        "list": "c.states",
+        "labels": "@us_states_any",
+        "unit": "number"
+      }
+    },
+    "text": {
+      "headline": "{people}",
+      "sentence": "About {people} people born in {country} live in the US. Their median income is {income}."
+    }
+  },
+  {
+    "id": "us-risk-odds",
+    "mode": "us",
+    "topic": "body",
+    "title": "Everyday risk odds",
+    "question": "Which of two risks is more likely over a lifetime?",
+    "kind": "item_record",
+    "datasets": [
+      "us.cdc.causes"
+    ],
+    "inputs": [
+      {
+        "key": "a",
+        "type": "select",
+        "label": "First risk",
+        "optionsFrom": {
+          "dataset": "us.cdc.causes",
+          "path": [
+            "causes"
+          ]
+        },
+        "default": "car"
+      },
+      {
+        "key": "b",
+        "type": "select",
+        "label": "Second risk",
+        "optionsFrom": {
+          "dataset": "us.cdc.causes",
+          "path": [
+            "causes"
+          ]
+        },
+        "default": "plane"
+      }
+    ],
+    "params": {
+      "dataset": "us.cdc.causes",
+      "items": {
+        "a": {
+          "path": [
+            "causes",
+            "{a}"
+          ]
+        },
+        "b": {
+          "path": [
+            "causes",
+            "{b}"
+          ]
+        }
+      },
+      "error": "Pick two risks from the list.",
+      "values": {
+        "aOdds": {
+          "field": "a.oneIn",
+          "format": {
+            "type": "int"
+          }
+        },
+        "bOdds": {
+          "field": "b.oneIn",
+          "format": {
+            "type": "int"
+          }
+        },
+        "aLabel": {
+          "field": "a.label",
+          "format": {
+            "type": "text",
+            "case": "lower"
+          }
+        },
+        "bLabel": {
+          "field": "b.label",
+          "format": {
+            "type": "text",
+            "case": "lower"
+          }
+        },
+        "comparison": {
+          "ratio": [
+            "b.oneIn",
+            "a.oneIn"
+          ],
+          "format": {
+            "type": "num",
+            "digits": 1
+          },
+          "atLeast": 1,
+          "then": "The first is {value} times as likely",
+          "else": "The second is {inverse} times as likely"
+        }
+      }
+    },
+    "text": {
+      "headline": "1 in {aOdds}",
+      "sentence": "The lifetime odds of dying from {aLabel} are 1 in {aOdds}, and from {bLabel} 1 in {bOdds}.",
+      "stats": [
+        [
+          "Comparison",
+          "{comparison}"
+        ]
+      ],
+      "caveats": [
+        "Lifetime odds for someone born today, from recent death rates."
+      ]
+    }
+  },
+  {
+    "id": "us-couple-match",
+    "mode": "us",
+    "topic": "dating",
+    "title": "Couple match",
+    "question": "How common is a pairing like yours?",
+    "kind": "item_record",
+    "datasets": [
+      "us.acs.couples"
+    ],
+    "inputs": [
+      {
+        "key": "sex",
+        "type": "choice",
+        "label": "You are",
+        "options": "@sex",
+        "default": "F"
+      },
+      {
+        "key": "edu",
+        "type": "select",
+        "label": "Your education",
+        "options": [
+          [
+            "0",
+            "Less than high school"
+          ],
+          [
+            "1",
+            "High school or GED"
+          ],
+          [
+            "2",
+            "Some college or associate degree"
+          ],
+          [
+            "3",
+            "Bachelor's degree"
+          ],
+          [
+            "4",
+            "Graduate or professional degree"
+          ]
+        ],
+        "default": "3"
+      },
+      {
+        "key": "partnerEdu",
+        "type": "select",
+        "label": "Your partner's education",
+        "options": [
+          [
+            "0",
+            "Less than high school"
+          ],
+          [
+            "1",
+            "High school or GED"
+          ],
+          [
+            "2",
+            "Some college or associate degree"
+          ],
+          [
+            "3",
+            "Bachelor's degree"
+          ],
+          [
+            "4",
+            "Graduate or professional degree"
+          ]
+        ],
+        "default": "3"
+      },
+      {
+        "key": "race",
+        "type": "select",
+        "label": "Your race or ethnicity",
+        "options": [
+          [
+            "white",
+            "White"
+          ],
+          [
+            "black",
+            "Black"
+          ],
+          [
+            "asian",
+            "Asian"
+          ],
+          [
+            "hispanic",
+            "Hispanic"
+          ],
+          [
+            "other",
+            "Other or more than one race"
+          ]
+        ],
+        "default": "white"
+      },
+      {
+        "key": "partnerRace",
+        "type": "select",
+        "label": "Your partner's race or ethnicity",
+        "options": [
+          [
+            "white",
+            "White"
+          ],
+          [
+            "black",
+            "Black"
+          ],
+          [
+            "asian",
+            "Asian"
+          ],
+          [
+            "hispanic",
+            "Hispanic"
+          ],
+          [
+            "other",
+            "Other or more than one race"
+          ]
+        ],
+        "default": "white"
+      }
+    ],
+    "params": {
+      "dataset": "us.acs.couples",
+      "items": {
+        "edu": {
+          "path": [
+            "eduPairs",
+            {
+              "input": "sex",
+              "map": {
+                "M": "{edu}|{partnerEdu}"
+              },
+              "default": "{partnerEdu}|{edu}"
+            }
+          ],
+          "optional": true
+        },
+        "race": {
+          "path": [
+            "racePairs",
+            {
+              "input": "sex",
+              "map": {
+                "M": "{race}|{partnerRace}"
+              },
+              "default": "{partnerRace}|{race}"
+            }
+          ],
+          "optional": true
+        },
+        "earns": {
+          "path": [
+            "manEarnsMore",
+            {
+              "input": "sex",
+              "map": {
+                "M": "{edu}|{partnerEdu}"
+              },
+              "default": "{partnerEdu}|{edu}"
+            }
+          ],
+          "optional": true
+        }
+      },
+      "values": {
+        "share": {
+          "field": "edu",
+          "orElse": 0,
+          "format": {
+            "type": "pct"
+          }
+        },
+        "raceShare": {
+          "field": "race",
+          "orElse": 0,
+          "format": {
+            "type": "pct"
+          }
+        },
+        "earns": {
+          "field": "earns",
+          "format": {
+            "type": "pct"
+          }
+        },
+        "manEdu": {
+          "text": {
+            "input": "sex",
+            "map": {
+              "M": "{edu}"
+            },
+            "default": "{partnerEdu}"
+          },
+          "map": {
+            "0": "less than high school",
+            "1": "a high school diploma or GED",
+            "2": "some college or an associate degree",
+            "3": "a bachelor's degree",
+            "4": "a graduate or professional degree"
+          }
+        },
+        "womanEdu": {
+          "text": {
+            "input": "sex",
+            "map": {
+              "M": "{partnerEdu}"
+            },
+            "default": "{edu}"
+          },
+          "map": {
+            "0": "less than high school",
+            "1": "a high school diploma or GED",
+            "2": "some college or an associate degree",
+            "3": "a bachelor's degree",
+            "4": "a graduate or professional degree"
+          }
+        }
+      },
+      "grid": {
+        "share": "share"
+      }
+    },
+    "text": {
+      "headline": "{share}",
+      "sentence": "{share} of couples pair a man with {manEdu} and a woman with {womanEdu}, like you two.",
+      "stats": [
+        [
+          "Couples with your race pairing",
+          "{raceShare}"
+        ],
+        [
+          "He earns more, in couples like yours",
+          "{earns}"
+        ]
+      ],
+      "caveats": [
+        "Pairings count opposite-sex couples who live together."
+      ]
+    }
+  },
+  {
+    "id": "us-family-then-now",
+    "mode": "us",
+    "topic": "family",
+    "title": "Family size then vs now",
+    "question": "How big were families when you were born?",
+    "kind": "item_record",
+    "datasets": [
+      "us.nchs.births_history"
+    ],
+    "inputs": [
+      {
+        "key": "birthYear",
+        "type": "number",
+        "label": "Birth year",
+        "default": 1990,
+        "min": 1920,
+        "max": 2026,
+        "step": 1
+      }
+    ],
+    "params": {
+      "dataset": "us.nchs.births_history",
+      "items": {
+        "then": {
+          "path": [
+            "years",
+            "{birthYear}"
+          ]
+        },
+        "now": {
+          "path": [
+            "years"
+          ],
+          "pick": "maxKey"
+        }
+      },
+      "error": "There are no figures for that year yet.",
+      "values": {
+        "year": {
+          "text": "{birthYear}"
+        },
+        "latest": {
+          "key": "now"
+        },
+        "thenTfr": {
+          "field": "then.tfr",
+          "format": {
+            "type": "num",
+            "digits": 2
+          }
+        },
+        "nowTfr": {
+          "field": "now.tfr",
+          "format": {
+            "type": "num",
+            "digits": 2
+          }
+        },
+        "thenBirths": {
+          "field": "then.births",
+          "format": {
+            "type": "compact"
+          }
+        },
+        "nowBirths": {
+          "field": "now.births",
+          "format": {
+            "type": "compact"
+          }
+        }
+      }
+    },
+    "text": {
+      "headline": "{thenTfr} children",
+      "sentence": "In {year}, US women were on track to have {thenTfr} children each. In {latest} the figure was {nowTfr}.",
+      "stats": [
+        [
+          "Births in {year}",
+          "{thenBirths}"
+        ],
+        [
+          "Births in {latest}",
+          "{nowBirths}"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "us-salary-furthest",
+    "mode": "us",
+    "topic": "home",
+    "title": "Where your salary goes furthest",
+    "question": "What is your salary worth in other states?",
+    "kind": "compare_set",
+    "datasets": [
+      "us.bea.rpp"
+    ],
+    "inputs": [
+      {
+        "key": "salary",
+        "type": "money",
+        "label": "Your yearly salary",
+        "currency": "USD",
+        "default": 70000,
+        "min": 0,
+        "step": 1000
+      },
+      {
+        "key": "home",
+        "type": "select",
+        "label": "Where you live now",
+        "options": "@us_states_any",
+        "default": "*"
+      }
+    ],
+    "params": {
+      "dataset": "us.bea.rpp",
+      "items": {
+        "keysOf": [
+          "states"
+        ]
+      },
+      "value": {
+        "path": [
+          "states",
+          "{item}"
+        ],
+        "scale": {
+          "by": "salary",
+          "base": {
+            "input": "home",
+            "fixed": {
+              "*": 100
+            },
+            "path": [
+              "states",
+              "{home}"
+            ],
+            "error": "There is no price level for that state yet."
+          }
+        }
+      },
+      "labels": "@us_states_any",
+      "sort": "asc",
+      "mark": "home",
+      "format": {
+        "type": "money",
+        "currency": "USD"
+      },
+      "shown": {
+        "salaryText": {
+          "input": "salary",
+          "format": {
+            "type": "money",
+            "currency": "USD"
+          }
+        }
+      },
+      "phrases": {
+        "place": {
+          "input": "home",
+          "map": {
+            "*": "in the US"
+          },
+          "default": "in {label.home}"
+        }
+      },
+      "bars": {
+        "title": "Salary needed for the same standard of living",
+        "ends": 5,
+        "unit": "money",
+        "currency": "USD"
+      }
+    },
+    "text": {
+      "headline": "{first}",
+      "sentence": "Living as well as you do on {salaryText} {place} would take about {first} in {firstLabel} and {last} in {lastLabel}.",
+      "caveats": [
+        "Price levels cover goods, services and rents; taxes are not included."
+      ]
+    }
+  },
+  {
+    "id": "us-personal-inflation",
+    "mode": "us",
+    "topic": "home",
+    "title": "Your personal inflation",
+    "question": "How fast are prices rising for what you buy?",
+    "kind": "personal_inflation",
+    "datasets": [
+      "us.bls.cpi"
+    ],
+    "inputs": [
+      {
+        "key": "weights",
+        "type": "weights",
+        "label": "Share of your spending (%)",
+        "default": null,
+        "weightsFrom": {
+          "dataset": "us.bls.cpi",
+          "path": [
+            "groups"
+          ],
+          "labelField": "label",
+          "weightField": "weight"
+        }
+      }
+    ],
+    "params": {
+      "dataset": "us.bls.cpi",
+      "weights": "weights",
+      "place": "US",
+      "barsTitle": "Price change by category",
+      "noWeights": "Enter how much of your spending goes to at least one category."
+    },
+    "text": {
+      "headline": "{personal}",
+      "sentence": "Prices for what you buy rose about {personalPct} over the 12 months to {month}, against {overall} for the official {place} rate.",
+      "stats": [
+        [
+          "Difference from the official rate",
+          "{diff} points"
+        ]
+      ],
+      "caveats": [
+        "Your weights are scaled to add up to 100%."
+      ]
+    }
+  },
+  {
+    "id": "us-life-exp-state",
+    "mode": "us",
+    "topic": "body",
+    "title": "Life expectancy by state",
+    "question": "Where in the US do people live longest?",
+    "kind": "compare_set",
+    "datasets": [
+      "us.nchs.state_e0"
+    ],
+    "inputs": [
+      {
+        "key": "states",
+        "type": "multi",
+        "label": "States",
+        "options": "@us_states",
+        "default": [
+          "CA",
+          "TX",
+          "NY",
+          "MS"
+        ]
+      },
+      {
+        "key": "sex",
+        "type": "choice",
+        "label": "For",
+        "options": [
+          [
+            "B",
+            "Everyone"
+          ],
+          [
+            "F",
+            "Women"
+          ],
+          [
+            "M",
+            "Men"
+          ]
+        ],
+        "default": "B"
+      }
+    ],
+    "params": {
+      "dataset": "us.nchs.state_e0",
+      "items": {
+        "input": "states"
+      },
+      "value": {
+        "path": [
+          "states",
+          "{item}",
+          "{sex}"
+        ]
+      },
+      "labels": "@us_states_any",
+      "sort": "desc",
+      "format": {
+        "type": "years"
+      },
+      "empty": "Pick at least one state.",
+      "phrases": {
+        "summary": {
+          "many": "Of the states you picked, {firstLabel} has the longest life expectancy at birth and {lastLabel} the shortest, {spread} years apart.",
+          "one": "Life expectancy at birth in {firstLabel} is {first}."
+        }
+      },
+      "bars": {
+        "title": "Life expectancy at birth",
+        "unit": "years"
+      }
+    },
+    "text": {
+      "headline": "{first}",
+      "sentence": "{summary}"
+    }
+  },
+  {
+    "id": "us-name-popularity",
+    "mode": "us",
+    "topic": "identity",
+    "title": "Name popularity",
+    "question": "How popular was your name the year you were born?",
+    "kind": "name_popularity",
+    "datasets": [
+      "us.ssa.names",
+      "us.ssa.totals"
+    ],
+    "inputs": [
+      {
+        "key": "name",
+        "type": "text",
+        "label": "First name",
+        "default": "Olivia",
+        "maxLength": 40
+      },
+      {
+        "key": "sex",
+        "type": "choice",
+        "label": "Given to",
+        "options": [
+          [
+            "F",
+            "Girls"
+          ],
+          [
+            "M",
+            "Boys"
+          ]
+        ],
+        "default": "F"
+      },
+      {
+        "key": "birthYear",
+        "type": "number",
+        "label": "Birth year",
+        "default": 1995,
+        "min": 1880,
+        "max": 2026,
+        "step": 1
+      }
+    ],
+    "params": {
+      "dataset": "us.ssa.names",
+      "totals": "us.ssa.totals",
+      "name": "name",
+      "sex": "sex",
+      "year": "birthYear",
+      "kids": {
+        "input": "sex",
+        "map": {
+          "F": "girls",
+          "M": "boys"
+        },
+        "default": "babies"
+      },
+      "notFound": "No {kids} named {name} appear in the records. They only list names given to at least five babies in a year.",
+      "phrases": {
+        "headline": {
+          "listed": "#{rank} in {year}",
+          "unlisted": "Not listed in {year}"
+        },
+        "sentence": {
+          "listed": "{count} {kids} born in {year} were named {name}, about {oneIn} {kids} that year.",
+          "unlisted": "{name} wasn't given to five or more {kids} in {year}."
+        }
+      }
+    },
+    "text": {
+      "headline": "{headline}",
+      "sentence": "{sentence}",
+      "stats": [
+        [
+          "Peak year",
+          "{peakYear} ({peakCount} babies)"
+        ],
+        [
+          "Total since {since}",
+          "{total}"
+        ],
+        [
+          "In {lastYear}",
+          "{lastCount} babies"
+        ]
+      ]
+    }
+  },
+  {
+    "id": "us-zodiac-share",
+    "mode": "us",
+    "topic": "identity",
+    "title": "Zodiac share",
+    "question": "How many people share your star sign?",
+    "kind": "sign_share",
+    "datasets": [
+      "us.births.daily"
+    ],
+    "inputs": [
+      {
+        "key": "birthday",
+        "type": "monthday",
+        "label": "Your birthday",
+        "default": {
+          "month": 6,
+          "day": 15
+        }
+      }
+    ],
+    "params": {
+      "dataset": "us.births.daily",
+      "input": "birthday",
+      "people": "Americans",
+      "signs": [
+        [
+          "Capricorn",
+          "12-22",
+          "01-19"
+        ],
+        [
+          "Aquarius",
+          "01-20",
+          "02-18"
+        ],
+        [
+          "Pisces",
+          "02-19",
+          "03-20"
+        ],
+        [
+          "Aries",
+          "03-21",
+          "04-19"
+        ],
+        [
+          "Taurus",
+          "04-20",
+          "05-20"
+        ],
+        [
+          "Gemini",
+          "05-21",
+          "06-20"
+        ],
+        [
+          "Cancer",
+          "06-21",
+          "07-22"
+        ],
+        [
+          "Leo",
+          "07-23",
+          "08-22"
+        ],
+        [
+          "Virgo",
+          "08-23",
+          "09-22"
+        ],
+        [
+          "Libra",
+          "09-23",
+          "10-22"
+        ],
+        [
+          "Scorpio",
+          "10-23",
+          "11-21"
+        ],
+        [
+          "Sagittarius",
+          "11-22",
+          "12-21"
+        ]
+      ],
+      "barsTitle": "Every sign"
+    },
+    "text": {
+      "headline": "{share}",
+      "sentence": "{share} of {people} born from {first} to {last} are {sign}, against {even} if births were spread evenly."
+    }
+  }
+]

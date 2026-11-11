@@ -1,0 +1,157 @@
+[
+  {
+    "id": "id-pay-average",
+    "mode": "id",
+    "topic": "money",
+    "title": "Pay vs the average",
+    "question": "How does your pay compare with the average for people like you?",
+    "kind": "pay_vs_typical",
+    "datasets": [
+      "id.bps.wages"
+    ],
+    "inputs": [
+      {
+        "key": "salary",
+        "type": "money",
+        "label": "Monthly net pay",
+        "currency": "IDR",
+        "default": 4000000,
+        "min": 0,
+        "step": 100000
+      },
+      {
+        "key": "province",
+        "type": "select",
+        "label": "Province",
+        "options": "@id_provinces_any",
+        "default": "Indonesia"
+      },
+      {
+        "key": "job",
+        "type": "select",
+        "label": "Job type",
+        "optionsFrom": {
+          "dataset": "id.bps.wages",
+          "path": [
+            "jobs"
+          ],
+          "first": [
+            [
+              "all",
+              "All jobs"
+            ]
+          ]
+        },
+        "default": "all"
+      },
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age",
+        "default": 30,
+        "min": 15,
+        "max": 100,
+        "unit": "years"
+      }
+    ],
+    "params": {
+      "dataset": "id.bps.wages",
+      "amount": "salary",
+      "currency": "IDR",
+      "main": {
+        "table": [
+          "byProvinceJob"
+        ],
+        "keys": [
+          "{province}|{job}",
+          "{province}|all",
+          "Indonesia|{job}",
+          "Indonesia|all"
+        ],
+        "field": null,
+        "parts": [
+          "place",
+          "job"
+        ],
+        "partPhrases": {
+          "job": {
+            "all": "",
+            "_": "in {value} "
+          }
+        },
+        "label": "Employees {jobPhrase}in {place}"
+      },
+      "others": [
+        {
+          "table": [
+            "byAge"
+          ],
+          "band": {
+            "input": "age",
+            "part": 0
+          },
+          "key": "{band}",
+          "label": "Employees aged {bandLabel}"
+        }
+      ],
+      "barsTitle": "Your pay against the average for",
+      "fallbackCaveat": "There are no figures for that exact combination, so this uses a broader group.",
+      "error": "There are no pay figures yet."
+    },
+    "text": {
+      "headline": "{ratio} the average",
+      "sentence": "You earn {ratioNum} times the average net pay of employees {jobPhrase}in {place}, which is {typical} a month.",
+      "caveats": [
+        "BPS publishes averages, which high earners pull up, so most employees earn less than the average.",
+        "Covers employees only, not the self-employed."
+      ]
+    }
+  },
+  {
+    "id": "id-personal-inflation",
+    "mode": "id",
+    "topic": "home",
+    "title": "Your personal inflation",
+    "question": "How fast are prices rising for what you buy?",
+    "kind": "personal_inflation",
+    "datasets": [
+      "id.bps.cpi"
+    ],
+    "inputs": [
+      {
+        "key": "weights",
+        "type": "weights",
+        "label": "Share of your spending (%)",
+        "default": null,
+        "weightsFrom": {
+          "dataset": "id.bps.cpi",
+          "path": [
+            "groups"
+          ],
+          "labelField": "label",
+          "weightField": "weight"
+        }
+      }
+    ],
+    "params": {
+      "dataset": "id.bps.cpi",
+      "weights": "weights",
+      "place": "Indonesian",
+      "barsTitle": "Price change by category",
+      "noWeights": "Enter how much of your spending goes to at least one category."
+    },
+    "text": {
+      "headline": "{personal}",
+      "sentence": "Prices for what you buy rose about {personalPct} over the 12 months to {month}, against {overall} for the official {place} rate.",
+      "stats": [
+        [
+          "Difference from the official rate",
+          "{diff} points"
+        ]
+      ],
+      "caveats": [
+        "Your weights are scaled to add up to 100%."
+      ]
+    }
+  }
+]

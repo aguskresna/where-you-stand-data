@@ -1,0 +1,627 @@
+[
+  {
+    "id": "my-pay-median",
+    "mode": "my",
+    "topic": "money",
+    "title": "Pay vs the median",
+    "question": "How does your pay compare with the median for people like you?",
+    "kind": "pay_vs_typical",
+    "datasets": [
+      "my.wages"
+    ],
+    "inputs": [
+      {
+        "key": "salary",
+        "type": "money",
+        "label": "Monthly salary",
+        "currency": "MYR",
+        "default": 3500,
+        "min": 0,
+        "step": 100
+      },
+      {
+        "key": "sex",
+        "type": "choice",
+        "label": "Sex",
+        "options": "@sex_long",
+        "default": "female"
+      },
+      {
+        "key": "age",
+        "type": "number",
+        "label": "Age",
+        "default": 30,
+        "min": 15,
+        "max": 100,
+        "unit": "years"
+      },
+      {
+        "key": "state",
+        "type": "select",
+        "label": "State",
+        "options": "@my_states_any",
+        "default": "Malaysia"
+      },
+      {
+        "key": "edu",
+        "type": "select",
+        "label": "Highest education",
+        "options": [
+          [
+            "none",
+            "No formal education"
+          ],
+          [
+            "primary",
+            "Primary"
+          ],
+          [
+            "secondary",
+            "Secondary"
+          ],
+          [
+            "tertiary",
+            "Tertiary"
+          ]
+        ],
+        "default": "secondary"
+      }
+    ],
+    "params": {
+      "dataset": "my.wages",
+      "amount": "salary",
+      "currency": "MYR",
+      "phrases": {
+        "who": {
+          "input": "sex",
+          "map": {
+            "female": "women",
+            "male": "men"
+          },
+          "default": "people"
+        },
+        "eduName": {
+          "input": "edu",
+          "map": {
+            "none": "no formal education",
+            "primary": "primary education",
+            "secondary": "secondary education",
+            "tertiary": "tertiary education"
+          },
+          "default": "{label.edu}"
+        }
+      },
+      "main": {
+        "table": [
+          "byState"
+        ],
+        "keys": [
+          "{state}|{sex}",
+          "Malaysia|{sex}"
+        ],
+        "field": "median",
+        "parts": [
+          "place",
+          "sexKey"
+        ],
+        "fields": {
+          "mean": "mean"
+        },
+        "label": "{who} in {place}"
+      },
+      "others": [
+        {
+          "table": [
+            "byAge"
+          ],
+          "band": {
+            "input": "age",
+            "part": 0,
+            "exclude": [
+              "overall"
+            ]
+          },
+          "key": "{band}|{sex}",
+          "field": "median",
+          "label": "{who} aged {bandLabel}"
+        },
+        {
+          "table": [
+            "byEducation"
+          ],
+          "key": "{edu}|{sex}",
+          "field": "median",
+          "label": "{who} with {eduName}"
+        }
+      ],
+      "barsTitle": "Your pay against the median for",
+      "error": "There are no pay figures for that group yet."
+    },
+    "text": {
+      "headline": "{ratio} the median",
+      "sentence": "You earn {ratioNum} times the median monthly pay of {who} working in {place}, which is {typical}.",
+      "stats": [
+        [
+          "Mean pay for the same group",
+          "{mean}"
+        ]
+      ],
+      "caveats": [
+        "Wage tables give medians, not full distributions, so this is a ratio rather than a rank.",
+        "Covers Malaysian citizens who are employees; the self-employed are not included."
+      ]
+    }
+  },
+  {
+    "id": "my-pay-gap",
+    "mode": "my",
+    "topic": "money",
+    "title": "Pay gap by sex",
+    "question": "How does pay for women and men compare?",
+    "kind": "item_record",
+    "datasets": [
+      "my.wages"
+    ],
+    "inputs": [
+      {
+        "key": "by",
+        "type": "choice",
+        "label": "Compare within",
+        "options": [
+          [
+            "state",
+            "A state"
+          ],
+          [
+            "age",
+            "An age group"
+          ]
+        ],
+        "default": "state"
+      },
+      {
+        "key": "state",
+        "type": "select",
+        "label": "State",
+        "options": "@my_states_any",
+        "default": "Malaysia",
+        "showIf": {
+          "by": "state"
+        }
+      },
+      {
+        "key": "ageGroup",
+        "type": "select",
+        "label": "Age group",
+        "options": [
+          [
+            "15-19",
+            "15–19"
+          ],
+          [
+            "20-24",
+            "20–24"
+          ],
+          [
+            "25-29",
+            "25–29"
+          ],
+          [
+            "30-34",
+            "30–34"
+          ],
+          [
+            "35-39",
+            "35–39"
+          ],
+          [
+            "40-44",
+            "40–44"
+          ],
+          [
+            "45-49",
+            "45–49"
+          ],
+          [
+            "50-54",
+            "50–54"
+          ],
+          [
+            "55-59",
+            "55–59"
+          ],
+          [
+            "60-64",
+            "60–64"
+          ]
+        ],
+        "default": "25-29",
+        "showIf": {
+          "by": "age"
+        }
+      }
+    ],
+    "params": {
+      "dataset": "my.wages",
+      "items": {
+        "f": {
+          "path": [
+            {
+              "input": "by",
+              "map": {
+                "age": "byAge"
+              },
+              "default": "byState"
+            },
+            {
+              "input": "by",
+              "map": {
+                "age": "{ageGroup}|female"
+              },
+              "default": "{state}|female"
+            }
+          ]
+        },
+        "m": {
+          "path": [
+            {
+              "input": "by",
+              "map": {
+                "age": "byAge"
+              },
+              "default": "byState"
+            },
+            {
+              "input": "by",
+              "map": {
+                "age": "{ageGroup}|male"
+              },
+              "default": "{state}|male"
+            }
+          ]
+        }
+      },
+      "error": "There are no pay figures for that group yet.",
+      "values": {
+        "cents": {
+          "ratio": [
+            "f.median",
+            "m.median"
+          ],
+          "scale": 100,
+          "format": {
+            "type": "int"
+          }
+        },
+        "women": {
+          "field": "f.median",
+          "format": {
+            "type": "money",
+            "currency": "MYR"
+          }
+        },
+        "men": {
+          "field": "m.median",
+          "format": {
+            "type": "money",
+            "currency": "MYR"
+          }
+        },
+        "womenMean": {
+          "field": "f.mean",
+          "format": {
+            "type": "money",
+            "currency": "MYR"
+          }
+        },
+        "menMean": {
+          "field": "m.mean",
+          "format": {
+            "type": "money",
+            "currency": "MYR"
+          }
+        },
+        "where": {
+          "text": {
+            "input": "by",
+            "map": {
+              "age": "aged {label.ageGroup}"
+            },
+            "default": "in {state}"
+          }
+        }
+      },
+      "bars": {
+        "title": "Median monthly pay",
+        "items": [
+          [
+            "Women",
+            "women"
+          ],
+          [
+            "Men",
+            "men"
+          ]
+        ],
+        "unit": "money",
+        "currency": "MYR"
+      }
+    },
+    "text": {
+      "headline": "{cents} sen per RM1",
+      "sentence": "Women {where} earn a median {women} a month, against {men} for men.",
+      "stats": [
+        [
+          "Mean pay, women",
+          "{womenMean}"
+        ],
+        [
+          "Mean pay, men",
+          "{menMean}"
+        ]
+      ],
+      "caveats": [
+        "Medians for employees; the gap also reflects differences in jobs, hours and experience."
+      ]
+    }
+  },
+  {
+    "id": "my-education-earns",
+    "mode": "my",
+    "topic": "education",
+    "title": "What your education earns",
+    "question": "What do people with your education earn?",
+    "kind": "item_record",
+    "datasets": [
+      "my.wages"
+    ],
+    "inputs": [
+      {
+        "key": "edu",
+        "type": "select",
+        "label": "Highest education",
+        "options": [
+          [
+            "none",
+            "No formal education"
+          ],
+          [
+            "primary",
+            "Primary"
+          ],
+          [
+            "secondary",
+            "Secondary"
+          ],
+          [
+            "tertiary",
+            "Tertiary"
+          ]
+        ],
+        "default": "secondary"
+      },
+      {
+        "key": "sex",
+        "type": "choice",
+        "label": "Show",
+        "options": [
+          [
+            "both",
+            "Everyone"
+          ],
+          [
+            "female",
+            "Women"
+          ],
+          [
+            "male",
+            "Men"
+          ]
+        ],
+        "default": "both"
+      }
+    ],
+    "params": {
+      "dataset": "my.wages",
+      "items": {
+        "mine": {
+          "path": [
+            "byEducation",
+            "{edu}|{sex}"
+          ]
+        }
+      },
+      "error": "There are no pay figures for that group yet.",
+      "values": {
+        "median": {
+          "field": "mine.median",
+          "format": {
+            "type": "money",
+            "currency": "MYR"
+          }
+        },
+        "who": {
+          "text": {
+            "input": "sex",
+            "map": {
+              "female": "Women",
+              "male": "Men"
+            },
+            "default": "Employees"
+          }
+        },
+        "eduName": {
+          "text": "{edu}",
+          "map": {
+            "none": "no formal education",
+            "primary": "primary education",
+            "secondary": "secondary education",
+            "tertiary": "tertiary education"
+          }
+        }
+      },
+      "bars": {
+        "title": "Median monthly pay by education",
+        "unit": "money",
+        "currency": "MYR",
+        "labels": "edu",
+        "each": {
+          "codes": [
+            "educationLevels"
+          ],
+          "value": [
+            "byEducation",
+            "{code}|{sex}",
+            "median"
+          ],
+          "mark": "edu"
+        }
+      }
+    },
+    "text": {
+      "headline": "{median}",
+      "sentence": "{who} whose highest education is {eduName} earn a median {median} a month."
+    }
+  },
+  {
+    "id": "my-zodiac-share",
+    "mode": "my",
+    "topic": "identity",
+    "title": "Zodiac share",
+    "question": "How many Malaysians share your star sign?",
+    "kind": "sign_share",
+    "datasets": [
+      "my.births.daily"
+    ],
+    "inputs": [
+      {
+        "key": "birthday",
+        "type": "monthday",
+        "label": "Your birthday",
+        "default": {
+          "month": 6,
+          "day": 15
+        }
+      }
+    ],
+    "params": {
+      "dataset": "my.births.daily",
+      "input": "birthday",
+      "people": "Malaysians",
+      "signs": [
+        [
+          "Capricorn",
+          "12-22",
+          "01-19"
+        ],
+        [
+          "Aquarius",
+          "01-20",
+          "02-18"
+        ],
+        [
+          "Pisces",
+          "02-19",
+          "03-20"
+        ],
+        [
+          "Aries",
+          "03-21",
+          "04-19"
+        ],
+        [
+          "Taurus",
+          "04-20",
+          "05-20"
+        ],
+        [
+          "Gemini",
+          "05-21",
+          "06-20"
+        ],
+        [
+          "Cancer",
+          "06-21",
+          "07-22"
+        ],
+        [
+          "Leo",
+          "07-23",
+          "08-22"
+        ],
+        [
+          "Virgo",
+          "08-23",
+          "09-22"
+        ],
+        [
+          "Libra",
+          "09-23",
+          "10-22"
+        ],
+        [
+          "Scorpio",
+          "10-23",
+          "11-21"
+        ],
+        [
+          "Sagittarius",
+          "11-22",
+          "12-21"
+        ]
+      ],
+      "barsTitle": "Every sign"
+    },
+    "text": {
+      "headline": "{share}",
+      "sentence": "{share} of {people} born from {first} to {last} are {sign}, against {even} if births were spread evenly."
+    }
+  },
+  {
+    "id": "my-personal-inflation",
+    "mode": "my",
+    "topic": "home",
+    "title": "Your personal inflation",
+    "question": "How fast are prices rising for what you buy?",
+    "kind": "personal_inflation",
+    "datasets": [
+      "my.cpi"
+    ],
+    "inputs": [
+      {
+        "key": "weights",
+        "type": "weights",
+        "label": "Share of your spending (%)",
+        "default": null,
+        "weightsFrom": {
+          "dataset": "my.cpi",
+          "path": [
+            "groups"
+          ],
+          "labelField": "label",
+          "weightField": "weight"
+        }
+      }
+    ],
+    "params": {
+      "dataset": "my.cpi",
+      "weights": "weights",
+      "place": "Malaysian",
+      "barsTitle": "Price change by category",
+      "noWeights": "Enter how much of your spending goes to at least one category."
+    },
+    "text": {
+      "headline": "{personal}",
+      "sentence": "Prices for what you buy rose about {personalPct} over the 12 months to {month}, against {overall} for the official {place} rate.",
+      "stats": [
+        [
+          "Difference from the official rate",
+          "{diff} points"
+        ]
+      ],
+      "caveats": [
+        "Your weights are scaled to add up to 100%."
+      ]
+    }
+  }
+]

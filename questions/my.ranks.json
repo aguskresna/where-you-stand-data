@@ -1,0 +1,90 @@
+[
+  {
+    "id": "my-b40",
+    "mode": "my",
+    "topic": "money",
+    "title": "B40/M40/T20 check",
+    "question": "Is your household B40, M40 or T20?",
+    "kind": "rank_tiers",
+    "datasets": [
+      "my.hies.percentile"
+    ],
+    "inputs": [
+      {
+        "key": "income",
+        "type": "money",
+        "label": "Household income per month",
+        "currency": "MYR",
+        "default": 6000,
+        "min": 0,
+        "step": 100
+      }
+    ],
+    "params": {
+      "dataset": "my.hies.percentile",
+      "mode": "percentile",
+      "path": [
+        "groups",
+        "Malaysia"
+      ],
+      "positions": [
+        "p"
+      ],
+      "value": "income",
+      "format": {
+        "type": "money",
+        "currency": "MYR"
+      },
+      "missing": "There are no income figures for Malaysia yet.",
+      "tiers": [
+        {
+          "name": "B40",
+          "below": 40,
+          "range": "below {cut1}"
+        },
+        {
+          "name": "M40",
+          "below": 80,
+          "range": "from {cut1} to {cut2}"
+        },
+        {
+          "name": "T20",
+          "range": "from {cut2} up"
+        }
+      ],
+      "subTiers": [
+        "B1",
+        "B2",
+        "B3",
+        "B4",
+        "M1",
+        "M2",
+        "M3",
+        "M4",
+        "T1",
+        "T2"
+      ],
+      "nextStat": [
+        "To reach the {next}",
+        "{toNext} more a month"
+      ]
+    },
+    "text": {
+      "headline": "{tier}, {sub}",
+      "sentence": "Your household is in the {tier}, earning more than {pct} of Malaysian households. The {tier} covers household incomes {range} a month.",
+      "stats": [
+        [
+          "B40 ends at",
+          "{cut1}"
+        ],
+        [
+          "T20 starts at",
+          "{cut2}"
+        ]
+      ],
+      "caveats": [
+        "Cut at the 40th and 80th percentiles of household income in Malaysia; the official cut-offs are published with each survey."
+      ]
+    }
+  }
+]
