@@ -169,6 +169,14 @@
       ],
       "year": 2024
     },
+    "us.acs.singles": {
+      "built": "2026-11-11T13:07:11+00:00",
+      "file": "us/acs_singles.json",
+      "sources": [
+        "census_acs_pums"
+      ],
+      "year": 2024
+    },
     "us.acs.with_parents": {
       "built": "2026-11-10T15:43:12+00:00",
       "file": "us/acs_with_parents.json",

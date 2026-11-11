@@ -2,6 +2,11 @@
   "version": 1,
   "note": "The contract between the pipeline and the app. Each built file is a JSON envelope {id, kind, sources, year, built, demo, note?, citation?, data}; 'schema' describes 'data'. Group keys join parts with '|' and use '*' for 'all'. Quantile arrays hold 101 thresholds for percentiles 0..100 unless the dataset gives 'p'.",
   "datasets": {
+    "us.acs.singles": {
+      "sources": ["census_acs_pums"], "kind": "counts", "file": "us/acs_singles.json",
+      "description": "Weighted counts of adults by sex, single year of age and state, and how many of them are single (never married, divorced, separated or widowed). Group figures only.",
+      "schema": "{ages:[first, last], groups:{'F|*'|'M|TX':{single:[count per age, or null where the cell has fewer than MIN_RECORDS records], all:[...]}}}"
+    },
     "us.acs.income_q": {
       "sources": ["census_acs_pums"], "kind": "quantiles", "file": "us/acs_income_quantiles.json",
       "description": "Personal income percentiles for adults 18+ with income above zero.",

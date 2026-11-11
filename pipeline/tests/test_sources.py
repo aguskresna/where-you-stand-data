@@ -59,6 +59,12 @@ def test_acs_builds_every_dataset_in_the_shapes_the_app_reads(make_ctx, read):
     # Only group figures are published, never individual survey rows.
     assert not any("sample" in d for d in built)
 
+    singles = read(make_ctx.data, "us.acs.singles")["data"]
+    lo, hi = singles["ages"]
+    us_women = singles["groups"]["F|*"]
+    assert len(us_women["all"]) == hi - lo + 1
+    assert all(s is None or s <= a for s, a in zip(us_women["single"], us_women["all"]))
+
     inc = read(make_ctx.data, "us.acs.income_q")["data"]["groups"]
     assert "*|*|*" in inc and len(inc["*|*|*"]) == 101 and ascending(inc["*|*|*"])
     assert any(k.endswith("|CA") for k in inc)

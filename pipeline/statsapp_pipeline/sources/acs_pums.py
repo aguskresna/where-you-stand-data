@@ -217,6 +217,8 @@ def build_all(ctx, p: pd.DataFrame, h: pd.DataFrame, labels: dict, year: int) ->
         "byBandState": by_groups(adults, {"sex": ["M", "F"], "band": AGE_BANDS, "state": states}, married, n),
     }, year=year)
 
+    ctx.write("us.acs.singles", singles(adults, states, n), year=year)
+
     young = adults[adults["age"] <= 40]
     ctx.write("us.acs.with_parents", {
         "groups": by_groups(young, {"sex": ["M", "F"], "age": list(range(18, 41))}, share(lambda r: r["RELSHIPP"].isin(CHILDREN)), n),
@@ -341,3 +343,32 @@ def couples(p: pd.DataFrame, h: pd.DataFrame) -> dict:
         "racePairs": pairs(race_m, race_w, RACES),
         "manEarnsMore": earns,
     }
+
+
+SINGLE_AGES = (18, 80)
+
+
+def singles(adults: pd.DataFrame, states: list[str], n: int) -> dict:
+    """Weighted counts of adults and of singles by sex, single year of age and state ('*' = the US).
+
+    A cell (sex, age, state) with fewer than n survey records is published as null, never estimated.
+    """
+    lo, hi = SINGLE_AGES
+    a = adults[(adults["age"] >= lo) & (adults["age"] <= hi)]
+    groups = {}
+    for sex in ("F", "M"):
+        by_sex = a[a["sex"] == sex]
+        for st in ["*", *states]:
+            rows = by_sex if st == "*" else by_sex[by_sex["state"] == st]
+            single, everyone = [], []
+            for age in range(lo, hi + 1):
+                cell = rows[rows["age"] == age]
+                if len(cell) < n:
+                    single.append(None)
+                    everyone.append(None)
+                else:
+                    single.append(round(float(cell.loc[cell["marital"] != "married", "w"].sum())))
+                    everyone.append(round(float(cell["w"].sum())))
+            if any(v is not None for v in everyone):
+                groups[f"{sex}|{st}"] = {"single": single, "all": everyone}
+    return {"ages": [lo, hi], "groups": groups}
