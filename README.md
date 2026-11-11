@@ -35,10 +35,11 @@ repository secrets.
 ## Setup
 
 1. Create a **public** GitHub repository from this folder (this folder is the repository root).
-2. In Cloudflare: Workers & Pages → Create → Pages → Direct upload. Name the project, for example
-   `where-you-stand-data`. Create an API token with the "Cloudflare Pages: Edit" permission.
-3. In the GitHub repository settings, add secrets `CLOUDFLARE_API_TOKEN` and
-   `CLOUDFLARE_ACCOUNT_ID`, and a variable `PAGES_PROJECT` with the project name.
+2. In Cloudflare: My Profile → API Tokens → Create Token → Start from scratch → Account policy,
+   permission "Cloudflare Pages: Edit". You don't need to create the Pages project; the job does.
+3. In the GitHub repository settings (Secrets and variables → Actions), add the secret
+   `CLOUDFLARE_API_TOKEN`, and the variables `CLOUDFLARE_ACCOUNT_ID` and `PAGES_PROJECT` (the project
+   name, `aguskresna-data` for this app; it becomes `https://aguskresna-data.pages.dev/`).
 4. Build the sources that read hand-saved files on your own computer (see below), commit `data/`.
 5. Actions → Update data → Run workflow. When it finishes, `https://<project>.pages.dev/index.json`
    lists every published dataset.

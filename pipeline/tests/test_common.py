@@ -52,7 +52,7 @@ def test_write_records_envelope_and_manifest(make_ctx, read):
     manifest = json.loads((make_ctx.data / "manifest.json").read_text())
     assert manifest["datasets"]["id.bps.cpi"]["year"] == 2026
     with pytest.raises(PipelineError):
-        ctx.write("us.acs.sample", {}, year=2024)  # not from this source
+        ctx.write("us.acs.income_q", {}, year=2024)  # not from this source
 
 
 def test_sharded_datasets_list_their_shards(make_ctx, read):

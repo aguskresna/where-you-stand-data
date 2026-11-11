@@ -194,30 +194,6 @@ def build_all(ctx, p: pd.DataFrame, h: pd.DataFrame, labels: dict, year: int) ->
     adults = p[p["age"] >= 18]
     states = USPS
 
-    # Weighted random sample of adults for the stacked-filter questions.
-    size = min(int(ctx.options.get("sample_size", 80000)), len(adults))
-    rng = np.random.default_rng(int(ctx.options.get("seed", year)))
-    s = adults.iloc[np.sort(rng.choice(len(adults), size, replace=False))]
-    w = s["w"] * (adults["w"].sum() / s["w"].sum())
-    ctx.write("us.acs.sample", {
-        "columns": ["sex", "age", "race", "marital", "edu", "income", "kids", "bilingual", "state", "w"],
-        "weight": "w",
-        "population": round(float(adults["w"].sum())),
-        "codes": {"sex": ["M", "F"], "race": RACES, "marital": MARITAL, "state": states},
-        "rows": {
-            "sex": (s["sex"] == "F").astype(int).tolist(),
-            "age": s["age"].tolist(),
-            "race": s["race"].map(RACES.index).tolist(),
-            "marital": s["marital"].map(MARITAL.index).tolist(),
-            "edu": s["edu"].astype(int).tolist(),
-            "income": (np.round(s["income"].fillna(0).clip(lower=0) / 100) * 100).astype(int).tolist(),
-            "kids": s["kids"].tolist(),
-            "bilingual": s["bilingual"].tolist(),
-            "state": s["state"].map(states.index).tolist(),
-            "w": np.round(w, 1).tolist(),
-        },
-    }, year=year, note=f"Simple random sample of {size:,} adults, reweighted to the adult population.")
-
     earners = adults[adults["income"] > 0]
     ctx.write("us.acs.income_q", {
         "unit": "USD/year",

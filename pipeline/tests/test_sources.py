@@ -49,17 +49,15 @@ def test_acs_builds_every_dataset_in_the_shapes_the_app_reads(make_ctx, read):
     p_raw, h_raw = fake_pums()
     p = acs_pums.recode_people(p_raw, h_raw)
     h = acs_pums.recode_households(h_raw, p)
-    ctx = make_ctx("census_acs_pums", options={"sample_size": 500})
+    ctx = make_ctx("census_acs_pums")
     labels = {"FOD1P": {"2102": "Computer Science"}, "OCCP": {"10": "MGR-Chief Executives And Legislators"}, "LANP": {"1200": "Spanish"}, "POBP": {"303": "Mexico"}}
     acs_pums.build_all(ctx, p, h, labels, 2024)
     built = json.loads((make_ctx.data / "manifest.json").read_text())["datasets"]
     expected = [d for d, s in json.loads((ROOT / "data/contract.json").read_text())["datasets"].items() if "census_acs_pums" in s["sources"]]
     assert sorted(built) == sorted(expected)
 
-    sample = read(make_ctx.data, "us.acs.sample")["data"]
-    assert len(sample["rows"]["w"]) == 500 and all(len(v) == 500 for v in sample["rows"].values())
-    assert sample["codes"]["state"][sample["rows"]["state"][0]] in {"CA", "TX", "NY", "FL"}
-    assert sum(sample["rows"]["w"]) == pytest.approx(sample["population"], rel=1e-3)
+    # Only group figures are published, never individual survey rows.
+    assert not any("sample" in d for d in built)
 
     inc = read(make_ctx.data, "us.acs.income_q")["data"]["groups"]
     assert "*|*|*" in inc and len(inc["*|*|*"]) == 101 and ascending(inc["*|*|*"])

@@ -56,4 +56,6 @@ planned question is in `reference/web-prototype/web/js/features/` next to this r
 - Don't remove the heartbeat step in the workflow, or the schedule switches off after 60 days.
 - Don't add "Time left with your parents" or similar questions; the owner left it out on purpose.
 - Don't publish `pipeline/raw/` or anything with personal data; microdata (ACS PUMS, NHANES) is
-  only ever published as aggregates over groups of at least `MIN_RECORDS` records.
+  only ever published as aggregates over groups of at least `MIN_RECORDS` records. No row-level
+  samples either, even anonymous ones (the owner decided this on 2026-11-11); questions that stack
+  several filters use precomputed group figures.

@@ -22,7 +22,7 @@ CHECKER = ROOT.parent / "reference" / "web-prototype" / "scripts" / "check-data.
 def test_the_app_runs_on_pipeline_output(make_ctx, read, monkeypatch):
     p_raw, h_raw = fake_pums(1500)
     p = acs_pums.recode_people(p_raw, h_raw)
-    acs_pums.build_all(make_ctx("census_acs_pums", options={"sample_size": 2000}), p, acs_pums.recode_households(h_raw, p), {}, 2024)
+    acs_pums.build_all(make_ctx("census_acs_pums"), p, acs_pums.recode_households(h_raw, p), {}, 2024)
 
     rng = np.random.default_rng(3)
     n = 900

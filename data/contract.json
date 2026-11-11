@@ -2,11 +2,6 @@
   "version": 1,
   "note": "The contract between the pipeline and the app. Each built file is a JSON envelope {id, kind, sources, year, built, demo, note?, citation?, data}; 'schema' describes 'data'. Group keys join parts with '|' and use '*' for 'all'. Quantile arrays hold 101 thresholds for percentiles 0..100 unless the dataset gives 'p'.",
   "datasets": {
-    "us.acs.sample": {
-      "sources": ["census_acs_pums"], "kind": "microdata", "file": "us/acs_sample.json",
-      "description": "Weighted random sample of US adults 18+, for questions that stack several filters.",
-      "schema": "{columns:[...], weight:'w', codes:{sex:['M','F'], race:['white','black','asian','hispanic','other'], marital:['never','married','previously'], state:[USPS codes]}, rows:{sex:[code index], age:[years], race:[...], marital:[...], edu:[0-4], income:[USD], kids:[0|1], bilingual:[0|1], state:[...], w:[weight]}, population: sum of weights}"
-    },
     "us.acs.income_q": {
       "sources": ["census_acs_pums"], "kind": "quantiles", "file": "us/acs_income_quantiles.json",
       "description": "Personal income percentiles for adults 18+ with income above zero.",

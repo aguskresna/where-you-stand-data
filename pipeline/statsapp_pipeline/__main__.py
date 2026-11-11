@@ -49,7 +49,7 @@ def gate(sid: str, sources: dict) -> None:
 def cmd_build(args) -> int:
     sources = load_sources()
     targets = ORDER if args.sources == ["all"] else args.sources
-    options = {"year": args.year, "sample_size": args.sample_size}
+    options = {"year": args.year}
     failed = []
     for sid in targets:
         print(f"{sid}")
@@ -164,7 +164,6 @@ def main(argv=None) -> int:
     b = sub.add_parser("build", help="build one or more sources now, or 'all'")
     b.add_argument("sources", nargs="+")
     b.add_argument("--year", type=int, help="ACS PUMS year (default: the newest published)")
-    b.add_argument("--sample-size", type=int, help="rows in the ACS sample for stacked filters (default 80000)")
     b.add_argument("--offline", action="store_true", help="use only files already downloaded or saved by hand")
     b.set_defaults(fn=cmd_build)
     u = sub.add_parser("update", help="rebuild only the sources whose published files changed")
