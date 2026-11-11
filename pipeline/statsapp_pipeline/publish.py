@@ -7,6 +7,7 @@ site/
   files/sources.<hash>.json          names, credits and licenses of the sources in use
   files/<dataset>.<hash>.json        one file per dataset
   files/<dataset>~<shard>.<hash>.json  one file per shard of a sharded dataset
+  privacy/index.html                 the app's privacy policy, and any other page in backend/pages/
 
 File names carry a hash of their content, so they can be cached forever; only index.json changes
 in place, and it is cached for five minutes. The app compares hashes and downloads what changed.
@@ -27,6 +28,8 @@ HEADERS = """/index.json
   Cache-Control: public, max-age=300
 /files/*
   Cache-Control: public, max-age=31536000, immutable
+/privacy/*
+  Cache-Control: public, max-age=3600
 """
 
 
@@ -100,6 +103,9 @@ def publish(out: Path, *, data_dir: Path = DATA_DIR, qdir: Path = QUESTIONS_DIR,
             write_json_atomic(state_file, {"content": content, "generated": index["generated"]}, indent=2)
     write_json_atomic(out / "index.json", index, indent=1)
     (out / "_headers").write_text(HEADERS, encoding="utf-8")
+    pages = data_dir.parent / "pages"
+    if pages.is_dir():
+        shutil.copytree(pages, out, dirs_exist_ok=True)
     return index
 
 
