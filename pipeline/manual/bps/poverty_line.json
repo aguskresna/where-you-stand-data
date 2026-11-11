@@ -13,13 +13,14 @@
     "title": "Persentase Penduduk Miskin Maret 2026 turun menjadi 8,07 persen",
     "publisher": "Badan Pusat Statistik (BPS-Statistics Indonesia)",
     "released": "2026-08-05",
-    "accessed": "2026-11-10",
+    "accessed": "2026-11-11",
+    "document": "Berita Resmi Statistik No. 80/08/Th. XXIX, 5 Agustus 2026, Profil Kemiskinan di Indonesia Maret 2026",
     "url": "https://www.bps.go.id/id/pressrelease/2026/08/05/2594/persentase-penduduk-miskin-maret-2026-turun-menjadi-8-07-persen-.html"
   },
-  "checked_against_source": false,
+  "checked_against_source": true,
   "secondary_sources": [
     "https://www.cnbcindonesia.com/news/20260805123045-4-756741/bps-garis-kemiskinan-ri-naik-jadi-rp-669235-kapita-per-bulan",
     "https://investortrust.id/macro/111873/bps-catat-garis-kemiskinan-maret-2026-naik-4-33-menjadi-rp-669235-per-kapita"
   ],
-  "note": "National poverty line per person per month, March 2026. The class bands are multiples of it, as BPS uses them (following the World Bank's Aspiring Indonesia method). The value was taken from press reports of the BPS release; confirm it on the BPS page, then set checked_against_source to true."
+  "note": "National poverty line per person per month, March 2026. The class bands are multiples of it, as BPS uses them (following the World Bank's Aspiring Indonesia method). Checked on 2026-11-11 against the BPS release PDF (table: Garis Kemiskinan Maret 2026 = 669.235)."
 }

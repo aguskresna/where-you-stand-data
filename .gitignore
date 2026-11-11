@@ -10,6 +10,9 @@ pipeline/manual/un_wpp/*
 pipeline/manual/worldbank_pip/*
 !pipeline/manual/worldbank_pip/.gitkeep
 pipeline/manual/ssa_names/*
+# The owner's reference copies of publisher documents (not ours to redistribute).
+pipeline/manual/**/*.pdf
+pipeline/manual/bps/Abstraksi.txt
 !pipeline/manual/ssa_names/.gitkeep
 
 __pycache__/
