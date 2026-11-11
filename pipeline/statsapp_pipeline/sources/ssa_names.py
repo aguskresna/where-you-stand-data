@@ -17,7 +17,9 @@ from ..common import PipelineError
 SOURCE = "ssa_names"
 URL = "https://www.ssa.gov/oact/babynames/names.zip"
 PAGE = "https://www.ssa.gov/oact/babynames/limits.html"
-WATCH = [URL]
+# ssa.gov refuses automated downloads (HTTP 403, from GitHub's runners too), so names.zip is saved by
+# hand once a year (each May): build locally and commit the output; the daily job keeps that build.
+MANUAL = ["names.zip"]
 
 
 def read_names(path: Path) -> pd.DataFrame:

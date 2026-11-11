@@ -9,6 +9,8 @@ pipeline/manual/un_wpp/*
 !pipeline/manual/un_wpp/.gitkeep
 pipeline/manual/worldbank_pip/*
 !pipeline/manual/worldbank_pip/.gitkeep
+pipeline/manual/ssa_names/*
+!pipeline/manual/ssa_names/.gitkeep
 
 __pycache__/
 *.pyc
