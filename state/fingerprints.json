@@ -1,4 +1,12 @@
 {
+  "anthropic_aei": {
+    "fingerprint": "50dd5b6314a1e8bc034816abff2597577f9412266772ca90a337853ef2dbdb5f",
+    "built": "2026-11-12T11:44:26+00:00",
+    "datasets": [
+      "us.aei.tasks",
+      "world.aei.country"
+    ]
+  },
   "bea_rpp": {
     "fingerprint": "144d081d4c3643740e42151acc3bfdfb204515f06c3676bb984033891dcf5bad",
     "built": "2026-11-12T09:57:44+00:00",
@@ -34,6 +42,14 @@
       "id.bps.poverty_line"
     ]
   },
+  "cdc_wonder": {
+    "fingerprint": "138f434aa674d060cc5ae2d72bcf73c5a647c322bec3f008a370843e6bdfa57e",
+    "built": "2026-11-12T12:08:26+00:00",
+    "datasets": [
+      "us.cdc.natality",
+      "us.cdc.causes"
+    ]
+  },
   "census_acs_pums": {
     "fingerprint": "62005d0873791bfb087aaa33c377d207bb8973a294e144335066a73626a804d1",
     "built": "2026-11-10T15:49:04+00:00",
@@ -56,11 +72,39 @@
       "us.acs.diaspora"
     ]
   },
+  "census_ahs": {
+    "fingerprint": "1bc299416ee8b88e879fd477f80e3a9508af47c069ddf19b6380b5549c54b0af",
+    "built": "2026-11-12T11:44:09+00:00",
+    "datasets": [
+      "us.ahs.size"
+    ]
+  },
+  "census_popest": {
+    "fingerprint": "1d9fcfa2091ac321cac9de884c69d3be36ada412f8b3fc9c79bb2b303768879c",
+    "built": "2026-11-12T11:44:53+00:00",
+    "datasets": [
+      "us.census.pop_age"
+    ]
+  },
+  "cia_factbook": {
+    "fingerprint": "bb534ae480e267b3f9ff562636610e7b9eec9038997e93d8c5cb444e117db89c",
+    "built": "2026-11-12T11:44:30+00:00",
+    "datasets": [
+      "world.factbook.religion"
+    ]
+  },
   "datagovmy_births": {
     "fingerprint": "4d151c131305957a828e0d62b908c5980535d3d74736f61bff049416d61d0229",
     "built": "2026-11-10T15:49:50+00:00",
     "datasets": [
       "my.births.daily"
+    ]
+  },
+  "fed_scf": {
+    "fingerprint": "a1ccbca120ce9aa324684106b0af6245d52642863d120dfb93d49efe615639b8",
+    "built": "2026-11-12T11:44:07+00:00",
+    "datasets": [
+      "us.fed.scf"
     ]
   },
   "fhfa_hpi": {
@@ -70,11 +114,48 @@
       "us.fhfa.hpi"
     ]
   },
+  "nchs_births_history": {
+    "fingerprint": "e3fa5a2a61e3305b58b9af5972d2b2093969a592aae08f86f3c0c7166a293d6d",
+    "built": "2026-11-12T11:44:57+00:00",
+    "datasets": [
+      "us.nchs.births_history"
+    ]
+  },
+  "nchs_lifetables": {
+    "fingerprint": "fb13f39671c613150225700694c63225f0bab9af6ad618f8c9045742fd6d5b5c",
+    "built": "2026-11-12T11:44:52+00:00",
+    "datasets": [
+      "us.nchs.lifetable",
+      "us.nchs.state_e0"
+    ]
+  },
   "nchs_nhanes": {
     "fingerprint": "1c22acda65db75789c089b1aefebbc5295a700173e53b22140fb0e35c8f697cf",
     "built": "2026-11-10T15:49:06+00:00",
     "datasets": [
       "us.nhanes.body"
+    ]
+  },
+  "nchs_nhis": {
+    "fingerprint": "e12da2c0b0e279e8c46ba129123f2209bab29a9712a3887d760eca4c946ca9e0",
+    "built": "2026-11-12T11:44:10+00:00",
+    "datasets": [
+      "us.nhis.traits"
+    ]
+  },
+  "nchs_nsfg": {
+    "fingerprint": "53c7ee96cf3aa957402d5acaaf6942531cbcdc9307ed280317e48b8e5c868cbf",
+    "built": "2026-11-12T11:44:11+00:00",
+    "datasets": [
+      "us.nsfg.marriage"
+    ]
+  },
+  "oecd": {
+    "fingerprint": "290ef30d4e0093c2a5d836723688f7eb406ec447a6abf4a7542bbe72eb51177e",
+    "built": "2026-11-12T11:44:28+00:00",
+    "datasets": [
+      "world.oecd.hours",
+      "world.oecd.time_use"
     ]
   },
   "opendosm": {
