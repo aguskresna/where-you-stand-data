@@ -127,8 +127,8 @@ def test_update_skips_unchanged_sources_and_rebuilds_changed_ones(make_ctx, monk
     s3 = update.run(["births_538"], state_file=state, make_ctx=ctx_for, log=lambda *_: None)
     assert (s1["built"], s2["unchanged"], s3["built"]) == (["births_538"], ["births_538"], ["births_538"])
     assert calls == ["births_538", "births_538"]
-    s4 = update.run(["fed_scf"], state_file=state, make_ctx=ctx_for, log=lambda *_: None)
-    assert "fed_scf" in s4["skipped"]
+    s4 = update.run(["future_source"], state_file=state, make_ctx=ctx_for, log=lambda *_: None)
+    assert "future_source" in s4["skipped"]
     assert "Built: nothing" in update.markdown(s4)
 
 

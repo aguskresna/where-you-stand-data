@@ -281,9 +281,9 @@ def test_bps_ships_the_poverty_line_and_needs_citations(make_ctx, read):
 
 
 def test_cli_gate_refuses_pending_and_unknown_sources():
-    sources = load_sources()
+    sources = {**load_sources(), "future_source": {"licenseCode": "PD", "pipeline": "pending", "todo": "x"}}
     with pytest.raises(PipelineError, match="isn't written yet"):
-        gate("fed_scf", sources)
+        gate("future_source", sources)
     with pytest.raises(PipelineError, match="Unknown source"):
         gate("nope", sources)
     gate("bps", sources)
