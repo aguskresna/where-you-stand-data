@@ -1,6 +1,6 @@
 """Builders by source id (the ids in backend/data/sources.json). Sources without a builder are 'pending'."""
 
-from . import acs_pums, anthropic_aei, bea_rpp, births_538, bls_atus, bls_cpi, bls_oews, bls_projections, bps, census_ahs, cia_factbook, datagovmy_births, fed_scf, fhfa_hpi, nchs_nhis, nchs_nsfg, nhanes, oecd, opendosm, ssa_names, un_wpp, worldbank_pip, worldbank_wdi
+from . import acs_pums, anthropic_aei, bea_rpp, births_538, bls_atus, bls_cpi, bls_oews, bls_projections, bps, cdc_wonder, census_ahs, census_popest, cia_factbook, datagovmy_births, fed_scf, fhfa_hpi, nchs_births_history, nchs_lifetables, nchs_nhis, nchs_nsfg, nhanes, oecd, opendosm, ssa_names, un_wpp, worldbank_pip, worldbank_wdi
 
 BUILDERS = {
     "census_acs_pums": acs_pums,
@@ -26,7 +26,11 @@ BUILDERS = {
     "anthropic_aei": anthropic_aei,
     "oecd": oecd,
     "cia_factbook": cia_factbook,
+    "nchs_lifetables": nchs_lifetables,
+    "census_popest": census_popest,
+    "nchs_births_history": nchs_births_history,
+    "cdc_wonder": cdc_wonder,
 }
 
 # un_wpp before worldbank_pip, which reads the UN population figures.
-ORDER = ["census_acs_pums", "nchs_nhanes", "ssa_names", "births_538", "un_wpp", "worldbank_wdi", "worldbank_pip", "opendosm", "datagovmy_births", "bps", "bls_oews", "bls_projections", "bls_cpi", "bea_rpp", "fhfa_hpi", "fed_scf", "census_ahs", "bls_atus", "nchs_nhis", "nchs_nsfg", "anthropic_aei", "oecd", "cia_factbook"]
+ORDER = ["census_acs_pums", "nchs_nhanes", "ssa_names", "births_538", "un_wpp", "worldbank_wdi", "worldbank_pip", "opendosm", "datagovmy_births", "bps", "bls_oews", "bls_projections", "bls_cpi", "bea_rpp", "fhfa_hpi", "fed_scf", "census_ahs", "bls_atus", "nchs_nhis", "nchs_nsfg", "anthropic_aei", "oecd", "cia_factbook", "nchs_lifetables", "census_popest", "nchs_births_history", "cdc_wonder"]

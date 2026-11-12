@@ -22,10 +22,9 @@
       "license": "US federal public domain",
       "licenseUrl": "https://resources.data.gov/open-licenses/",
       "credit": "U.S. Census Bureau, Population Estimates Program",
-      "url": "https://www.census.gov/data/datasets/time-series/demo/popest/2020s-state-detail.html",
-      "pipeline": "pending",
-      "refresh": "Yearly (new vintage each June)",
-      "todo": "Download the national single-year-of-age by sex file for the latest vintage and write us.census.pop_age (ages 0-100, 100 = 100+)."
+      "url": "https://www.census.gov/data/datasets/time-series/demo/popest/2020s-national-detail.html",
+      "pipeline": "auto",
+      "refresh": "Yearly (new vintage each June)"
     },
     "nchs_nhanes": {
       "name": "National Health and Nutrition Examination Survey, Aug 2021 - Aug 2023",
@@ -86,9 +85,8 @@
       "licenseUrl": "https://resources.data.gov/open-licenses/",
       "credit": "CDC National Center for Health Statistics, US life tables",
       "url": "https://www.cdc.gov/nchs/products/life_tables.htm",
-      "pipeline": "pending",
-      "refresh": "Yearly",
-      "todo": "Copy lx and ex by single year of age for males, females and total into us.nchs.lifetable, and life expectancy at birth by state into us.nchs.state_e0."
+      "pipeline": "auto",
+      "refresh": "Yearly"
     },
     "nchs_births_history": {
       "name": "Births and fertility rates by year",
@@ -97,14 +95,13 @@
       "licenseCode": "PD",
       "license": "US federal public domain",
       "licenseUrl": "https://resources.data.gov/open-licenses/",
-      "credit": "CDC National Center for Health Statistics, National Vital Statistics System",
+      "credit": "CDC National Center for Health Statistics, National Vital Statistics Reports (Births: Final Data)",
       "url": "https://www.cdc.gov/nchs/nvss/births.htm",
-      "pipeline": "pending",
-      "refresh": "Yearly",
-      "todo": "Copy births and the total fertility rate for each year from the NVSS reports into us.nchs.births_history."
+      "pipeline": "auto",
+      "refresh": "Yearly"
     },
     "cdc_wonder": {
-      "name": "CDC WONDER mortality and natality data",
+      "name": "CDC WONDER mortality data and NCHS natality public-use file",
       "publisher": "CDC National Center for Health Statistics",
       "region": "us",
       "licenseCode": "NCHS",
@@ -116,11 +113,10 @@
         "Make no attempt to identify any person",
         "Leave self-harm causes out of the app"
       ],
-      "credit": "CDC WONDER, National Center for Health Statistics",
+      "credit": "CDC WONDER and the NCHS natality public-use file, National Center for Health Statistics",
       "url": "https://wonder.cdc.gov/",
-      "pipeline": "pending",
-      "refresh": "Yearly",
-      "todo": "Export lifetime odds for a curated list of causes of death (no self-harm) into us.cdc.causes, and percentiles of birth weight, mother's age and mother's age at first birth into us.cdc.natality."
+      "pipeline": "auto",
+      "refresh": "Yearly"
     },
     "bls_oews": {
       "name": "Occupational Employment and Wage Statistics",

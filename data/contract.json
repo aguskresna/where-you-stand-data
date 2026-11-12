@@ -175,7 +175,7 @@
     "us.census.pop_age": {
       "sources": ["census_popest"], "kind": "table", "file": "us/census_population_by_age.json",
       "description": "US resident population by single year of age.",
-      "schema": "{total:[101 values, ages 0..100+]}"
+      "schema": "{total:[101 values, ages 0..100+], M:[101], F:[101]}"
     },
     "us.ssa.names": {
       "sources": ["ssa_names"], "kind": "table", "file": "us/names/{shard}.json", "sharded": true,

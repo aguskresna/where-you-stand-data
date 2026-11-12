@@ -242,6 +242,30 @@
       ],
       "year": 2025
     },
+    "us.cdc.causes": {
+      "built": "2026-11-12T11:42:15+00:00",
+      "file": "us/cdc_causes.json",
+      "sources": [
+        "cdc_wonder"
+      ],
+      "year": 2024
+    },
+    "us.cdc.natality": {
+      "built": "2026-11-12T11:42:14+00:00",
+      "file": "us/cdc_natality.json",
+      "sources": [
+        "cdc_wonder"
+      ],
+      "year": 2025
+    },
+    "us.census.pop_age": {
+      "built": "2026-11-12T11:41:10+00:00",
+      "file": "us/census_population_by_age.json",
+      "sources": [
+        "census_popest"
+      ],
+      "year": 2025
+    },
     "us.fed.scf": {
       "built": "2026-11-12T11:08:52+00:00",
       "file": "us/fed_scf.json",
@@ -257,6 +281,30 @@
         "fhfa_hpi"
       ],
       "year": 2026
+    },
+    "us.nchs.births_history": {
+      "built": "2026-11-12T11:41:22+00:00",
+      "file": "us/nchs_births_history.json",
+      "sources": [
+        "nchs_births_history"
+      ],
+      "year": 2024
+    },
+    "us.nchs.lifetable": {
+      "built": "2026-11-12T11:41:04+00:00",
+      "file": "us/nchs_lifetable.json",
+      "sources": [
+        "nchs_lifetables"
+      ],
+      "year": 2024
+    },
+    "us.nchs.state_e0": {
+      "built": "2026-11-12T11:41:08+00:00",
+      "file": "us/nchs_state_life_expectancy.json",
+      "sources": [
+        "nchs_lifetables"
+      ],
+      "year": 2022
     },
     "us.nhanes.body": {
       "built": "2026-11-10T15:36:47+00:00",
