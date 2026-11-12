@@ -4,6 +4,7 @@ site/
   index.json                         what's available, with a SHA-256 and size for every file
   _headers                           cache rules for Cloudflare Pages
   files/catalog.<hash>.json          questions whose data is built
+  files/catalog.<lang>.<hash>.json   the catalog's text in another language (ms, id), laid over it
   files/sources.<hash>.json          names, credits and licenses of the sources in use
   files/<dataset>.<hash>.json        one file per dataset
   files/<dataset>~<shard>.<hash>.json  one file per shard of a sharded dataset
@@ -21,6 +22,7 @@ import json
 import shutil
 from pathlib import Path
 
+from . import i18n
 from . import questions as qmod
 from .common import DATA_DIR, QUESTIONS_DIR, PipelineError, load_contract, load_json, load_sources, write_json_atomic
 
@@ -92,6 +94,11 @@ def publish(out: Path, *, data_dir: Path = DATA_DIR, qdir: Path = QUESTIONS_DIR,
     keep = ("name", "publisher", "credit", "license", "licenseUrl", "licenseCode", "region")
     sources = {sid: {k: registry[sid][k] for k in keep if k in registry[sid]} for sid in sorted(used_sources)}
     index["catalog"] = _put(out, "catalog", _json_bytes(shown))
+    # One overlay per language, so a phone downloads only the language it shows.
+    index["catalogI18n"] = {
+        lang: _put(out, f"catalog.{lang}", _json_bytes(i18n.published(overlay, shown)))
+        for lang, overlay in sorted(i18n.load_overlays(qdir).items())
+    }
     index["sources"] = _put(out, "sources", _json_bytes(sources))
 
     content = _sha(_json_bytes({k: v for k, v in index.items() if k != "generated"}))
@@ -111,7 +118,8 @@ def publish(out: Path, *, data_dir: Path = DATA_DIR, qdir: Path = QUESTIONS_DIR,
 
 
 def bundle(site: Path, dest: Path, max_bytes: int = 8_000_000) -> list[str]:
-    """Copies index.json, the catalog, the sources and every unsharded dataset into the app's assets.
+    """Copies index.json, the catalog and its translations, the sources and every unsharded dataset
+    into the app's assets.
 
     Shards (per-name or per-country files) are left out: the app downloads them when first needed.
     Datasets larger than max_bytes are left out too, to keep the app small; it downloads them on open.
@@ -122,7 +130,7 @@ def bundle(site: Path, dest: Path, max_bytes: int = 8_000_000) -> list[str]:
         shutil.rmtree(dest)
     (dest / "files").mkdir(parents=True)
     copied = []
-    entries = [index["catalog"], index["sources"]] + [d for d in index["datasets"].values() if "path" in d and d["bytes"] <= max_bytes]
+    entries = [index["catalog"], *index.get("catalogI18n", {}).values(), index["sources"]] + [d for d in index["datasets"].values() if "path" in d and d["bytes"] <= max_bytes]
     for e in entries:
         shutil.copy(site / e["path"], dest / e["path"])
         copied.append(e["path"])

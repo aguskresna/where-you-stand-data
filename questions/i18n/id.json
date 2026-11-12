@@ -1,0 +1,3456 @@
+{
+  "schema": 1,
+  "language": "id",
+  "modes": {
+    "us": {
+      "title": "Anda vs AS",
+      "blurb": "Bandingkan diri Anda dengan seluruh penduduk Amerika Serikat, memakai statistik pemerintah federal."
+    },
+    "world": {
+      "title": "Anda vs dunia",
+      "blurb": "Bandingkan diri Anda dengan seluruh dunia, memakai data PBB, Bank Dunia, dan OECD."
+    },
+    "my": {
+      "title": "Anda vs Malaysia",
+      "blurb": "Bandingkan diri Anda dengan warga Malaysia, memakai data gratis OpenDOSM dan data.gov.my."
+    },
+    "id": {
+      "title": "Anda vs Indonesia",
+      "blurb": "Bandingkan diri Anda dengan penduduk Indonesia, memakai data gratis BPS dan PBB."
+    }
+  },
+  "topics": {
+    "money": "Uang dan pekerjaan",
+    "dating": "Kencan dan hubungan",
+    "home": "Rumah dan biaya hidup",
+    "body": "Tubuh dan usia hidup",
+    "time": "Waktu dan kehidupan sehari-hari",
+    "family": "Keluarga",
+    "identity": "Nama, ulang tahun, dan identitas",
+    "education": "Pendidikan",
+    "people": "Penduduk dan untung-untungan kelahiran"
+  },
+  "lists": {
+    "sex": {
+      "F": "Perempuan",
+      "M": "Laki-laki"
+    },
+    "sex_long": {
+      "female": "Perempuan",
+      "male": "Laki-laki"
+    },
+    "us_states_any": {
+      "*": "Seluruh AS"
+    },
+    "my_states_any": {
+      "Malaysia": "Seluruh Malaysia"
+    },
+    "id_provinces_any": {
+      "Indonesia": "Seluruh Indonesia"
+    }
+  },
+  "messages": {
+    "enterNumber": "Masukkan angka untuk {label}.",
+    "pickRange": "Pilih rentang untuk {label}.",
+    "dataUnavailable": "Data untuk pertanyaan ini sedang tidak tersedia.",
+    "dataNotPublished": "Data untuk pertanyaan ini belum diterbitkan.",
+    "noDataForChoice": "Belum ada data untuk pilihan itu.",
+    "needsNewerApp": "Pertanyaan ini memerlukan versi aplikasi yang lebih baru.",
+    "dateInFuture": "Pilih tanggal yang sudah lewat.",
+    "dateTooEarly": "Pilih tanggal mulai {date}.",
+    "enterBirthDate": "Masukkan tanggal lahir Anda.",
+    "pickBirthday": "Pilih tanggal ulang tahun Anda.",
+    "dateNotInData": "{date} tidak ada dalam data.",
+    "typeFirstName": "Ketik nama depan.",
+    "nameNotFound": "Nama itu tidak ada dalam catatan.",
+    "enterHouseholdSize": "Masukkan minimal satu orang dalam rumah tangga.",
+    "pickAtLeastOne": "Pilih minimal satu.",
+    "checkNumbers": "Periksa lagi angka yang Anda masukkan.",
+    "badSetup": "Pertanyaan ini belum disiapkan dengan benar.",
+    "noFigures": "Belum ada angka untuk itu.",
+    "noFiguresThis": "Belum ada angka untuk ini.",
+    "noGroupFigures": "Belum ada angka untuk kelompok itu.",
+    "noAgeGroupFigures": "Belum ada angka untuk kelompok umur itu.",
+    "noPlaceFigures": "Belum ada angka untuk tempat itu.",
+    "noFiguresFor": "Belum ada angka untuk {label}.",
+    "noPayFigures": "Belum ada angka upah untuk kelompok itu.",
+    "noPopulation": "Belum ada angka penduduk untuk tempat itu.",
+    "noWorldPopulation": "Belum ada angka penduduk dunia.",
+    "noBirthFigures": "Belum ada angka kelahiran.",
+    "noPriceFigures": "Belum ada angka harga.",
+    "noInflation": "Belum ada angka inflasi resmi dalam data.",
+    "noLifeTable": "Belum ada tabel kematian untuk tempat itu.",
+    "noIncomeForYear": "Belum ada angka pendapatan untuk tahun {year}.",
+    "noIncomeForCountry": "Tidak ada angka pendapatan untuk {name} pada tahun {year}.",
+    "noPpp": "Belum ada kurs paritas daya beli untuk {name}.",
+    "birthYearBetween": "Pilih tahun lahir antara {from} dan {to}.",
+    "birthYearRecent": "Pilih tahun lahir antara 100 tahun lalu dan tahun ini.",
+    "noWeights": "Isi berapa bagian pengeluaran Anda untuk minimal satu kategori.",
+    "hoursOver24": "Jumlah jam itu lebih dari 24 jam sehari.",
+    "everythingElse": "Lainnya",
+    "populationYear": "Tahun data penduduk",
+    "thePeople": "penduduk",
+    "groupFallback": "Data survei untuk kelompok Anda yang persis terlalu sedikit, jadi ini membandingkan Anda dengan {group}.",
+    "belowPercentile": "Di bawah persentil {ordinal}",
+    "abovePercentile": "Di atas persentil {ordinal}",
+    "lifeTableStops": "Tabel kematian ini berhenti di usia {age}+, jadi tidak bisa memperkirakan sisa usia setelah umur itu.",
+    "chanceOfReaching": "Peluang mencapai usia {age}",
+    "tableStopsCaveat": "Tabel ini berhenti di usia {age}+, jadi peluang setelah umur itu tidak ditampilkan.",
+    "lifeTableFallback": "Tidak ada tabel kematian untuk kelompok Anda yang persis, jadi ini memakai kelompok yang lebih luas.",
+    "reach90Caption": "Dari 100 orang seusia Anda, figur yang diarsir mencapai usia 90.",
+    "feb29Caveat": "29 Februari dibandingkan per kemunculannya; tanggal ini hanya datang empat tahun sekali."
+  },
+  "questions": {
+    "us-income-rank": {
+      "title": "Peringkat pendapatan",
+      "question": "Di peringkat berapa pendapatan Anda?",
+      "inputs": {
+        "income": {
+          "label": "Pendapatan Anda per tahun"
+        },
+        "sex": {
+          "label": "Jenis kelamin"
+        },
+        "age": {
+          "label": "Umur",
+          "unit": "tahun"
+        },
+        "state": {
+          "label": "Negara bagian"
+        }
+      },
+      "params": {
+        "parts": [
+          {
+            "phrase": {
+              "F": "perempuan",
+              "M": "laki-laki",
+              "*": "orang dewasa"
+            }
+          },
+          {
+            "phrase": {
+              "_": "berusia {band}"
+            }
+          },
+          {
+            "phrase": {
+              "*": "di AS",
+              "_": "di {label}"
+            }
+          }
+        ]
+      },
+      "text": {
+        "sentence": "Pendapatan Anda lebih tinggi daripada {pct} {group}.",
+        "stats": [
+          [
+            "Median kelompok ini",
+            null
+          ]
+        ],
+        "caveats": [
+          "Menghitung orang dewasa yang punya pendapatan apa pun dalam 12 bulan terakhir, sebelum pajak."
+        ]
+      }
+    },
+    "us-height-rank": {
+      "title": "Peringkat tinggi badan",
+      "question": "Seberapa tinggi Anda dibandingkan orang yang mirip dengan Anda?",
+      "inputs": {
+        "sex": {
+          "label": "Jenis kelamin"
+        },
+        "age": {
+          "label": "Umur",
+          "unit": "tahun"
+        },
+        "height": {
+          "label": "Tinggi badan Anda"
+        }
+      },
+      "params": {
+        "parts": [
+          {
+            "phrase": {
+              "F": "perempuan",
+              "M": "laki-laki",
+              "*": "orang dewasa"
+            }
+          },
+          {
+            "phrase": {
+              "_": "berusia {band}"
+            }
+          }
+        ],
+        "suffix": "di AS"
+      },
+      "text": {
+        "sentence": "Anda lebih tinggi daripada {pct} {group}.",
+        "stats": [
+          [
+            "Rata-rata tinggi kelompok ini",
+            null
+          ]
+        ]
+      }
+    },
+    "us-commute-rank": {
+      "title": "Peringkat waktu perjalanan kerja",
+      "question": "Apakah perjalanan kerja Anda lebih lama daripada kebanyakan orang?",
+      "inputs": {
+        "minutes": {
+          "label": "Perjalanan kerja sekali jalan",
+          "unit": "menit"
+        },
+        "state": {
+          "label": "Negara bagian"
+        }
+      },
+      "params": {
+        "parts": [
+          {
+            "phrase": {
+              "*": "di AS",
+              "_": "di {label}"
+            }
+          }
+        ],
+        "format": {
+          "suffix": " menit"
+        }
+      },
+      "text": {
+        "headline": "Lebih lama dari {pct}",
+        "sentence": "Perjalanan kerja Anda lebih lama daripada {pct} perjalanan kerja {group}.",
+        "stats": [
+          [
+            "Median perjalanan kerja sekali jalan",
+            null
+          ]
+        ],
+        "caveats": [
+          "Menghitung orang yang berangkat ke tempat kerja; yang bekerja dari rumah tidak dihitung."
+        ]
+      }
+    },
+    "us-work-hours-rank": {
+      "title": "Peringkat jam kerja",
+      "question": "Apakah jam kerja Anda lebih panjang daripada orang lain?",
+      "inputs": {
+        "hours": {
+          "label": "Jam kerja per minggu"
+        },
+        "sex": {
+          "label": "Jenis kelamin"
+        },
+        "age": {
+          "label": "Umur",
+          "unit": "tahun"
+        }
+      },
+      "params": {
+        "parts": [
+          {
+            "phrase": {
+              "F": "perempuan",
+              "M": "laki-laki",
+              "*": "orang dewasa"
+            }
+          },
+          {
+            "phrase": {
+              "_": "berusia {band}"
+            }
+          }
+        ],
+        "suffix": "di AS",
+        "format": {
+          "suffix": " jam"
+        }
+      },
+      "text": {
+        "sentence": "Jam kerja Anda lebih banyak daripada {pct} {group} yang bekerja.",
+        "stats": [
+          [
+            "Median kelompok ini",
+            null
+          ]
+        ]
+      }
+    },
+    "us-birthday-rank": {
+      "title": "Peringkat hari ulang tahun",
+      "question": "Seberapa umum tanggal ulang tahun Anda?",
+      "inputs": {
+        "birthday": {
+          "label": "Tanggal ulang tahun Anda"
+        }
+      },
+      "params": {
+        "place": "di AS"
+      },
+      "text": {
+        "headline": "Urutan {rank} dari {of}",
+        "sentence": "Rata-rata sekitar {births} bayi lahir {place} pada {date} setiap tahun, dibandingkan {mean} pada hari biasa.",
+        "stats": [
+          [
+            "Ulang tahun paling umum",
+            null
+          ],
+          [
+            "Ulang tahun paling jarang",
+            null
+          ],
+          [
+            "Tahun yang dihitung",
+            "{first} sampai {last}"
+          ]
+        ]
+      }
+    },
+    "us-time-left": {
+      "title": "Sisa usia",
+      "question": "Berapa tahun lagi rata-rata sisa hidup orang seusia Anda?",
+      "inputs": {
+        "age": {
+          "label": "Umur",
+          "unit": "tahun"
+        },
+        "sex": {
+          "label": "Jenis kelamin"
+        }
+      },
+      "params": {
+        "who": {
+          "map": {
+            "F": "perempuan",
+            "M": "laki-laki"
+          },
+          "default": "orang"
+        },
+        "place": "di AS"
+      },
+      "text": {
+        "headline": "Sekitar {left} tahun lagi",
+        "sentence": "Dengan angka kematian saat ini, {who} berusia {age} {place} rata-rata hidup sampai sekitar usia {liveTo}.",
+        "caveats": [
+          "Ini tabel kematian periode: diasumsikan angka kematian saat ini berlaku di setiap usia, jadi kebanyakan orang seusia Anda akan hidup sedikit lebih lama."
+        ]
+      }
+    },
+    "us-age-rank": {
+      "title": "Peringkat umur",
+      "question": "Berapa banyak orang Amerika yang lebih tua dari Anda?",
+      "inputs": {
+        "birthDate": {
+          "label": "Tanggal lahir"
+        }
+      },
+      "params": {
+        "place": "di AS"
+      },
+      "text": {
+        "headline": "Lebih tua dari {younger}",
+        "sentence": "Anda lebih tua daripada {younger} penduduk yang tinggal {place}, dan lebih muda daripada {older}."
+      }
+    },
+    "us-your-generation": {
+      "title": "Angkatan Anda",
+      "question": "Berapa banyak orang yang lahir di tahun yang sama masih tinggal di AS sekarang?",
+      "inputs": {
+        "birthYear": {
+          "label": "Tahun lahir"
+        }
+      },
+      "params": {
+        "rangeError": "Pilih tahun lahir antara 100 tahun lalu dan tahun ini.",
+        "birthsLine": " Ada {births} bayi yang lahir di AS pada tahun itu.",
+        "caveats": [
+          {
+            "text": "Jumlah saat ini termasuk orang yang pindah ke AS dan tidak menghitung mereka yang sudah pergi."
+          }
+        ]
+      },
+      "text": {
+        "sentence": "Sekitar {alive} orang kelahiran {year} tinggal di AS saat ini.{birthsLine}"
+      }
+    },
+    "us-years-to-home": {
+      "title": "Berapa tahun sampai punya rumah",
+      "question": "Berapa lama sampai Anda sanggup membayar uang muka?",
+      "inputs": {
+        "state": {
+          "label": "Lokasi rumah yang Anda incar"
+        },
+        "income": {
+          "label": "Pendapatan rumah tangga per tahun"
+        },
+        "saved": {
+          "label": "Tabungan sejauh ini"
+        },
+        "monthly": {
+          "label": "Ditabung tiap bulan"
+        },
+        "down": {
+          "label": "Uang muka"
+        }
+      },
+      "params": {
+        "missing": "Belum ada angka untuk negara bagian itu.",
+        "placePhrase": {
+          "map": {
+            "*": "di AS"
+          },
+          "default": "di {label.state}"
+        },
+        "labels": {
+          "ready": "Sudah cukup",
+          "over": "Lebih dari 100 tahun"
+        },
+        "when": {
+          "ready": "saat ini juga",
+          "over": "dalam lebih dari 100 tahun",
+          "years": "dalam {years}"
+        },
+        "stats": [
+          [
+            "Harga rumah dibanding pendapatan di sana",
+            "{typicalRatio} kali"
+          ],
+          {
+            "stat": [
+              "Jika harga terus naik {growth} per tahun",
+              null
+            ]
+          }
+        ],
+        "caveats": [
+          {
+            "text": "Angka kenaikan harga memakai rata-rata kenaikan tahunan selama 10 tahun terakhir dan mengasumsikan Anda terus menabung dengan jumlah yang sama."
+          },
+          "Untuk saat ini memakai negara bagian; data per kota memerlukan pengolahan wilayah metropolitan di pipeline."
+        ]
+      },
+      "text": {
+        "sentence": "Rumah biasa {place} harganya sekitar {price}, {priceRatio} kali pendapatan Anda. Dengan harga saat ini, menabung {monthly} per bulan membuat Anda punya uang muka {v.down}% {when}."
+      }
+    },
+    "us-life-in-hours": {
+      "title": "Hidup Anda dalam jam",
+      "question": "Berapa banyak sisa tahun hidup Anda yang terpakai untuk tidur, bekerja, dan menatap layar?",
+      "inputs": {
+        "age": {
+          "label": "Umur",
+          "unit": "tahun"
+        },
+        "sex": {
+          "label": "Jenis kelamin"
+        },
+        "sleep": {
+          "label": "Tidur, jam per hari"
+        },
+        "work": {
+          "label": "Kerja, jam per hari (rata-rata seminggu)"
+        },
+        "screens": {
+          "label": "Layar di luar kerja, jam per hari"
+        },
+        "commute": {
+          "label": "Perjalanan kerja, jam per hari"
+        }
+      },
+      "params": {
+        "activities": [
+          {
+            "label": "Tidur"
+          },
+          {
+            "label": "Kerja"
+          },
+          {
+            "label": "Layar"
+          },
+          {
+            "label": "Perjalanan kerja"
+          }
+        ],
+        "rest": "Lainnya",
+        "who": {
+          "map": {
+            "F": "perempuan"
+          },
+          "default": "laki-laki"
+        },
+        "barsTitle": "Sisa tahun hidup Anda",
+        "stats": [
+          {
+            "stat": [
+              "Rata-rata tidur di AS",
+              "{avg.sleep} jam"
+            ]
+          },
+          {
+            "stat": [
+              "Rata-rata waktu di depan layar",
+              "{avg.screens} jam"
+            ]
+          }
+        ]
+      },
+      "text": {
+        "headline": "{years.screens} tahun di depan layar",
+        "sentence": "Dari sekitar {left} sisa tahun hidup rata-rata {who} seusia Anda, Anda akan menghabiskan {years.sleep} tahun untuk tidur dan {years.work} tahun untuk bekerja."
+      }
+    },
+    "us-singles-near-you": {
+      "title": "Lajang di sekitar Anda",
+      "question": "Berapa banyak orang lajang dalam rentang umur pilihan Anda di tempat tinggal Anda?",
+      "inputs": {
+        "seeking": {
+          "label": "Mencari",
+          "options": {
+            "M": "Laki-laki",
+            "F": "Perempuan"
+          }
+        },
+        "ages": {
+          "label": "Rentang umur"
+        },
+        "state": {
+          "label": "Negara bagian"
+        }
+      },
+      "params": {
+        "parts": [
+          {
+            "phrase": {
+              "F": "perempuan",
+              "M": "laki-laki"
+            }
+          },
+          {
+            "phrase": {
+              "*": "di AS",
+              "_": "di {label}"
+            }
+          }
+        ],
+        "fallbackCaveat": "Data survei untuk sebagian umur itu di {label.state} terlalu sedikit, jadi ini memakai seluruh AS.",
+        "missing": "Belum ada angka untuk kelompok itu.",
+        "empty": "Tidak ada yang cocok dengan rentang umur dan tempat itu."
+      },
+      "text": {
+        "sentence": "Sekitar {count} {seeking} lajang berusia {lo}–{hi} tinggal {state}, {share} dari semua orang seusia itu di sana.",
+        "caveats": [
+          "Lajang berarti belum pernah menikah, bercerai, berpisah, atau ditinggal mati pasangan; sebagian dari mereka punya pasangan."
+        ]
+      }
+    },
+    "us-age-gap": {
+      "title": "Normalkah selisih umur kami?",
+      "question": "Seberapa umum selisih umur seperti Anda berdua?",
+      "inputs": {
+        "you": {
+          "label": "Umur Anda",
+          "unit": "tahun"
+        },
+        "partner": {
+          "label": "Umur pasangan Anda",
+          "unit": "tahun"
+        }
+      },
+      "params": {
+        "format": {
+          "suffix": " tahun"
+        },
+        "whenZero": {
+          "headline": "Seumuran",
+          "sentence": "{sameAge} pasangan yang tinggal bersama berumur sama."
+        }
+      },
+      "text": {
+        "headline": "Selisih {value} tahun",
+        "sentence": "{pctAbove} pasangan yang tinggal bersama punya selisih umur sebesar ini atau lebih.",
+        "stats": [
+          [
+            "Laki-laki lebih tua",
+            null
+          ],
+          [
+            "Perempuan lebih tua",
+            null
+          ],
+          [
+            "Seumuran",
+            null
+          ]
+        ]
+      }
+    },
+    "us-marriage-timing": {
+      "title": "Waktu menikah",
+      "question": "Berapa banyak orang seusia Anda yang sudah menikah?",
+      "inputs": {
+        "sex": {
+          "label": "Jenis kelamin"
+        },
+        "age": {
+          "label": "Umur",
+          "unit": "tahun"
+        },
+        "state": {
+          "label": "Negara bagian"
+        }
+      },
+      "params": {
+        "parts": [
+          {
+            "phrase": {
+              "F": "perempuan",
+              "M": "laki-laki",
+              "*": "orang dewasa"
+            }
+          },
+          null,
+          null,
+          {
+            "phrase": {
+              "*": "di AS",
+              "_": "di {label}"
+            }
+          }
+        ],
+        "lookups": [
+          {
+            "missCaveat": "Data untuk {label.state} terlalu sedikit, jadi ini memakai seluruh AS."
+          },
+          null
+        ],
+        "crossing": {
+          "found": "usia {age}",
+          "none": "belum pada usia 80"
+        },
+        "missing": "Belum ada angka untuk umur itu."
+      },
+      "text": {
+        "sentence": "{share} {sex} berusia {age} {state} pernah menikah setidaknya sekali.",
+        "stats": [
+          [
+            "Separuhnya sudah menikah pada",
+            null
+          ]
+        ],
+        "caveats": [
+          "Usia saat separuh orang sudah menikah dibaca dari kelompok umur saat ini, bukan diikuti sepanjang satu generasi."
+        ]
+      }
+    },
+    "us-will-it-last": {
+      "title": "Akankah langgeng?",
+      "question": "Berapa banyak pernikahan pertama seperti Anda yang bertahan?",
+      "inputs": {
+        "ageAtMarriage": {
+          "label": "Umur saat Anda menikah",
+          "unit": "tahun"
+        },
+        "edu": {
+          "label": "Pendidikan Anda",
+          "options": {
+            "0": "Tidak tamat SMA",
+            "1": "SMA atau sederajat (GED)",
+            "2": "Kuliah tanpa gelar atau diploma (associate)",
+            "3": "Sarjana (S1)",
+            "4": "Pascasarjana atau gelar profesi"
+          }
+        }
+      },
+      "params": {
+        "fallbackCaveat": "Terlalu sedikit pasangan yang cocok persis, jadi ini memakai kelompok yang lebih luas.",
+        "missing": "Belum ada angka untuk kelompok itu."
+      },
+      "text": {
+        "sentence": "{share} pernikahan pertama seperti Anda masih bertahan setelah 10 tahun.",
+        "stats": [
+          [
+            "Masih bersama setelah 20 tahun",
+            null
+          ]
+        ],
+        "caveats": [
+          "Survei ini mewawancarai orang berusia 15 sampai 49 tahun, jadi angka 20 tahun kosong (–) jika terlalu sedikit pernikahan yang bisa diikuti selama itu."
+        ]
+      }
+    },
+    "us-middle-class": {
+      "title": "Apakah saya kelas menengah?",
+      "question": "Rumah tangga Anda masuk lapisan pendapatan yang mana?",
+      "inputs": {
+        "income": {
+          "label": "Pendapatan rumah tangga per tahun"
+        },
+        "size": {
+          "label": "Jumlah orang di rumah tangga Anda"
+        },
+        "state": {
+          "label": "Negara bagian"
+        }
+      },
+      "params": {
+        "parts": [
+          {
+            "phrase": {
+              "*": "di AS",
+              "_": "di {label}"
+            }
+          }
+        ],
+        "missing": "Belum ada angka untuk negara bagian itu.",
+        "tiers": [
+          {
+            "name": "Pendapatan bawah"
+          },
+          {
+            "name": "Pendapatan menengah"
+          },
+          {
+            "name": "Pendapatan atas"
+          }
+        ]
+      },
+      "text": {
+        "sentence": "Untuk rumah tangga berisi {n.size} orang, pendapatan menengah berkisar antara {cut1} dan {cut2} per tahun. Pendapatan Anda {ratio} kali median nasional.",
+        "stats": [
+          [
+            "Peringkat Anda {group}",
+            null
+          ]
+        ],
+        "caveats": [
+          "Memakai aturan umum dua pertiga hingga dua kali median pendapatan rumah tangga, disesuaikan dengan jumlah anggota rumah tangga."
+        ]
+      }
+    },
+    "us-net-worth": {
+      "title": "Peringkat kekayaan bersih",
+      "question": "Bagaimana kekayaan rumah tangga Anda dibandingkan orang seusia Anda?",
+      "inputs": {
+        "netWorth": {
+          "label": "Kekayaan bersih rumah tangga"
+        },
+        "age": {
+          "label": "Umur",
+          "unit": "tahun"
+        }
+      },
+      "params": {
+        "parts": [
+          {
+            "phrase": {
+              "*": "semua rumah tangga",
+              "_": "rumah tangga dengan kepala rumah tangga berusia {band}"
+            }
+          }
+        ],
+        "missing": "Belum ada angka untuk kelompok umur itu."
+      },
+      "text": {
+        "sentence": "Kekayaan rumah tangga Anda lebih besar daripada {pct} {group}.",
+        "stats": [
+          [
+            "Median kelompok umur Anda",
+            null
+          ]
+        ],
+        "caveats": [
+          "Kekayaan bersih adalah semua yang dimiliki dikurangi semua utang, untuk seluruh rumah tangga."
+        ]
+      }
+    },
+    "us-millionaire-odds": {
+      "title": "Peluang jadi jutawan",
+      "question": "Berapa banyak rumah tangga seusia Anda yang kekayaannya $1 juta?",
+      "inputs": {
+        "age": {
+          "label": "Umur",
+          "unit": "tahun"
+        }
+      },
+      "params": {
+        "parts": [
+          {
+            "phrase": {
+              "*": "semua rumah tangga",
+              "_": "rumah tangga dengan kepala rumah tangga berusia {band}"
+            }
+          }
+        ],
+        "missing": "Belum ada angka untuk kelompok umur itu.",
+        "alsoFor": [
+          {
+            "stat": [
+              "Semua rumah tangga",
+              null
+            ]
+          }
+        ]
+      },
+      "text": {
+        "sentence": "{pctAbove} {group} punya kekayaan $1 juta atau lebih."
+      }
+    },
+    "us-retirement-savings": {
+      "title": "Cek tabungan pensiun",
+      "question": "Apakah tabungan pensiun Anda lebih besar daripada orang seusia Anda?",
+      "inputs": {
+        "savings": {
+          "label": "Tabungan pensiun"
+        },
+        "age": {
+          "label": "Umur",
+          "unit": "tahun"
+        }
+      },
+      "params": {
+        "parts": [
+          {
+            "phrase": {
+              "*": "semua rumah tangga",
+              "_": "rumah tangga dengan kepala rumah tangga berusia {band}"
+            }
+          }
+        ],
+        "missing": "Belum ada angka untuk kelompok umur itu."
+      },
+      "text": {
+        "sentence": "Tabungan pensiun Anda lebih besar daripada {pct} {group}.",
+        "stats": [
+          [
+            "Median kelompok umur Anda",
+            null
+          ]
+        ],
+        "caveats": [
+          "Menghitung semua rumah tangga, termasuk yang tidak punya rekening pensiun."
+        ]
+      }
+    },
+    "us-debt-check": {
+      "title": "Cek utang",
+      "question": "Bagaimana utang Anda dibandingkan orang seusia Anda?",
+      "inputs": {
+        "age": {
+          "label": "Umur",
+          "unit": "tahun"
+        },
+        "mortgage": {
+          "label": "Sisa KPR"
+        },
+        "education": {
+          "label": "Pinjaman pendidikan"
+        },
+        "vehicle": {
+          "label": "Kredit kendaraan"
+        },
+        "card": {
+          "label": "Tagihan kartu kredit"
+        },
+        "other": {
+          "label": "Utang lainnya"
+        }
+      },
+      "params": {
+        "parts": [
+          {
+            "phrase": {
+              "*": "semua umur"
+            }
+          }
+        ],
+        "missing": "Belum ada angka untuk kelompok umur itu.",
+        "barsTitle": "Tiap jenis utang di antara orang yang memilikinya",
+        "whenZero": {
+          "headline": "Bebas utang",
+          "sentence": "{none} rumah tangga dengan kepala rumah tangga berusia {age} juga tidak punya utang."
+        }
+      },
+      "text": {
+        "sentence": "Total utang Anda sebesar {total} lebih banyak daripada {pct} rumah tangga berusia {age} yang punya utang.",
+        "stats": [
+          [
+            "Rumah tangga seusia Anda yang punya utang",
+            null
+          ]
+        ]
+      }
+    },
+    "us-pay-in-job": {
+      "title": "Gaji di pekerjaan Anda",
+      "question": "Di mana posisi gaji Anda untuk pekerjaan Anda?",
+      "inputs": {
+        "occupation": {
+          "label": "Pekerjaan"
+        },
+        "area": {
+          "label": "Wilayah",
+          "first": {
+            "US": "Seluruh AS"
+          }
+        },
+        "salary": {
+          "label": "Gaji Anda per tahun"
+        }
+      },
+      "params": {
+        "parts": [
+          {
+            "phrase": {
+              "_": "orang yang bekerja sebagai {lower}"
+            }
+          },
+          {
+            "phrase": {
+              "US": "di AS",
+              "_": "di {label}"
+            }
+          }
+        ],
+        "fallbackCaveat": "Tidak ada angka untuk wilayah itu, jadi ini memakai seluruh AS.",
+        "missing": "Belum ada angka gaji untuk pekerjaan itu."
+      },
+      "text": {
+        "sentence": "Gaji Anda lebih tinggi daripada sekitar {pct} {group}.",
+        "stats": [
+          [
+            "Median",
+            null
+          ],
+          [
+            "Separuh di tengah bergaji",
+            "{p25} sampai {p75}"
+          ]
+        ]
+      }
+    },
+    "us-rent-burden": {
+      "title": "Beban sewa",
+      "question": "Apakah porsi pendapatan Anda untuk sewa lebih besar daripada orang lain?",
+      "inputs": {
+        "rent": {
+          "label": "Sewa per bulan"
+        },
+        "income": {
+          "label": "Pendapatan rumah tangga per bulan"
+        },
+        "state": {
+          "label": "Negara bagian"
+        }
+      },
+      "params": {
+        "requirePositive": {
+          "income": "Masukkan pendapatan bulanan di atas nol."
+        },
+        "parts": [
+          {
+            "phrase": {
+              "*": "di AS",
+              "_": "di {label}"
+            }
+          }
+        ],
+        "missing": "Belum ada angka untuk negara bagian itu."
+      },
+      "text": {
+        "headline": "{value}% dari pendapatan",
+        "sentence": "{pctAbove} penyewa {group} membelanjakan porsi pendapatan yang lebih besar untuk sewa daripada Anda.",
+        "stats": [
+          [
+            "Penyewa yang membayar lebih dari 30%",
+            null
+          ]
+        ]
+      }
+    },
+    "us-home-size": {
+      "title": "Luas rumah",
+      "question": "Seberapa besar rumah Anda dibandingkan rumah lain?",
+      "inputs": {
+        "sqft": {
+          "label": "Luas lantai",
+          "unit": "kaki persegi"
+        },
+        "tenure": {
+          "label": "Anda",
+          "options": {
+            "all": "Rumah apa pun",
+            "owner": "Milik sendiri",
+            "renter": "Sewa"
+          }
+        }
+      },
+      "params": {
+        "parts": [
+          {
+            "phrase": {
+              "all": "rumah",
+              "owner": "rumah yang ditempati pemiliknya",
+              "renter": "rumah sewaan"
+            }
+          }
+        ],
+        "suffix": "di AS",
+        "format": {
+          "suffix": " kaki persegi"
+        },
+        "rangeText": {
+          "closed": "{from} sampai {to}",
+          "open": "{from} atau lebih"
+        },
+        "missing": "Belum ada angka untuk jenis rumah itu."
+      },
+      "text": {
+        "sentence": "Rumah Anda lebih besar daripada sekitar {pct} {group}.",
+        "stats": [
+          [
+            "Rumah di kelas luas Anda ({range})",
+            null
+          ]
+        ],
+        "caveats": [
+          "Survei mencatat luas lantai per kelas luas, jadi di dalam satu kelas rumah dianggap tersebar merata.",
+          "Menghitung rumah berpenghuni yang luasnya dilaporkan."
+        ]
+      }
+    },
+    "us-own-home-age": {
+      "title": "Punya rumah di usia Anda",
+      "question": "Berapa banyak orang seusia Anda yang punya rumah sendiri?",
+      "inputs": {
+        "age": {
+          "label": "Umur",
+          "unit": "tahun"
+        },
+        "state": {
+          "label": "Negara bagian"
+        }
+      },
+      "params": {
+        "parts": [
+          {
+            "phrase": {
+              "*": "semua umur"
+            }
+          },
+          {
+            "phrase": {
+              "*": "di AS",
+              "_": "di {label}"
+            }
+          }
+        ],
+        "then": {
+          "stat": [
+            "Pada {thenYear}",
+            null
+          ]
+        },
+        "missing": "Belum ada angka untuk kelompok itu."
+      },
+      "text": {
+        "sentence": "{share} rumah tangga dengan kepala rumah tangga berusia {band} {state} memiliki rumah sendiri.",
+        "caveats": [
+          "Menghitung orang yang namanya tercantum sebagai pemilik atau penyewa rumah."
+        ]
+      }
+    },
+    "us-weight-rank": {
+      "title": "Peringkat berat badan",
+      "question": "Bagaimana berat badan Anda dibandingkan orang lain?",
+      "inputs": {
+        "sex": {
+          "label": "Jenis kelamin"
+        },
+        "age": {
+          "label": "Umur",
+          "unit": "tahun"
+        },
+        "weight": {
+          "label": "Berat badan Anda",
+          "unit": "kg"
+        }
+      },
+      "params": {
+        "parts": [
+          {
+            "phrase": {
+              "F": "perempuan",
+              "M": "laki-laki",
+              "*": "orang dewasa"
+            }
+          },
+          {
+            "phrase": {
+              "_": "berusia {band}"
+            }
+          }
+        ],
+        "suffix": "di AS",
+        "missing": "Belum ada angka untuk kelompok itu.",
+        "format": {
+          "suffix": " kg"
+        }
+      },
+      "text": {
+        "sentence": "{pct} {group} memiliki berat badan lebih rendah daripada Anda.",
+        "caveats": [
+          "Ini hanya perbandingan; tidak ada nilai ideal di sini."
+        ]
+      }
+    },
+    "us-waist-rank": {
+      "title": "Peringkat lingkar pinggang",
+      "question": "Bagaimana lingkar pinggang Anda dibandingkan orang lain?",
+      "inputs": {
+        "sex": {
+          "label": "Jenis kelamin"
+        },
+        "age": {
+          "label": "Umur",
+          "unit": "tahun"
+        },
+        "waist": {
+          "label": "Lingkar pinggang Anda",
+          "unit": "cm"
+        }
+      },
+      "params": {
+        "parts": [
+          {
+            "phrase": {
+              "F": "perempuan",
+              "M": "laki-laki",
+              "*": "orang dewasa"
+            }
+          },
+          {
+            "phrase": {
+              "_": "berusia {band}"
+            }
+          }
+        ],
+        "suffix": "di AS",
+        "missing": "Belum ada angka untuk kelompok itu.",
+        "format": {
+          "suffix": " cm"
+        }
+      },
+      "text": {
+        "sentence": "{pct} {group} memiliki lingkar pinggang lebih kecil daripada Anda.",
+        "caveats": [
+          "Ini hanya perbandingan; tidak ada nilai ideal di sini."
+        ]
+      }
+    },
+    "us-birth-weight-rank": {
+      "title": "Peringkat berat lahir",
+      "question": "Bagaimana berat lahir dibandingkan bayi lain di AS?",
+      "inputs": {
+        "weight": {
+          "label": "Berat lahir",
+          "unit": "g"
+        }
+      },
+      "params": {
+        "format": {
+          "suffix": " g"
+        }
+      },
+      "text": {
+        "sentence": "{pct} bayi yang lahir di AS lebih ringan.",
+        "stats": [
+          [
+            "Median",
+            null
+          ]
+        ]
+      }
+    },
+    "us-mother-age-rank": {
+      "title": "Usia ibu saat melahirkan",
+      "question": "Bagaimana usia ibu saat melahirkan dibandingkan ibu lain?",
+      "inputs": {
+        "age": {
+          "label": "Usia ibu saat melahirkan",
+          "unit": "tahun"
+        }
+      },
+      "params": {
+        "format": {
+          "suffix": " tahun"
+        }
+      },
+      "text": {
+        "sentence": "{pct} bayi di AS lahir dari ibu yang lebih muda.",
+        "stats": [
+          [
+            "Median",
+            null
+          ]
+        ]
+      }
+    },
+    "us-sleep-rank": {
+      "title": "Peringkat tidur",
+      "question": "Apakah Anda tidur lebih lama daripada orang seusia Anda?",
+      "inputs": {
+        "hours": {
+          "label": "Jam tidur per malam",
+          "unit": "jam"
+        },
+        "age": {
+          "label": "Umur",
+          "unit": "tahun"
+        }
+      },
+      "params": {
+        "parts": [
+          {
+            "phrase": {
+              "_": "berusia {band}"
+            }
+          }
+        ],
+        "prefix": "orang Amerika",
+        "missing": "Belum ada angka untuk kelompok umur itu.",
+        "format": {
+          "suffix": " jam"
+        }
+      },
+      "text": {
+        "headline": "Lebih dari {pct}",
+        "sentence": "Anda tidur lebih lama daripada {pct} {group}.",
+        "stats": [
+          [
+            "Median kelompok umur Anda",
+            null
+          ]
+        ]
+      }
+    },
+    "us-family-size": {
+      "title": "Peringkat jumlah anak",
+      "question": "Apakah anak Anda yang tinggal serumah lebih banyak daripada orang seusia Anda?",
+      "inputs": {
+        "kids": {
+          "label": "Anak yang tinggal bersama Anda"
+        },
+        "age": {
+          "label": "Umur",
+          "unit": "tahun"
+        }
+      },
+      "params": {
+        "parts": [
+          {
+            "phrase": {
+              "*": "semua umur"
+            }
+          }
+        ],
+        "missing": "Belum ada angka untuk kelompok umur itu."
+      },
+      "text": {
+        "sentence": "Anak Anda yang tinggal serumah lebih banyak daripada sekitar {pct} kepala rumah tangga dan pasangannya yang berusia {age}, dengan menghitung separuh dari mereka yang jumlah anaknya sama.",
+        "stats": [
+          [
+            "Sama dengan Anda",
+            null
+          ]
+        ],
+        "caveats": [
+          "Menghitung anak kandung Anda yang tinggal di rumah Anda, berapa pun umurnya."
+        ]
+      }
+    },
+    "us-age-first-child": {
+      "title": "Usia saat anak pertama",
+      "question": "Apakah Anda lebih muda atau lebih tua daripada kebanyakan ibu baru?",
+      "inputs": {
+        "age": {
+          "label": "Umur saat anak pertama Anda lahir",
+          "unit": "tahun"
+        }
+      },
+      "params": {
+        "format": {
+          "suffix": " tahun"
+        }
+      },
+      "text": {
+        "headline": "Lebih tua dari {pct}",
+        "sentence": "Anda lebih tua daripada {pct} ibu di AS yang melahirkan anak pertama.",
+        "stats": [
+          [
+            "Median usia saat kelahiran pertama",
+            null
+          ]
+        ],
+        "caveats": [
+          "Akta kelahiran mencatat kelahiran pertama ibu; kelahiran pertama ayah tidak dicatat dengan cara yang sama."
+        ]
+      }
+    },
+    "us-living-with-parents": {
+      "title": "Masih tinggal dengan orang tua?",
+      "question": "Berapa banyak orang seusia Anda yang tinggal dengan orang tua?",
+      "inputs": {
+        "age": {
+          "label": "Umur",
+          "unit": "tahun"
+        },
+        "sex": {
+          "label": "Tampilkan",
+          "options": {
+            "*": "Semua orang",
+            "F": "Perempuan",
+            "M": "Laki-laki"
+          }
+        }
+      },
+      "params": {
+        "parts": [
+          {
+            "phrase": {
+              "F": "perempuan",
+              "M": "laki-laki",
+              "*": "orang dewasa"
+            }
+          },
+          null
+        ],
+        "missing": "Belum ada angka untuk umur itu."
+      },
+      "text": {
+        "sentence": "{share} {sex} berusia {age} di AS tinggal di rumah orang tua.",
+        "caveats": [
+          "Menghitung orang dewasa yang tinggal di rumah milik atau sewaan orang tuanya."
+        ]
+      }
+    },
+    "us-education-rank": {
+      "title": "Peringkat pendidikan",
+      "question": "Bagaimana pendidikan Anda dibandingkan orang seusia Anda?",
+      "inputs": {
+        "level": {
+          "label": "Pendidikan tertinggi",
+          "options": {
+            "0": "Tidak tamat SMA",
+            "1": "SMA atau sederajat (GED)",
+            "2": "Kuliah tanpa gelar atau diploma (associate)",
+            "3": "Sarjana (S1)",
+            "4": "Pascasarjana atau gelar profesi"
+          }
+        },
+        "age": {
+          "label": "Umur",
+          "unit": "tahun"
+        }
+      },
+      "params": {
+        "parts": [
+          {
+            "phrase": {
+              "*": "25 tahun ke atas"
+            }
+          }
+        ],
+        "missing": "Belum ada angka untuk kelompok umur itu."
+      },
+      "text": {
+        "sentence": "Pendidikan Anda lebih tinggi daripada sekitar {pct} orang Amerika berusia {age}, dengan menghitung separuh dari mereka yang setingkat dengan Anda.",
+        "stats": [
+          [
+            "Setingkat dengan Anda",
+            null
+          ]
+        ]
+      }
+    },
+    "us-student-debt": {
+      "title": "Cek utang pendidikan",
+      "question": "Bagaimana utang pendidikan Anda dibandingkan orang lain?",
+      "inputs": {
+        "age": {
+          "label": "Umur",
+          "unit": "tahun"
+        },
+        "debt": {
+          "label": "Sisa pinjaman pendidikan"
+        }
+      },
+      "params": {
+        "parts": [
+          {
+            "phrase": {
+              "*": "semua umur"
+            }
+          }
+        ],
+        "missing": "Belum ada angka untuk kelompok umur itu.",
+        "whenZero": {
+          "headline": "Tanpa utang pendidikan",
+          "sentence": "{none} rumah tangga dengan kepala rumah tangga berusia {age} juga tidak punya utang pendidikan."
+        }
+      },
+      "text": {
+        "sentence": "Utang Anda lebih besar daripada {pct} rumah tangga berusia {age} yang punya utang pendidikan.",
+        "stats": [
+          [
+            "Rumah tangga seusia Anda yang punya utang pendidikan",
+            null
+          ],
+          [
+            "Median sisa utang",
+            null
+          ]
+        ]
+      }
+    },
+    "us-pay-gap-job": {
+      "title": "Kesenjangan upah di pekerjaan Anda",
+      "question": "Bagaimana perbandingan upah perempuan dan laki-laki di pekerjaan Anda?",
+      "inputs": {
+        "occupation": {
+          "label": "Pekerjaan"
+        }
+      },
+      "params": {
+        "error": "Belum ada angka untuk pekerjaan itu."
+      },
+      "text": {
+        "headline": "{cents}¢ per $1",
+        "sentence": "Perempuan yang bekerja penuh waktu sebagai {job} berpenghasilan median {women}, dibandingkan {men} untuk laki-laki.",
+        "stats": [
+          [
+            "Semua pekerjaan",
+            "{allCents}¢ per $1"
+          ]
+        ],
+        "caveats": [
+          "Median untuk pekerja penuh waktu; kesenjangan ini juga mencerminkan perbedaan jam kerja, pengalaman, dan spesialisasi."
+        ]
+      }
+    },
+    "us-job-outlook": {
+      "title": "Prospek pekerjaan",
+      "question": "Apakah pekerjaan Anda diproyeksikan bertambah?",
+      "inputs": {
+        "occupation": {
+          "label": "Pekerjaan"
+        }
+      },
+      "params": {
+        "error": "Belum ada proyeksi untuk pekerjaan itu.",
+        "values": {
+          "verb": {
+            "then": "bertambah",
+            "else": "berkurang"
+          }
+        }
+      },
+      "text": {
+        "sentence": "Lapangan kerja sebagai {job} diproyeksikan {verb} {size} dari {baseYear} hingga {projYear}, dibandingkan {allChange} untuk semua pekerjaan.",
+        "stats": [
+          [
+            "Jumlah pekerjaan pada {baseYear}",
+            null
+          ],
+          [
+            "Jumlah pekerjaan pada {projYear}",
+            null
+          ]
+        ]
+      }
+    },
+    "us-ai-exposure": {
+      "title": "Paparan AI di pekerjaan Anda",
+      "question": "Tugas mana dalam pekerjaan Anda yang sudah dikerjakan orang dengan AI?",
+      "inputs": {
+        "occupation": {
+          "label": "Pekerjaan"
+        }
+      },
+      "params": {
+        "error": "Belum ada angka untuk pekerjaan itu.",
+        "bars": {
+          "title": "Tugas yang paling umum"
+        }
+      },
+      "text": {
+        "sentence": "{share} tugas yang tercatat untuk {job} muncul di Anthropic Economic Index, yang memantau cara orang memakai Claude.",
+        "caveats": [
+          "Menunjukkan di mana AI dipakai saat ini, bukan apakah sebuah pekerjaan akan tergantikan."
+        ]
+      }
+    },
+    "us-degree-earns": {
+      "title": "Penghasilan dari gelar Anda",
+      "question": "Berapa penghasilan orang dengan gelar seperti Anda?",
+      "inputs": {
+        "field": {
+          "label": "Bidang gelar Anda"
+        }
+      },
+      "params": {
+        "error": "Belum ada angka untuk bidang itu."
+      },
+      "text": {
+        "sentence": "Pekerja penuh waktu berusia 25 sampai 64 tahun dengan gelar di bidang {label} berpenghasilan median {median} per tahun, dibandingkan {overall} untuk semua bidang.",
+        "stats": [
+          [
+            "Separuh di tengah bergaji",
+            "{p25} sampai {p75}"
+          ]
+        ],
+        "caveats": [
+          "Memakai bidang pertama yang tercantum pada gelar, termasuk orang yang punya gelar lanjutan."
+        ]
+      }
+    },
+    "us-language-community": {
+      "title": "Komunitas bahasa",
+      "question": "Berapa banyak orang yang berbicara bahasa Anda di rumah?",
+      "inputs": {
+        "language": {
+          "label": "Bahasa"
+        }
+      },
+      "params": {
+        "error": "Belum ada angka untuk bahasa itu.",
+        "bars": {
+          "title": "Tempat tinggal mereka"
+        }
+      },
+      "text": {
+        "sentence": "Sekitar {speakers} orang berusia 5 tahun ke atas berbicara {language} di rumah di AS."
+      }
+    },
+    "us-diaspora": {
+      "title": "Diaspora Anda",
+      "question": "Berapa banyak orang dari negara kelahiran Anda yang tinggal di AS?",
+      "inputs": {
+        "country": {
+          "label": "Negara kelahiran"
+        }
+      },
+      "params": {
+        "error": "Belum ada angka untuk negara itu.",
+        "bars": {
+          "title": "Tempat tinggal mereka"
+        }
+      },
+      "text": {
+        "sentence": "Sekitar {people} orang kelahiran {country} tinggal di AS. Median pendapatan mereka {income}."
+      }
+    },
+    "us-risk-odds": {
+      "title": "Peluang risiko sehari-hari",
+      "question": "Mana dari dua risiko yang lebih mungkin terjadi seumur hidup?",
+      "inputs": {
+        "a": {
+          "label": "Risiko pertama"
+        },
+        "b": {
+          "label": "Risiko kedua"
+        }
+      },
+      "params": {
+        "error": "Pilih dua risiko dari daftar.",
+        "values": {
+          "comparison": {
+            "then": "Yang pertama {value} kali lebih mungkin",
+            "else": "Yang kedua {inverse} kali lebih mungkin"
+          }
+        }
+      },
+      "text": {
+        "headline": "1 dari {aOdds}",
+        "sentence": "Peluang seumur hidup meninggal karena {aLabel} adalah 1 dari {aOdds}, dan karena {bLabel} 1 dari {bOdds}.",
+        "stats": [
+          [
+            "Perbandingan",
+            null
+          ]
+        ],
+        "caveats": [
+          "Peluang seumur hidup bagi orang yang lahir hari ini, berdasarkan angka kematian terbaru."
+        ]
+      }
+    },
+    "us-couple-match": {
+      "title": "Kecocokan pasangan",
+      "question": "Seberapa umum pasangan seperti Anda berdua?",
+      "inputs": {
+        "sex": {
+          "label": "Anda"
+        },
+        "edu": {
+          "label": "Pendidikan Anda",
+          "options": {
+            "0": "Tidak tamat SMA",
+            "1": "SMA atau sederajat (GED)",
+            "2": "Kuliah tanpa gelar atau diploma (associate)",
+            "3": "Sarjana (S1)",
+            "4": "Pascasarjana atau gelar profesi"
+          }
+        },
+        "partnerEdu": {
+          "label": "Pendidikan pasangan Anda",
+          "options": {
+            "0": "Tidak tamat SMA",
+            "1": "SMA atau sederajat (GED)",
+            "2": "Kuliah tanpa gelar atau diploma (associate)",
+            "3": "Sarjana (S1)",
+            "4": "Pascasarjana atau gelar profesi"
+          }
+        },
+        "race": {
+          "label": "Ras atau etnis Anda",
+          "options": {
+            "white": "Kulit putih",
+            "black": "Kulit hitam",
+            "asian": "Asia",
+            "hispanic": "Hispanik",
+            "other": "Lainnya atau lebih dari satu ras"
+          }
+        },
+        "partnerRace": {
+          "label": "Ras atau etnis pasangan Anda",
+          "options": {
+            "white": "Kulit putih",
+            "black": "Kulit hitam",
+            "asian": "Asia",
+            "hispanic": "Hispanik",
+            "other": "Lainnya atau lebih dari satu ras"
+          }
+        }
+      },
+      "params": {
+        "values": {
+          "manEdu": {
+            "map": {
+              "0": "pendidikan di bawah SMA",
+              "1": "ijazah SMA atau GED",
+              "2": "pernah kuliah atau gelar diploma (associate)",
+              "3": "gelar sarjana",
+              "4": "gelar pascasarjana atau profesi"
+            }
+          },
+          "womanEdu": {
+            "map": {
+              "0": "pendidikan di bawah SMA",
+              "1": "ijazah SMA atau GED",
+              "2": "pernah kuliah atau gelar diploma (associate)",
+              "3": "gelar sarjana",
+              "4": "gelar pascasarjana atau profesi"
+            }
+          }
+        }
+      },
+      "text": {
+        "sentence": "{share} pasangan terdiri dari laki-laki dengan {manEdu} dan perempuan dengan {womanEdu}, seperti Anda berdua.",
+        "stats": [
+          [
+            "Pasangan dengan kombinasi ras seperti Anda",
+            null
+          ],
+          [
+            "Laki-laki berpenghasilan lebih tinggi, pada pasangan seperti Anda",
+            null
+          ]
+        ],
+        "caveats": [
+          "Kombinasi ini menghitung pasangan beda jenis kelamin yang tinggal bersama."
+        ]
+      }
+    },
+    "us-family-then-now": {
+      "title": "Besar keluarga dulu vs sekarang",
+      "question": "Seberapa besar keluarga saat Anda lahir?",
+      "inputs": {
+        "birthYear": {
+          "label": "Tahun lahir"
+        }
+      },
+      "params": {
+        "error": "Belum ada angka untuk tahun itu."
+      },
+      "text": {
+        "headline": "{thenTfr} anak",
+        "sentence": "Pada {year}, perempuan di AS diperkirakan punya {thenTfr} anak per orang. Pada {latest} angkanya {nowTfr}.",
+        "stats": [
+          [
+            "Kelahiran pada {year}",
+            null
+          ],
+          [
+            "Kelahiran pada {latest}",
+            null
+          ]
+        ]
+      }
+    },
+    "us-salary-furthest": {
+      "title": "Di mana gaji Anda paling bernilai",
+      "question": "Berapa nilai gaji Anda di negara bagian lain?",
+      "inputs": {
+        "salary": {
+          "label": "Gaji Anda per tahun"
+        },
+        "home": {
+          "label": "Tempat tinggal Anda sekarang"
+        }
+      },
+      "params": {
+        "value": {
+          "scale": {
+            "base": {
+              "error": "Belum ada tingkat harga untuk negara bagian itu."
+            }
+          }
+        },
+        "phrases": {
+          "place": {
+            "map": {
+              "*": "di AS"
+            },
+            "default": "di {label.home}"
+          }
+        },
+        "bars": {
+          "title": "Gaji yang dibutuhkan untuk taraf hidup yang sama"
+        }
+      },
+      "text": {
+        "sentence": "Untuk hidup senyaman dengan {salaryText} {place}, Anda butuh sekitar {first} di {firstLabel} dan {last} di {lastLabel}.",
+        "caveats": [
+          "Tingkat harga mencakup barang, jasa, dan sewa; pajak tidak termasuk."
+        ]
+      }
+    },
+    "us-personal-inflation": {
+      "title": "Inflasi pribadi Anda",
+      "question": "Seberapa cepat harga barang yang Anda beli naik?",
+      "inputs": {
+        "weights": {
+          "label": "Porsi pengeluaran Anda (%)"
+        }
+      },
+      "params": {
+        "barsTitle": "Perubahan harga per kategori",
+        "noWeights": "Isi berapa bagian pengeluaran Anda untuk minimal satu kategori.",
+        "place": "AS"
+      },
+      "text": {
+        "sentence": "Harga barang yang Anda beli naik sekitar {personalPct} dalam 12 bulan sampai {month}, dibandingkan {overall} menurut angka inflasi resmi {place}.",
+        "stats": [
+          [
+            "Selisih dengan angka resmi",
+            "{diff} poin"
+          ]
+        ],
+        "caveats": [
+          "Bobot Anda disesuaikan agar totalnya 100%."
+        ]
+      }
+    },
+    "us-life-exp-state": {
+      "title": "Angka harapan hidup per negara bagian",
+      "question": "Di mana di AS orang hidup paling lama?",
+      "inputs": {
+        "states": {
+          "label": "Negara bagian"
+        },
+        "sex": {
+          "label": "Untuk",
+          "options": {
+            "B": "Semua orang",
+            "F": "Perempuan",
+            "M": "Laki-laki"
+          }
+        }
+      },
+      "params": {
+        "empty": "Pilih minimal satu negara bagian.",
+        "phrases": {
+          "summary": {
+            "many": "Dari negara bagian yang Anda pilih, {firstLabel} punya angka harapan hidup saat lahir tertinggi dan {lastLabel} terendah, selisihnya {spread} tahun.",
+            "one": "Angka harapan hidup saat lahir di {firstLabel} adalah {first}."
+          }
+        },
+        "bars": {
+          "title": "Angka harapan hidup saat lahir"
+        }
+      }
+    },
+    "us-name-popularity": {
+      "title": "Popularitas nama",
+      "question": "Seberapa populer nama Anda pada tahun Anda lahir?",
+      "inputs": {
+        "name": {
+          "label": "Nama depan"
+        },
+        "sex": {
+          "label": "Diberikan kepada",
+          "options": {
+            "F": "Anak perempuan",
+            "M": "Anak laki-laki"
+          }
+        },
+        "birthYear": {
+          "label": "Tahun lahir"
+        }
+      },
+      "params": {
+        "kids": {
+          "map": {
+            "F": "anak perempuan",
+            "M": "anak laki-laki"
+          },
+          "default": "bayi"
+        },
+        "notFound": "Tidak ada {kids} bernama {name} dalam catatan. Catatan hanya memuat nama yang diberikan kepada minimal lima bayi dalam setahun.",
+        "phrases": {
+          "headline": {
+            "listed": "#{rank} pada {year}",
+            "unlisted": "Tidak tercatat pada {year}"
+          },
+          "sentence": {
+            "listed": "{count} {kids} yang lahir pada {year} diberi nama {name}, sekitar {oneIn} {kids} pada tahun itu.",
+            "unlisted": "{name} tidak diberikan kepada lima {kids} atau lebih pada {year}."
+          }
+        }
+      },
+      "text": {
+        "stats": [
+          [
+            "Tahun puncak",
+            "{peakYear} ({peakCount} bayi)"
+          ],
+          [
+            "Total sejak {since}",
+            null
+          ],
+          [
+            "Pada {lastYear}",
+            "{lastCount} bayi"
+          ]
+        ]
+      }
+    },
+    "us-zodiac-share": {
+      "title": "Pembagian zodiak",
+      "question": "Berapa banyak orang yang berbagi zodiak dengan Anda?",
+      "inputs": {
+        "birthday": {
+          "label": "Tanggal ulang tahun Anda"
+        }
+      },
+      "params": {
+        "people": "orang Amerika",
+        "signs": [
+          [
+            "Capricorn",
+            null,
+            null
+          ],
+          [
+            "Aquarius",
+            null,
+            null
+          ],
+          [
+            "Pisces",
+            null,
+            null
+          ],
+          [
+            "Aries",
+            null,
+            null
+          ],
+          [
+            "Taurus",
+            null,
+            null
+          ],
+          [
+            "Gemini",
+            null,
+            null
+          ],
+          [
+            "Cancer",
+            null,
+            null
+          ],
+          [
+            "Leo",
+            null,
+            null
+          ],
+          [
+            "Virgo",
+            null,
+            null
+          ],
+          [
+            "Libra",
+            null,
+            null
+          ],
+          [
+            "Scorpio",
+            null,
+            null
+          ],
+          [
+            "Sagitarius",
+            null,
+            null
+          ]
+        ],
+        "barsTitle": "Semua zodiak"
+      },
+      "text": {
+        "sentence": "{share} {people} yang lahir dari {first} sampai {last} berzodiak {sign}, dibandingkan {even} jika kelahiran tersebar merata."
+      }
+    },
+    "world-age-rank": {
+      "title": "Peringkat umur",
+      "question": "Berapa banyak orang yang hidup saat ini lebih tua dari Anda?",
+      "inputs": {
+        "birthDate": {
+          "label": "Tanggal lahir"
+        },
+        "place": {
+          "label": "Bandingkan dengan",
+          "first": {
+            "WLD": "Seluruh dunia"
+          }
+        }
+      },
+      "params": {
+        "place": {
+          "map": {
+            "WLD": "di dunia"
+          },
+          "default": "di {label.place}"
+        }
+      },
+      "text": {
+        "headline": "Lebih tua dari {younger}",
+        "sentence": "Anda lebih tua daripada {younger} penduduk yang tinggal {place}, dan lebih muda daripada {older}."
+      }
+    },
+    "world-time-left": {
+      "title": "Sisa usia",
+      "question": "Berapa tahun lagi rata-rata sisa hidup orang seusia Anda?",
+      "inputs": {
+        "age": {
+          "label": "Umur",
+          "unit": "tahun"
+        },
+        "sex": {
+          "label": "Jenis kelamin"
+        },
+        "country": {
+          "label": "Negara"
+        }
+      },
+      "params": {
+        "who": {
+          "map": {
+            "F": "perempuan",
+            "M": "laki-laki"
+          },
+          "default": "orang"
+        },
+        "place": "di {label.country}"
+      },
+      "text": {
+        "headline": "Sekitar {left} tahun lagi",
+        "sentence": "Dengan angka kematian saat ini, {who} berusia {age} {place} rata-rata hidup sampai sekitar usia {liveTo}.",
+        "caveats": [
+          "Ini tabel kematian periode: diasumsikan angka kematian saat ini berlaku di setiap usia, jadi kebanyakan orang seusia Anda akan hidup sedikit lebih lama."
+        ]
+      }
+    },
+    "world-income-rank": {
+      "title": "Peringkat pendapatan global",
+      "question": "Di peringkat berapa pendapatan Anda di antara seluruh penduduk dunia?",
+      "inputs": {
+        "country": {
+          "label": "Tempat tinggal Anda"
+        },
+        "income": {
+          "label": "Pendapatan rumah tangga per tahun"
+        },
+        "size": {
+          "label": "Jumlah orang di rumah tangga Anda"
+        }
+      },
+      "params": {
+        "noPpp": "Belum ada kurs paritas daya beli untuk {name}.",
+        "cpiNote": "Pendapatan Anda dikonversi ke harga tahun 2021 memakai indeks harga konsumen sampai {cpiYear}.",
+        "noCpiNote": "Negara ini tidak punya data indeks harga konsumen, jadi pendapatan Anda diperlakukan seolah diperoleh pada harga tahun 2021.",
+        "stats": [
+          {
+            "stat": [
+              "Peringkat Anda di {name}",
+              null
+            ]
+          },
+          [
+            "Median dunia",
+            "{median} per hari"
+          ],
+          [
+            "Hidup dengan kurang dari $3 per hari, garis kemiskinan ekstrem",
+            null
+          ]
+        ]
+      },
+      "text": {
+        "sentence": "Pendapatan rumah tangga Anda setara sekitar {perDay} per orang per hari dengan harga AS tahun 2021, lebih tinggi daripada biaya hidup {pct}% penduduk dunia.",
+        "caveats": [
+          "Angka tiap negara berasal dari survei rumah tangga terbarunya; sebagian mengukur pengeluaran, yang biasanya lebih rendah daripada pendapatan."
+        ]
+      }
+    },
+    "world-100-people": {
+      "title": "Jika dunia hanya 100 orang",
+      "question": "Di mana posisi Anda di antara 100 orang?",
+      "inputs": {
+        "country": {
+          "label": "Tempat tinggal Anda"
+        },
+        "income": {
+          "label": "Pendapatan rumah tangga per tahun"
+        },
+        "size": {
+          "label": "Jumlah orang di rumah tangga Anda"
+        },
+        "birthDate": {
+          "label": "Tanggal lahir"
+        }
+      },
+      "params": {
+        "noPpp": "Belum ada kurs paritas daya beli untuk {name}.",
+        "cpiNote": "Pendapatan Anda dikonversi ke harga tahun 2021 memakai indeks harga konsumen sampai {cpiYear}.",
+        "noCpiNote": "Negara ini tidak punya data indeks harga konsumen, jadi pendapatan Anda diperlakukan seolah diperoleh pada harga tahun 2021.",
+        "ages": {
+          "missing": "Belum ada angka penduduk dunia."
+        },
+        "sentenceParts": [
+          "{richer} orang hidup dengan uang lebih sedikit daripada Anda",
+          "{younger} orang lebih muda daripada Anda",
+          {
+            "text": "{online} orang memakai internet"
+          }
+        ],
+        "bars": {
+          "title": "Dari 100 orang",
+          "items": [
+            {
+              "label": "Hidup dengan uang lebih sedikit dari Anda"
+            },
+            {
+              "label": "Lebih muda dari Anda"
+            },
+            {
+              "label": "Memakai internet ({onlineYear})"
+            }
+          ]
+        },
+        "gridCaption": "Figur yang diarsir hidup dengan uang lebih sedikit daripada Anda."
+      },
+      "text": {
+        "headline": "{richer} hidup dengan lebih sedikit",
+        "sentence": "Jika dunia hanya 100 orang, {parts}.",
+        "caveats": [
+          "Pendapatan membandingkan pendapatan atau pengeluaran rumah tangga per orang pada kurs paritas daya beli tahun 2021."
+        ]
+      }
+    },
+    "world-your-generation": {
+      "title": "Angkatan Anda",
+      "question": "Berapa banyak orang yang lahir di tahun yang sama dengan Anda masih hidup sekarang?",
+      "inputs": {
+        "birthYear": {
+          "label": "Tahun lahir"
+        },
+        "place": {
+          "label": "Bandingkan dengan",
+          "first": {
+            "WLD": "Seluruh dunia"
+          }
+        }
+      },
+      "params": {
+        "missing": "Belum ada angka penduduk untuk {label.place}.",
+        "rangeError": "Pilih tahun lahir antara {from} dan {to}.",
+        "place": {
+          "map": {
+            "WLD": "di dunia"
+          },
+          "default": "di {label.place}"
+        },
+        "birthsLine": " Ada {births} bayi yang lahir di sana pada tahun itu.",
+        "gridCaption": {
+          "map": {
+            "WLD": "Dari 100 bayi yang lahir pada tahun itu, figur yang diarsir masih hidup sekarang."
+          }
+        },
+        "stats": [
+          {
+            "stat": [
+              {
+                "map": {
+                  "WLD": "Masih hidup, dari semua yang lahir pada tahun itu"
+                }
+              },
+              null
+            ]
+          }
+        ],
+        "caveats": [
+          {
+            "default": "Menghitung semua orang yang tinggal di sana saat ini, termasuk pendatang, dan tidak menghitung mereka yang sudah pindah."
+          }
+        ],
+        "projection": {
+          "caveat": "Angka setelah 2023 adalah proyeksi PBB."
+        }
+      },
+      "text": {
+        "sentence": "Sekitar {alive} orang kelahiran {year} masih hidup {place} saat ini.{birthsLine}"
+      }
+    },
+    "world-pop-when-born": {
+      "title": "Penduduk dunia saat Anda lahir",
+      "question": "Berapa jumlah penduduk saat Anda lahir?",
+      "inputs": {
+        "birthYear": {
+          "label": "Tahun lahir"
+        },
+        "place": {
+          "label": "Tampilkan",
+          "first": {
+            "WLD": "Seluruh dunia"
+          }
+        }
+      },
+      "params": {
+        "name": {
+          "map": {
+            "WLD": "dunia"
+          }
+        },
+        "points": {
+          "then": {
+            "required": "Tidak ada angka penduduk untuk tahun itu."
+          },
+          "today": {
+            "required": "Tidak ada angka penduduk untuk tahun ini."
+          }
+        },
+        "projection": {
+          "caveat": "Angka setelah 2023 adalah proyeksi PBB."
+        }
+      },
+      "text": {
+        "sentence": "Saat Anda lahir pada {v.birthYear}, penduduk {name} berjumlah {then} jiwa. Pada {thisYear} jumlahnya sekitar {today}, {ratio} kali lipat.",
+        "stats": [
+          [
+            "Bayi yang lahir di sana sejak {v.birthYear}",
+            null
+          ]
+        ]
+      }
+    },
+    "world-family-size": {
+      "title": "Besar keluarga vs negara Anda",
+      "question": "Bagaimana jumlah anak Anda dibandingkan rata-rata negara Anda?",
+      "inputs": {
+        "kids": {
+          "label": "Anak Anda"
+        },
+        "country": {
+          "label": "Negara"
+        }
+      },
+      "params": {
+        "points": {
+          "tfr": {
+            "required": "Belum ada angka kelahiran untuk {label.country}."
+          }
+        },
+        "compare": {
+          "same": "Pas di rata-rata",
+          "more": "{diff} di atas rata-rata",
+          "less": "{diff} di bawah rata-rata"
+        },
+        "stats": [
+          {
+            "stat": [
+              "Tertinggi",
+              null
+            ]
+          },
+          {
+            "stat": [
+              "Terendah",
+              null
+            ]
+          }
+        ],
+        "projection": {
+          "caveat": "Angka setelah 2023 adalah proyeksi PBB."
+        }
+      },
+      "text": {
+        "sentence": "Dengan angka kelahiran saat ini, perempuan di {label.country} diperkirakan punya {tfr} anak per orang. Anda punya {v.kids}.",
+        "stats": [
+          [
+            "Seluruh dunia",
+            "{world} anak per perempuan"
+          ]
+        ],
+        "caveats": [
+          "Kelahiran per perempuan adalah angka kelahiran total (TFR): jumlah anak yang akan dimiliki seorang perempuan sepanjang hidupnya pada angka kelahiran tahun ini."
+        ]
+      }
+    },
+    "world-family-lottery": {
+      "title": "Untung-untungan besar keluarga",
+      "question": "Seberapa besar keluarga di tempat dan tahun Anda lahir?",
+      "inputs": {
+        "birthYear": {
+          "label": "Tahun lahir"
+        },
+        "country": {
+          "label": "Negara tempat Anda lahir"
+        }
+      },
+      "params": {
+        "points": {
+          "then": {
+            "required": "Tidak ada angka kelahiran untuk tahun itu."
+          },
+          "today": {
+            "required": "Tidak ada angka kelahiran untuk tahun ini."
+          }
+        },
+        "bars": {
+          "title": "Anak per perempuan di {label.country}"
+        },
+        "projection": {
+          "caveat": "Angka setelah 2023 adalah proyeksi PBB."
+        }
+      },
+      "text": {
+        "headline": "{then} anak",
+        "sentence": "Saat Anda lahir pada {v.birthYear}, perempuan di {label.country} diperkirakan punya {then} anak per orang. Pada {thisYear} angkanya {today}.",
+        "stats": [
+          [
+            "Seluruh dunia, {v.birthYear}",
+            null
+          ],
+          [
+            "Seluruh dunia, {thisYear}",
+            null
+          ]
+        ]
+      }
+    },
+    "world-parenthood-age": {
+      "title": "Usia jadi orang tua vs negara Anda",
+      "question": "Apakah Anda lebih tua atau lebih muda daripada kebanyakan ibu di negara Anda?",
+      "inputs": {
+        "age": {
+          "label": "Umur Anda saat anak Anda lahir"
+        },
+        "year": {
+          "label": "Tahun kelahiran anak Anda"
+        },
+        "country": {
+          "label": "Negara"
+        }
+      },
+      "params": {
+        "points": {
+          "mac": {
+            "required": "Tidak ada angka untuk tahun itu."
+          }
+        },
+        "compare": {
+          "same": "Sekitar rata-rata",
+          "more": "{diff} tahun lebih tua",
+          "less": "{diff} tahun lebih muda"
+        },
+        "stats": [
+          {
+            "stat": [
+              "Seluruh dunia, {v.year}",
+              "{world} tahun"
+            ]
+          }
+        ]
+      },
+      "text": {
+        "sentence": "Rata-rata usia ibu di {label.country} saat melahirkan pada {v.year} adalah {mac}. Anda berusia {v.age}.",
+        "caveats": [
+          "Rata-rata ini menghitung ibu pada setiap kelahiran, bukan hanya anak pertama."
+        ]
+      }
+    },
+    "world-chinese-zodiac": {
+      "title": "Pembagian shio",
+      "question": "Berapa banyak orang yang hidup saat ini berbagi shio dengan Anda?",
+      "inputs": {
+        "birthYear": {
+          "label": "Tahun lahir"
+        },
+        "place": {
+          "label": "Bandingkan dengan",
+          "first": {
+            "WLD": "Seluruh dunia"
+          }
+        }
+      },
+      "params": {
+        "animals": [
+          "Tikus",
+          "Kerbau",
+          "Macan",
+          "Kelinci",
+          "Naga",
+          "Ular",
+          "Kuda",
+          "Kambing",
+          "Monyet",
+          "Ayam",
+          "Anjing",
+          "Babi"
+        ],
+        "missing": "Belum ada angka penduduk untuk {label.place}.",
+        "place": {
+          "map": {
+            "WLD": "di dunia"
+          },
+          "default": "di {label.place}"
+        },
+        "barsTitle": "Semua shio"
+      },
+      "text": {
+        "sentence": "{share} orang yang hidup {place} saat ini lahir pada tahun {animal}, dibandingkan {even} jika kelahiran tersebar merata.",
+        "caveats": [
+          "Tahun dihitung mulai Januari; tahun shio dimulai saat Imlek pada Januari atau Februari, jadi orang yang lahir di awal tahun bisa termasuk shio sebelumnya."
+        ]
+      }
+    },
+    "world-birth-lottery": {
+      "title": "Untung-untungan kelahiran",
+      "question": "Seberapa beruntung tempat Anda lahir?",
+      "inputs": {
+        "birthYear": {
+          "label": "Tahun lahir"
+        },
+        "country": {
+          "label": "Negara tempat Anda lahir"
+        }
+      },
+      "params": {
+        "noYear": "Belum ada angka pendapatan untuk tahun {year}. Untung-untungan kelahiran dimulai dari tahun 1990.",
+        "noCountry": "Tidak ada angka pendapatan untuk {name} pada tahun {year}.",
+        "gridCaption": "Dari 100 bayi yang lahir pada tahun itu, figur yang diarsir lahir di negara yang lebih miskin.",
+        "stats": [
+          {
+            "stat": [
+              "Bayi yang lahir pada {year} di rumah yang punya listrik",
+              null
+            ]
+          },
+          {
+            "stat": [
+              "Lahir di tempat yang sebagian besar penduduknya sudah memakai internet",
+              null
+            ]
+          },
+          [
+            "Pendapatan per orang di {name}, {year}",
+            "{gdp} per tahun"
+          ]
+        ],
+        "caveats": [
+          "Pendapatan per orang adalah PDB per kapita pada kurs paritas daya beli tahun 2021; kondisi keluarga di dalam satu negara sangat beragam.",
+          "Akses listrik diperkirakan dari persentase penduduk tiap negara yang punya akses listrik.",
+          {
+            "text": "Negara tanpa angka pendapatan untuk {year} tidak dihitung ({missingShare} dari kelahiran)."
+          }
+        ]
+      },
+      "text": {
+        "headline": "Lebih kaya dari {pct}%",
+        "sentence": "Dari {allBirths} bayi yang lahir pada {year}, sekitar {pct}% lahir di negara yang lebih miskin daripada {name}, menurut pendapatan per orang."
+      }
+    },
+    "world-dream-partner": {
+      "title": "Pasangan impian global (usia dan pendapatan)",
+      "question": "Berapa banyak orang di seluruh dunia yang memenuhi kriteria usia dan pendapatan Anda?",
+      "inputs": {
+        "seeking": {
+          "label": "Mencari",
+          "options": {
+            "M": "Laki-laki",
+            "F": "Perempuan"
+          }
+        },
+        "ages": {
+          "label": "Rentang umur"
+        },
+        "country": {
+          "label": "Negara Anda, untuk mata uang"
+        },
+        "minIncome": {
+          "label": "Pendapatan rumah tangga minimal per orang, per tahun"
+        }
+      },
+      "params": {
+        "noPpp": "Belum ada kurs paritas daya beli untuk {name}.",
+        "people": {
+          "map": {
+            "F": "perempuan berusia {lo}–{hi}",
+            "M": "laki-laki berusia {lo}–{hi}"
+          },
+          "default": "orang berusia {lo}–{hi}"
+        },
+        "sentenceAnyIncome": "Ada sekitar {total} {people} di dunia.",
+        "barsTitle": "Tempat tinggal mereka",
+        "stats": [
+          [
+            "Persentase dari semua orang seusia itu",
+            null
+          ],
+          {
+            "stat": [
+              "Di {ownName}",
+              null
+            ]
+          }
+        ],
+        "caveats": [
+          {
+            "text": "Pendapatan di sini adalah pendapatan atau pengeluaran rumah tangga per orang dari survei nasional, bukan penghasilan pribadi."
+          },
+          {
+            "text": "Usia dan pendapatan digabungkan seolah tidak saling berkaitan."
+          },
+          {
+            "text": "Negara tanpa survei pendapatan tidak dihitung ({missingShare} dari orang seusia itu)."
+          },
+          {
+            "text": "Pendapatan Anda dikonversi ke harga tahun 2021 memakai indeks harga konsumen sampai {cpiYear}."
+          },
+          {
+            "text": "Negara ini tidak punya data indeks harga konsumen, jadi pendapatan Anda diperlakukan seolah diperoleh pada harga tahun 2021."
+          },
+          "Filter tinggi badan, bentuk tubuh, dan status perkawinan menunggu sampai datanya boleh dipakai untuk keperluan komersial."
+        ]
+      },
+      "text": {
+        "sentence": "Sekitar {total} {people} di seluruh dunia tinggal di rumah tangga dengan minimal {threshold} per orang per hari dengan harga AS tahun 2021."
+      }
+    },
+    "world-years-to-home": {
+      "title": "Berapa tahun sampai punya rumah (OECD)",
+      "question": "Berapa lama sampai Anda sanggup membayar uang muka?",
+      "inputs": {
+        "country": {
+          "label": "Negara"
+        },
+        "income": {
+          "label": "Pendapatan rumah tangga per tahun"
+        },
+        "saved": {
+          "label": "Tabungan sejauh ini"
+        },
+        "monthly": {
+          "label": "Ditabung tiap bulan"
+        },
+        "down": {
+          "label": "Uang muka"
+        }
+      },
+      "params": {
+        "missing": "Belum ada angka untuk negara itu.",
+        "labels": {
+          "ready": "Sudah cukup",
+          "over": "Lebih dari 100 tahun"
+        },
+        "when": {
+          "ready": "0 tahun (tabungan Anda sudah cukup)",
+          "over": "lebih dari 100 tahun"
+        },
+        "bars": {
+          "title": "Harga rumah dalam tahun pendapatan rumah tangga"
+        }
+      },
+      "text": {
+        "sentence": "Rumah biasa di {name} harganya sekitar {typicalRatio} tahun pendapatan rumah tangga biasa. Jika pendapatan Anda setara rata-rata di sana, harganya sekitar {price}, dan untuk uang muka {v.down}% Anda perlu menabung selama {when}.",
+        "caveats": [
+          "Mengasumsikan pendapatan Anda setara rata-rata negara itu dan harga tidak berubah.",
+          "Rasio untuk tahun {dataYear}."
+        ]
+      }
+    },
+    "world-life-in-hours": {
+      "title": "Hidup Anda dalam jam (OECD)",
+      "question": "Berapa banyak sisa tahun hidup Anda yang terpakai untuk tidur, bekerja, dan bersantai?",
+      "inputs": {
+        "country": {
+          "label": "Negara"
+        },
+        "age": {
+          "label": "Umur",
+          "unit": "tahun"
+        },
+        "sex": {
+          "label": "Jenis kelamin"
+        },
+        "sleep": {
+          "label": "Tidur, jam per hari"
+        },
+        "paidWork": {
+          "label": "Kerja berbayar atau belajar, jam per hari (rata-rata seminggu)"
+        },
+        "unpaidWork": {
+          "label": "Pekerjaan rumah dan merawat keluarga, jam per hari"
+        },
+        "leisure": {
+          "label": "Waktu santai, jam per hari"
+        }
+      },
+      "params": {
+        "place": {
+          "missing": "Belum ada angka penggunaan waktu untuk negara itu."
+        },
+        "noTable": "Belum ada tabel kematian untuk {name}.",
+        "activities": [
+          {
+            "label": "Tidur"
+          },
+          {
+            "label": "Kerja berbayar atau belajar"
+          },
+          {
+            "label": "Pekerjaan rumah dan merawat keluarga"
+          },
+          {
+            "label": "Waktu santai"
+          }
+        ],
+        "rest": "Lainnya",
+        "who": {
+          "map": {
+            "F": "perempuan"
+          },
+          "default": "laki-laki"
+        },
+        "barsTitle": "Sisa tahun hidup Anda",
+        "stats": [
+          {
+            "stat": [
+              "Rata-rata perawatan diri di {name} (tidur, makan, kebersihan diri)",
+              "{avg.personalCare} jam per hari"
+            ]
+          },
+          {
+            "stat": [
+              "Rata-rata kerja berbayar atau belajar di {name}",
+              "{avg.paidWork} jam per hari"
+            ]
+          },
+          {
+            "stat": [
+              "Rata-rata pekerjaan rumah dan merawat keluarga di {name}",
+              "{avg.unpaidWork} jam per hari"
+            ]
+          },
+          {
+            "stat": [
+              "Rata-rata waktu santai di {name}",
+              "{avg.leisure} jam per hari"
+            ]
+          }
+        ]
+      },
+      "text": {
+        "headline": "{years.leisure} tahun untuk bersantai",
+        "sentence": "Dari sekitar {left} sisa tahun hidup rata-rata {who} seusia Anda di {name}, Anda akan menghabiskan {years.sleep} tahun untuk tidur dan {years.paidWork} tahun untuk bekerja atau belajar.",
+        "caveats": [
+          "Rata-rata negara mencakup penduduk berusia 15 sampai 64 tahun dan semua hari dalam seminggu.",
+          "OECD menerbitkan angka tidur bersama makan dan kebersihan diri, jadi angka negara mencakup ketiganya."
+        ]
+      }
+    },
+    "world-life-exp-anywhere": {
+      "title": "Angka harapan hidup di mana saja",
+      "question": "Berapa lama Anda bisa berharap hidup jika lahir di tempat lain?",
+      "inputs": {
+        "countries": {
+          "label": "Negara"
+        }
+      },
+      "params": {
+        "empty": "Pilih minimal satu negara.",
+        "phrases": {
+          "summary": {
+            "many": "Bayi yang lahir di {firstLabel} pada {year} bisa berharap hidup {spread} tahun lebih lama daripada bayi yang lahir di {lastLabel}.",
+            "one": "Bayi yang lahir di {firstLabel} pada {year} bisa berharap hidup {first}."
+          }
+        },
+        "stats": [
+          [
+            "Seluruh dunia",
+            null,
+            null
+          ]
+        ],
+        "caveats": [
+          {
+            "text": "Angka setelah 2023 adalah proyeksi PBB."
+          }
+        ],
+        "bars": {
+          "title": "Angka harapan hidup saat lahir, {year}"
+        }
+      },
+      "text": {
+        "caveats": [
+          "Angka harapan hidup saat lahir menurut angka kematian tahun itu."
+        ]
+      }
+    },
+    "world-salary-across": {
+      "title": "Gaji antarnegara",
+      "question": "Berapa nilai gaji Anda di negara lain?",
+      "inputs": {
+        "home": {
+          "label": "Tempat Anda mendapatkannya"
+        },
+        "salary": {
+          "label": "Gaji per tahun"
+        },
+        "compare": {
+          "label": "Bandingkan dengan"
+        }
+      },
+      "params": {
+        "value": {
+          "ppp": {
+            "error": "Belum ada kurs paritas daya beli untuk {homeName}."
+          }
+        },
+        "phrases": {
+          "summary": {
+            "map": {
+              "USA": "Inilah yang dibutuhkan untuk hidup senyaman dengan {salaryText} per tahun di AS."
+            },
+            "default": "{salaryText} per tahun di {homeName} setara daya belinya dengan sekitar {converted} di AS."
+          }
+        },
+        "rowStats": {
+          "label": "Taraf hidup yang sama di {label}"
+        }
+      },
+      "text": {
+        "caveats": [
+          "Kurs paritas daya beli membandingkan biaya sekeranjang belanja rumah tangga yang umum; sewa, pajak, dan kebiasaan Anda bisa berbeda.",
+          "Kurs untuk tahun {homeYear}; setiap perbandingan memakai tahun terbaru yang dimiliki kedua negara."
+        ]
+      }
+    },
+    "world-ai-use": {
+      "title": "Penggunaan AI di negara Anda",
+      "question": "Seberapa banyak negara Anda memakai AI dibandingkan negara lain?",
+      "inputs": {
+        "country": {
+          "label": "Negara"
+        }
+      },
+      "params": {
+        "error": "Belum ada angka untuk negara itu.",
+        "bars": {
+          "title": "Penggunaan per penduduk usia kerja, dibanding yang diharapkan"
+        }
+      },
+      "text": {
+        "sentence": "Penduduk {name} memakai Claude {indexNum} kali lipat dari yang diperkirakan menurut porsi mereka dalam penduduk usia kerja dunia, di peringkat {rank} dari {count} negara.",
+        "caveats": [
+          "Mengukur penggunaan Claude, satu asisten AI, bukan seluruh penggunaan AI.",
+          "Negara yang penggunaannya terlalu sedikit untuk dilaporkan tidak dihitung."
+        ]
+      }
+    },
+    "world-religion": {
+      "title": "Agama per negara",
+      "question": "Agama apa saja yang dianut penduduk sebuah negara?",
+      "inputs": {
+        "country": {
+          "label": "Negara"
+        }
+      },
+      "params": {
+        "error": "Belum ada angka untuk negara itu.",
+        "bars": {
+          "title": "Agama di {name}"
+        }
+      },
+      "text": {
+        "sentence": "{largest} adalah kelompok terbesar di {name}, sebanyak {largestPct} penduduk.",
+        "caveats": [
+          "Dari edisi terakhir CIA World Factbook (terbitannya berhenti pada Februari 2026), jadi angkanya tidak diperbarui lagi dan berasal dari tahun yang berbeda-beda."
+        ]
+      }
+    },
+    "world-work-hours": {
+      "title": "Peringkat jam kerja (OECD)",
+      "question": "Apakah jam kerja Anda lebih banyak daripada rata-rata pekerja di negara maju?",
+      "inputs": {
+        "weekly": {
+          "label": "Jam kerja per minggu"
+        },
+        "weeks": {
+          "label": "Minggu kerja per tahun"
+        }
+      },
+      "params": {
+        "you": {
+          "label": "Anda"
+        },
+        "bars": {
+          "title": "Jam kerja sebenarnya per pekerja, per tahun"
+        }
+      },
+      "text": {
+        "headline": "{you} jam per tahun",
+        "sentence": "Itu lebih banyak daripada rata-rata pekerja di {fewer} dari {total} negara OECD.",
+        "caveats": [
+          "Rata-rata negara mencakup pekerja paruh waktu dan hari libur, jadi angkanya lebih rendah daripada jadwal kerja penuh waktu."
+        ]
+      }
+    },
+    "my-income-rank": {
+      "title": "Peringkat pendapatan rumah tangga",
+      "question": "Di peringkat berapa pendapatan rumah tangga Anda di Malaysia?",
+      "inputs": {
+        "income": {
+          "label": "Pendapatan rumah tangga per bulan"
+        },
+        "state": {
+          "label": "Negara bagian"
+        }
+      },
+      "params": {
+        "parts": [
+          {
+            "phrase": {
+              "Malaysia": "di Malaysia",
+              "_": "di {label}"
+            }
+          }
+        ]
+      },
+      "text": {
+        "sentence": "Pendapatan rumah tangga Anda lebih tinggi daripada {pct} rumah tangga {group}.",
+        "stats": [
+          [
+            "Median pendapatan rumah tangga",
+            null
+          ]
+        ],
+        "caveats": [
+          "Pendapatan kotor rumah tangga: seluruh penghasilan semua anggota rumah tangga, sebelum pajak."
+        ]
+      }
+    },
+    "my-birthday-rank": {
+      "title": "Peringkat hari ulang tahun",
+      "question": "Seberapa umum tanggal ulang tahun Anda di Malaysia?",
+      "inputs": {
+        "birthday": {
+          "label": "Tanggal ulang tahun Anda"
+        }
+      },
+      "params": {
+        "place": "di Malaysia"
+      },
+      "text": {
+        "headline": "Urutan {rank} dari {of}",
+        "sentence": "Rata-rata sekitar {births} bayi lahir {place} pada {date} setiap tahun, dibandingkan {mean} pada hari biasa.",
+        "stats": [
+          [
+            "Ulang tahun paling umum",
+            null
+          ],
+          [
+            "Ulang tahun paling jarang",
+            null
+          ],
+          [
+            "Tahun yang dihitung",
+            "{first} sampai {last}"
+          ]
+        ]
+      }
+    },
+    "my-time-left": {
+      "title": "Sisa usia",
+      "question": "Berapa tahun lagi rata-rata sisa hidup orang seusia Anda?",
+      "inputs": {
+        "age": {
+          "label": "Umur",
+          "unit": "tahun"
+        },
+        "sex": {
+          "label": "Jenis kelamin"
+        },
+        "state": {
+          "label": "Negara bagian"
+        }
+      },
+      "params": {
+        "who": {
+          "map": {
+            "female": "perempuan",
+            "male": "laki-laki"
+          },
+          "default": "orang"
+        },
+        "place": {
+          "map": {
+            "Malaysia": "di Malaysia"
+          },
+          "default": "di {label.state}"
+        }
+      },
+      "text": {
+        "headline": "Sekitar {left} tahun lagi",
+        "sentence": "Dengan angka kematian saat ini, {who} berusia {age} {place} rata-rata hidup sampai sekitar usia {liveTo}.",
+        "caveats": [
+          "Ini tabel kematian periode: diasumsikan angka kematian saat ini berlaku di setiap usia, jadi kebanyakan orang seusia Anda akan hidup sedikit lebih lama."
+        ]
+      }
+    },
+    "my-age-rank": {
+      "title": "Peringkat umur",
+      "question": "Berapa banyak warga Malaysia yang lebih tua dari Anda?",
+      "inputs": {
+        "birthDate": {
+          "label": "Tanggal lahir"
+        },
+        "state": {
+          "label": "Negara bagian"
+        },
+        "ethnicity": {
+          "label": "Kelompok etnis"
+        }
+      },
+      "params": {
+        "place": {
+          "map": {
+            "Malaysia": "di Malaysia"
+          },
+          "default": "di {label.state}"
+        },
+        "who": {
+          "map": {
+            "overall": "penduduk",
+            "bumi": "Bumiputera",
+            "bumi_malay": "orang Melayu",
+            "bumi_other": "Bumiputera lainnya",
+            "chinese": "warga Malaysia keturunan Tionghoa",
+            "indian": "warga Malaysia keturunan India",
+            "other_citizen": "warga negara lainnya",
+            "other_noncitizen": "bukan warga negara"
+          },
+          "default": "penduduk"
+        }
+      },
+      "text": {
+        "headline": "Lebih tua dari {younger}",
+        "sentence": "Anda lebih tua daripada {younger} {who} yang tinggal {place}, dan lebih muda daripada {older}."
+      }
+    },
+    "my-b40": {
+      "title": "Cek B40/M40/T20",
+      "question": "Apakah rumah tangga Anda termasuk B40, M40, atau T20?",
+      "inputs": {
+        "income": {
+          "label": "Pendapatan rumah tangga per bulan"
+        }
+      },
+      "params": {
+        "missing": "Belum ada angka pendapatan untuk Malaysia.",
+        "tiers": [
+          {
+            "range": "di bawah {cut1}"
+          },
+          {
+            "range": "dari {cut1} sampai {cut2}"
+          },
+          {
+            "range": "mulai {cut2} ke atas"
+          }
+        ],
+        "nextStat": [
+          "Untuk mencapai {next}",
+          "{toNext} lagi per bulan"
+        ]
+      },
+      "text": {
+        "sentence": "Rumah tangga Anda termasuk {tier}, dengan pendapatan lebih tinggi daripada {pct} rumah tangga Malaysia. {tier} mencakup pendapatan rumah tangga {range} per bulan.",
+        "stats": [
+          [
+            "B40 berakhir di",
+            null
+          ],
+          [
+            "T20 mulai dari",
+            null
+          ]
+        ],
+        "caveats": [
+          "Batasnya di persentil ke-40 dan ke-80 pendapatan rumah tangga di Malaysia; batas resmi diterbitkan bersama setiap survei."
+        ]
+      }
+    },
+    "my-pay-median": {
+      "title": "Gaji vs median",
+      "question": "Bagaimana gaji Anda dibandingkan median orang yang mirip dengan Anda?",
+      "inputs": {
+        "salary": {
+          "label": "Gaji per bulan"
+        },
+        "sex": {
+          "label": "Jenis kelamin"
+        },
+        "age": {
+          "label": "Umur",
+          "unit": "tahun"
+        },
+        "state": {
+          "label": "Negara bagian"
+        },
+        "edu": {
+          "label": "Pendidikan tertinggi",
+          "options": {
+            "none": "Tidak bersekolah formal",
+            "primary": "Sekolah dasar",
+            "secondary": "Sekolah menengah",
+            "tertiary": "Pendidikan tinggi"
+          }
+        }
+      },
+      "params": {
+        "phrases": {
+          "who": {
+            "map": {
+              "female": "perempuan",
+              "male": "laki-laki"
+            },
+            "default": "orang"
+          },
+          "eduName": {
+            "map": {
+              "none": "tanpa pendidikan formal",
+              "primary": "pendidikan dasar",
+              "secondary": "pendidikan menengah",
+              "tertiary": "pendidikan tinggi"
+            }
+          }
+        },
+        "main": {
+          "label": "{who} di {place}"
+        },
+        "others": [
+          {
+            "label": "{who} berusia {bandLabel}"
+          },
+          {
+            "label": "{who} dengan {eduName}"
+          }
+        ],
+        "barsTitle": "Gaji Anda dibandingkan median untuk",
+        "error": "Belum ada angka upah untuk kelompok itu."
+      },
+      "text": {
+        "headline": "{ratio} median",
+        "sentence": "Gaji Anda {ratioNum} kali median gaji bulanan {who} yang bekerja di {place}, yaitu {typical}.",
+        "stats": [
+          [
+            "Rata-rata gaji kelompok yang sama",
+            null
+          ]
+        ],
+        "caveats": [
+          "Tabel upah hanya memuat median, bukan sebaran lengkap, jadi ini berupa rasio, bukan peringkat.",
+          "Mencakup warga negara Malaysia yang bekerja sebagai karyawan; pekerja mandiri tidak termasuk."
+        ]
+      }
+    },
+    "my-pay-gap": {
+      "title": "Kesenjangan upah menurut jenis kelamin",
+      "question": "Bagaimana perbandingan upah perempuan dan laki-laki?",
+      "inputs": {
+        "by": {
+          "label": "Bandingkan dalam",
+          "options": {
+            "state": "Satu negara bagian",
+            "age": "Satu kelompok umur"
+          }
+        },
+        "state": {
+          "label": "Negara bagian"
+        },
+        "ageGroup": {
+          "label": "Kelompok umur"
+        }
+      },
+      "params": {
+        "error": "Belum ada angka upah untuk kelompok itu.",
+        "values": {
+          "where": {
+            "text": {
+              "map": {
+                "age": "berusia {label.ageGroup}"
+              },
+              "default": "di {state}"
+            }
+          }
+        },
+        "bars": {
+          "title": "Median gaji bulanan",
+          "items": [
+            [
+              "Perempuan",
+              null
+            ],
+            [
+              "Laki-laki",
+              null
+            ]
+          ]
+        }
+      },
+      "text": {
+        "headline": "{cents} sen per RM1",
+        "sentence": "Perempuan {where} berpenghasilan median {women} per bulan, dibandingkan {men} untuk laki-laki.",
+        "stats": [
+          [
+            "Rata-rata gaji, perempuan",
+            null
+          ],
+          [
+            "Rata-rata gaji, laki-laki",
+            null
+          ]
+        ],
+        "caveats": [
+          "Median untuk karyawan; kesenjangan ini juga mencerminkan perbedaan pekerjaan, jam kerja, dan pengalaman."
+        ]
+      }
+    },
+    "my-education-earns": {
+      "title": "Penghasilan menurut pendidikan Anda",
+      "question": "Berapa penghasilan orang dengan pendidikan seperti Anda?",
+      "inputs": {
+        "edu": {
+          "label": "Pendidikan tertinggi",
+          "options": {
+            "none": "Tidak bersekolah formal",
+            "primary": "Sekolah dasar",
+            "secondary": "Sekolah menengah",
+            "tertiary": "Pendidikan tinggi"
+          }
+        },
+        "sex": {
+          "label": "Tampilkan",
+          "options": {
+            "both": "Semua orang",
+            "female": "Perempuan",
+            "male": "Laki-laki"
+          }
+        }
+      },
+      "params": {
+        "error": "Belum ada angka upah untuk kelompok itu.",
+        "values": {
+          "who": {
+            "text": {
+              "map": {
+                "female": "Perempuan",
+                "male": "Laki-laki"
+              },
+              "default": "Karyawan"
+            }
+          },
+          "eduName": {
+            "map": {
+              "none": "tanpa pendidikan formal",
+              "primary": "pendidikan dasar",
+              "secondary": "pendidikan menengah",
+              "tertiary": "pendidikan tinggi"
+            }
+          }
+        },
+        "bars": {
+          "title": "Median gaji bulanan menurut pendidikan"
+        }
+      },
+      "text": {
+        "sentence": "{who} dengan pendidikan tertinggi {eduName} berpenghasilan median {median} per bulan."
+      }
+    },
+    "my-zodiac-share": {
+      "title": "Pembagian zodiak",
+      "question": "Berapa banyak warga Malaysia yang berbagi zodiak dengan Anda?",
+      "inputs": {
+        "birthday": {
+          "label": "Tanggal ulang tahun Anda"
+        }
+      },
+      "params": {
+        "people": "warga Malaysia",
+        "signs": [
+          [
+            "Capricorn",
+            null,
+            null
+          ],
+          [
+            "Aquarius",
+            null,
+            null
+          ],
+          [
+            "Pisces",
+            null,
+            null
+          ],
+          [
+            "Aries",
+            null,
+            null
+          ],
+          [
+            "Taurus",
+            null,
+            null
+          ],
+          [
+            "Gemini",
+            null,
+            null
+          ],
+          [
+            "Cancer",
+            null,
+            null
+          ],
+          [
+            "Leo",
+            null,
+            null
+          ],
+          [
+            "Virgo",
+            null,
+            null
+          ],
+          [
+            "Libra",
+            null,
+            null
+          ],
+          [
+            "Scorpio",
+            null,
+            null
+          ],
+          [
+            "Sagitarius",
+            null,
+            null
+          ]
+        ],
+        "barsTitle": "Semua zodiak"
+      },
+      "text": {
+        "sentence": "{share} {people} yang lahir dari {first} sampai {last} berzodiak {sign}, dibandingkan {even} jika kelahiran tersebar merata."
+      }
+    },
+    "my-personal-inflation": {
+      "title": "Inflasi pribadi Anda",
+      "question": "Seberapa cepat harga barang yang Anda beli naik?",
+      "inputs": {
+        "weights": {
+          "label": "Porsi pengeluaran Anda (%)"
+        }
+      },
+      "params": {
+        "place": "Malaysia",
+        "barsTitle": "Perubahan harga per kategori",
+        "noWeights": "Isi berapa bagian pengeluaran Anda untuk minimal satu kategori."
+      },
+      "text": {
+        "sentence": "Harga barang yang Anda beli naik sekitar {personalPct} dalam 12 bulan sampai {month}, dibandingkan {overall} menurut angka inflasi resmi {place}.",
+        "stats": [
+          [
+            "Selisih dengan angka resmi",
+            "{diff} poin"
+          ]
+        ],
+        "caveats": [
+          "Bobot Anda disesuaikan agar totalnya 100%."
+        ]
+      }
+    },
+    "id-kelas-sosial": {
+      "title": "Cek kelas sosial",
+      "question": "Rumah tangga Anda termasuk kelas sosial yang mana?",
+      "inputs": {
+        "spending": {
+          "label": "Pengeluaran rumah tangga per bulan"
+        },
+        "size": {
+          "label": "Jumlah orang di rumah tangga Anda"
+        }
+      },
+      "params": {
+        "localNote": " BPS menyebutnya {local}.",
+        "nextStat": [
+          "Untuk naik ke kelas berikutnya ({next})",
+          "{gap} lagi per orang per bulan"
+        ],
+        "thresholdStat": [
+          "{name} mulai dari",
+          "{amount} per orang per bulan"
+        ]
+      },
+      "text": {
+        "sentence": "Pengeluaran rumah tangga Anda {perPerson} per orang per bulan, {multiple} kali garis kemiskinan sebesar {line} ({period}).{localNote}",
+        "caveats": [
+          "BPS menetapkan kelas-kelas ini sebagai kelipatan garis kemiskinan dan mengukur pengeluaran per kapita, bukan pendapatan.",
+          "Garis kemiskinan berbeda antarprovinsi serta antara perkotaan dan perdesaan; ini memakai garis kemiskinan nasional."
+        ]
+      }
+    },
+    "id-time-left": {
+      "title": "Sisa usia",
+      "question": "Berapa tahun lagi rata-rata sisa hidup orang Indonesia seusia Anda?",
+      "inputs": {
+        "age": {
+          "label": "Umur",
+          "unit": "tahun"
+        },
+        "sex": {
+          "label": "Jenis kelamin"
+        }
+      },
+      "params": {
+        "who": {
+          "map": {
+            "F": "perempuan",
+            "M": "laki-laki"
+          },
+          "default": "orang"
+        },
+        "place": "di Indonesia"
+      },
+      "text": {
+        "headline": "Sekitar {left} tahun lagi",
+        "sentence": "Dengan angka kematian saat ini, {who} berusia {age} {place} rata-rata hidup sampai sekitar usia {liveTo}.",
+        "caveats": [
+          "Ini tabel kematian periode: diasumsikan angka kematian saat ini berlaku di setiap usia, jadi kebanyakan orang seusia Anda akan hidup sedikit lebih lama."
+        ]
+      }
+    },
+    "id-age-rank": {
+      "title": "Peringkat umur",
+      "question": "Berapa banyak orang Indonesia yang lebih tua dari Anda?",
+      "inputs": {
+        "birthDate": {
+          "label": "Tanggal lahir"
+        }
+      },
+      "params": {
+        "place": "di Indonesia"
+      },
+      "text": {
+        "headline": "Lebih tua dari {younger}",
+        "sentence": "Anda lebih tua daripada {younger} penduduk yang tinggal {place}, dan lebih muda daripada {older}."
+      }
+    },
+    "id-family-size": {
+      "title": "Besar keluarga vs Indonesia",
+      "question": "Bagaimana jumlah anak Anda dibandingkan dulu dan sekarang?",
+      "inputs": {
+        "kids": {
+          "label": "Anak Anda"
+        },
+        "birthYear": {
+          "label": "Tahun lahir"
+        }
+      },
+      "params": {
+        "points": {
+          "then": {
+            "required": "Tidak ada angka kelahiran untuk tahun itu."
+          },
+          "now": {
+            "required": "Tidak ada angka kelahiran untuk tahun itu."
+          }
+        },
+        "compare": {
+          "same": "Pas di rata-rata",
+          "more": "{diff} di atas rata-rata",
+          "less": "{diff} di bawah rata-rata"
+        },
+        "trend": {
+          "lower": "turun",
+          "higher": "naik"
+        },
+        "projection": {
+          "caveat": "Angka setelah 2023 adalah proyeksi PBB."
+        }
+      },
+      "text": {
+        "sentence": "Dengan angka kelahiran saat ini, perempuan Indonesia diperkirakan punya {now} anak per orang, {trend} dari {then} pada {v.birthYear}, tahun Anda lahir. Anda punya {v.kids}.",
+        "caveats": [
+          "Kelahiran per perempuan adalah angka kelahiran total (TFR): jumlah anak yang akan dimiliki seorang perempuan sepanjang hidupnya pada angka kelahiran tahun itu."
+        ]
+      }
+    },
+    "id-spending-rank": {
+      "title": "Peringkat pengeluaran per provinsi",
+      "question": "Bagaimana pengeluaran Anda dibandingkan orang lain di provinsi Anda?",
+      "inputs": {
+        "spending": {
+          "label": "Pengeluaran per kapita Anda per bulan"
+        },
+        "province": {
+          "label": "Provinsi"
+        }
+      },
+      "params": {
+        "parts": [
+          {
+            "phrase": {
+              "Indonesia": "Indonesia"
+            }
+          }
+        ],
+        "rangeText": {
+          "closed": "{from} sampai {to}",
+          "open": "{from} atau lebih"
+        },
+        "fallbackCaveat": "Tidak ada tabel untuk {label.province}, jadi ini memakai Indonesia secara keseluruhan.",
+        "missing": "Belum ada angka pengeluaran."
+      },
+      "text": {
+        "sentence": "Pengeluaran per kapita Anda lebih tinggi daripada sekitar {pct} penduduk di {province}. Kelompok pengeluaran Anda, {range} per bulan, mencakup {bracketShare} dari mereka.",
+        "caveats": [
+          "Di dalam satu kelompok pengeluaran, pengeluaran dianggap tersebar merata."
+        ]
+      }
+    },
+    "id-pay-average": {
+      "title": "Gaji vs rata-rata",
+      "question": "Bagaimana gaji Anda dibandingkan rata-rata orang yang mirip dengan Anda?",
+      "inputs": {
+        "salary": {
+          "label": "Gaji bersih per bulan"
+        },
+        "province": {
+          "label": "Provinsi"
+        },
+        "job": {
+          "label": "Jenis pekerjaan",
+          "first": {
+            "all": "Semua pekerjaan"
+          }
+        },
+        "age": {
+          "label": "Umur",
+          "unit": "tahun"
+        }
+      },
+      "params": {
+        "main": {
+          "partPhrases": {
+            "job": {
+              "_": "di bidang {value} "
+            }
+          },
+          "label": "Karyawan {jobPhrase}di {place}"
+        },
+        "others": [
+          {
+            "label": "Karyawan berusia {bandLabel}"
+          }
+        ],
+        "barsTitle": "Gaji Anda dibandingkan rata-rata untuk",
+        "fallbackCaveat": "Tidak ada angka untuk kombinasi persis itu, jadi ini memakai kelompok yang lebih luas.",
+        "error": "Belum ada angka gaji."
+      },
+      "text": {
+        "headline": "{ratio} rata-rata",
+        "sentence": "Gaji Anda {ratioNum} kali rata-rata gaji bersih karyawan {jobPhrase}di {place}, yaitu {typical} per bulan.",
+        "caveats": [
+          "BPS menerbitkan rata-rata, yang terdongkrak oleh mereka yang bergaji tinggi, jadi kebanyakan karyawan bergaji di bawah rata-rata.",
+          "Hanya mencakup karyawan, bukan pekerja mandiri."
+        ]
+      }
+    },
+    "id-personal-inflation": {
+      "title": "Inflasi pribadi Anda",
+      "question": "Seberapa cepat harga barang yang Anda beli naik?",
+      "inputs": {
+        "weights": {
+          "label": "Porsi pengeluaran Anda (%)"
+        }
+      },
+      "params": {
+        "place": "Indonesia",
+        "barsTitle": "Perubahan harga per kategori",
+        "noWeights": "Isi berapa bagian pengeluaran Anda untuk minimal satu kategori."
+      },
+      "text": {
+        "sentence": "Harga barang yang Anda beli naik sekitar {personalPct} dalam 12 bulan sampai {month}, dibandingkan {overall} menurut angka inflasi resmi {place}.",
+        "stats": [
+          [
+            "Selisih dengan angka resmi",
+            "{diff} poin"
+          ]
+        ],
+        "caveats": [
+          "Bobot Anda disesuaikan agar totalnya 100%."
+        ]
+      }
+    }
+  }
+}

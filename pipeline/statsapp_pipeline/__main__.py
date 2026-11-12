@@ -4,6 +4,7 @@
     python -m statsapp_pipeline build census_acs_pums     build named sources now ('all' for every one)
     python -m statsapp_pipeline update                    the daily job: rebuild only what changed
     python -m statsapp_pipeline questions                 check the question catalog
+    python -m statsapp_pipeline i18n <lang>               the catalog text a language doesn't translate yet
     python -m statsapp_pipeline publish --out ../site     write the static site the app downloads
     python -m statsapp_pipeline check                     check built files against the contract
 """
@@ -121,16 +122,35 @@ def cmd_update(args) -> int:
 
 
 def cmd_questions(_args) -> int:
-    from . import questions
+    from . import i18n, questions
 
     catalog = questions.load()
     problems = questions.validate(catalog, load_contract())
+    overlays = i18n.load_overlays()
+    for lang, overlay in overlays.items():
+        problems += i18n.validate_overlay(catalog, overlay, lang)
     manifest = load_json(DATA_DIR / "manifest.json")
     shown = questions.visible(catalog, manifest)
     for p in problems:
         print(f"PROBLEM {p}")
     print(f"{len(catalog['questions'])} questions defined, {len(shown['questions'])} have their data built.")
+    for lang in i18n.LANGUAGES:
+        left = i18n.missing(catalog, overlays.get(lang, {}))
+        untranslated = [k for k in left.get("questions", {})]
+        print(f"{lang}: {len(untranslated)} questions with untranslated text" + (f" ({', '.join(untranslated[:5])}...)" if untranslated else ""))
     return 1 if problems else 0
+
+
+def cmd_i18n(args) -> int:
+    import json
+
+    from . import i18n, questions
+
+    catalog = questions.load()
+    overlay = i18n.load_overlays().get(args.lang, {})
+    sys.stdout.reconfigure(encoding="utf-8")  # the Windows console's code page can't hold every letter
+    print(json.dumps(i18n.missing(catalog, overlay), ensure_ascii=False, indent=2))
+    return 0
 
 
 def cmd_publish(args) -> int:
@@ -171,6 +191,9 @@ def main(argv=None) -> int:
     u.add_argument("--force", action="store_true", help="rebuild even if nothing changed")
     u.set_defaults(fn=cmd_update)
     sub.add_parser("questions", help="check the question catalog").set_defaults(fn=cmd_questions)
+    tr = sub.add_parser("i18n", help="print the catalog text a language doesn't translate yet, as JSON")
+    tr.add_argument("lang")
+    tr.set_defaults(fn=cmd_i18n)
     pub = sub.add_parser("publish", help="write the static site the app downloads")
     pub.add_argument("--out", required=True, help="folder to write, e.g. ../site")
     pub.add_argument("--bundle", help="also copy a snapshot into the app, e.g. ../../app/assets/data")

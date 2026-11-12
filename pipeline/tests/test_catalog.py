@@ -78,7 +78,7 @@ def test_publish_writes_hashed_files_and_an_index(tmp_path):
     app = tmp_path / "app"
     copied = publish.bundle(site, app)
     unsharded = [d for d in index["datasets"].values() if "shards" not in d]
-    assert (app / "index.json").exists() and len(copied) == 3 + len(unsharded) - 1
+    assert (app / "index.json").exists() and len(copied) == 3 + len(index["catalogI18n"]) + len(unsharded) - 1
 
 
 def test_publish_includes_every_shard(tmp_path):

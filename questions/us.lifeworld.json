@@ -301,7 +301,7 @@
     },
     "text": {
       "headline": "{years.screens} years on screens",
-      "sentence": "Of the roughly {left} years an average {who} your age has left, you'd spend {years.sleep} asleep and {years.work} working."
+      "sentence": "Of the roughly {left} years an average {who} your age has left, you'd spend {years.sleep} years asleep and {years.work} years working."
     },
     "uses": [
       "us.bls.atus"

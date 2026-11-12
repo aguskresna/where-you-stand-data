@@ -8,6 +8,10 @@ the app; a new kind needs an app update. The app ignores kinds it doesn't know.
 - `modes.json`: modes, topic labels, option lists (`"@us_states_any"`), age bands (`"@AGE"`).
 - `us.json`, `world.json`, `my.json`, `id.json`: the questions, one array per mode.
 - The validator (`python -m statsapp_pipeline questions`) runs in the daily job and in the tests.
+- `i18n/ms.json`, `i18n/id.json`: the catalog's text in Malay and Indonesian (see Translations).
+- `modes.json` `messages`: the calculations' own messages (errors about inputs, and the few stats,
+  captions and caveats a kind adds itself), by key. The app keeps English copies in
+  `app/lib/calc/messages.dart` as the fallback; keep the two the same.
 
 ## A question
 
@@ -118,3 +122,43 @@ table stops early (Malaysia's stops at 80+). Refuses ages past the table. Grid: 
 2. Add it to `KINDS` in `pipeline/statsapp_pipeline/questions.py` with the app build that ships it.
 3. Port questions that use it from `reference/web-prototype/web/js/features/` into these files.
 4. Ship the app update. Older app builds keep hiding questions of the new kind.
+
+## Translations
+
+Each language has an overlay in `i18n/<lang>.json` holding only translated text, keyed by what it
+replaces. The app lays the overlay for its language over the English catalog field by field, so
+anything missing stays English and a new question works before it's translated.
+
+```json
+{
+  "schema": 1, "language": "ms",
+  "modes": {"us": {"title": "...", "blurb": "..."}},
+  "topics": {"money": "..."},
+  "lists": {"sex": {"F": "Perempuan"}, "us_states_any": {"*": "Seluruh AS"}},
+  "messages": {"noFigures": "..."},
+  "questions": {
+    "us-income-rank": {
+      "title": "...", "question": "...",
+      "inputs": {"income": {"label": "...", "help": "...", "unit": "..."},
+                 "sex": {"options": {"F": "..."}}, "country": {"first": {"WLD": "..."}}},
+      "params": {"parts": [{"phrase": {"F": "wanita"}}, {"phrase": {"_": "berumur {band}"}}]},
+      "text": {"sentence": "...", "stats": [["...", null]], "caveats": ["..."]}
+    }
+  }
+}
+```
+
+- `params` and `text` mirror the English: objects by key, lists by position with the same length,
+  `null` keeping the English item. Option values, input keys, dataset ids, paths, codes and
+  expressions are never translated; the validator only accepts text a person sees
+  (`i18n.translatable()` decides, and `STRUCTURAL` lists the params keys that are never text).
+- Every `{placeholder}` must appear exactly as in the English, no more and no fewer.
+- `python -m statsapp_pipeline i18n <lang>` prints what a language doesn't translate yet, in the
+  overlay's shape (proper names such as US states stay English on purpose).
+- Publishing writes one hashed file per language (`files/catalog.<lang>.<hash>.json`, listed in
+  `index.json` under `catalogI18n`), so a phone downloads only its own language.
+- Placeholders are filled with values the app has already put into the person's language: ranks
+  ("persentil ke-72", "3% teratas"), "1 daripada 1,250", age bands ("bawah 35", "65 ke atas"),
+  dates ("15 Jun"). Names read from datasets (countries, occupations, BPS class names) stay as the
+  data has them. The Malay and Indonesian texts were written by Claude and still need a native
+  speaker's check.

@@ -80,6 +80,9 @@ def validate(catalog: dict, contract: dict) -> list[str]:
     bands = catalog.get("bands", {})
     if catalog.get("schema") != SCHEMA:
         problems.append(f"catalog schema must be {SCHEMA}")
+    messages = catalog.get("messages", {})
+    if not isinstance(messages, dict) or not all(isinstance(v, str) and v.strip() for v in messages.values()):
+        problems.append("messages must map each key to a non-empty string")
     seen = set()
     for q in catalog.get("questions", []):
         qid = q.get("id", "?")
@@ -176,8 +179,13 @@ def visible(catalog: dict, manifest: dict) -> dict:
 
 
 def check(qdir: Path, contract: dict) -> dict:
+    """The catalog, after checking it and every language's overlay (questions/i18n/)."""
+    from . import i18n
+
     catalog = load(qdir)
     problems = validate(catalog, contract)
+    for lang, overlay in i18n.load_overlays(qdir).items():
+        problems += i18n.validate_overlay(catalog, overlay, lang)
     if problems:
         raise PipelineError("Question catalog problems:\n  " + "\n  ".join(problems))
     return catalog
