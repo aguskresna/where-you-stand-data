@@ -1,9 +1,30 @@
 {
+  "bea_rpp": {
+    "fingerprint": "144d081d4c3643740e42151acc3bfdfb204515f06c3676bb984033891dcf5bad",
+    "built": "2026-11-12T09:57:44+00:00",
+    "datasets": [
+      "us.bea.rpp"
+    ]
+  },
   "births_538": {
     "fingerprint": "d4b0d35a588047560162d099c112967b8e50bf7d588deee7efa291914ee9313c",
     "built": "2026-11-10T15:49:07+00:00",
     "datasets": [
       "us.births.daily"
+    ]
+  },
+  "bls_cpi": {
+    "fingerprint": "7de1accef979cbc7cd5e25d54c1da20beef2dc9df558b84bda5a16df67ca941b",
+    "built": "2026-11-12T09:57:44+00:00",
+    "datasets": [
+      "us.bls.cpi"
+    ]
+  },
+  "bls_projections": {
+    "fingerprint": "847df3b9c26ff102441e18d3696656a578ca5aac05d735ca257e0030846009da",
+    "built": "2026-11-12T09:57:42+00:00",
+    "datasets": [
+      "us.bls.projections"
     ]
   },
   "bps": {
@@ -40,6 +61,13 @@
     "built": "2026-11-10T15:49:50+00:00",
     "datasets": [
       "my.births.daily"
+    ]
+  },
+  "fhfa_hpi": {
+    "fingerprint": "525f75a0d5092e13e675277b6d45cc38e4517ccccf3ef1a18a8648f6d779c173",
+    "built": "2026-11-12T09:57:46+00:00",
+    "datasets": [
+      "us.fhfa.hpi"
     ]
   },
   "nchs_nhanes": {
