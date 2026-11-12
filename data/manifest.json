@@ -193,6 +193,15 @@
       ],
       "year": 2024
     },
+    "us.aei.tasks": {
+      "built": "2026-11-12T11:13:17+00:00",
+      "file": "us/aei_tasks.json",
+      "sources": [
+        "anthropic_aei",
+        "onet"
+      ],
+      "year": "2026-05"
+    },
     "us.ahs.size": {
       "built": "2026-11-12T11:09:02+00:00",
       "file": "us/ahs_home_size.json",
@@ -754,6 +763,38 @@
         "ssa_names"
       ],
       "year": 2025
+    },
+    "world.aei.country": {
+      "built": "2026-11-12T11:13:17+00:00",
+      "file": "world/aei_country_usage.json",
+      "sources": [
+        "anthropic_aei"
+      ],
+      "year": "2026-05"
+    },
+    "world.factbook.religion": {
+      "built": "2026-11-12T11:13:19+00:00",
+      "file": "world/factbook_religion.json",
+      "sources": [
+        "cia_factbook"
+      ],
+      "year": "2026-01-22"
+    },
+    "world.oecd.hours": {
+      "built": "2026-11-12T11:13:19+00:00",
+      "file": "world/oecd_hours.json",
+      "sources": [
+        "oecd"
+      ],
+      "year": "2021-2025"
+    },
+    "world.oecd.time_use": {
+      "built": "2026-11-12T11:13:19+00:00",
+      "file": "world/oecd_time_use.json",
+      "sources": [
+        "oecd"
+      ],
+      "year": "latest survey"
     },
     "world.pip.percentiles": {
       "built": "2026-11-10T15:42:18+00:00",

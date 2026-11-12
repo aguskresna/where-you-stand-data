@@ -1278,8 +1278,8 @@
       "stats": [
         {
           "stat": [
-            "Average sleep in {name}",
-            "{avg.sleep} hours a day"
+            "Average personal care in {name} (sleep, eating, hygiene)",
+            "{avg.personalCare} hours a day"
           ],
           "when": "averages"
         },
@@ -1310,7 +1310,8 @@
       "headline": "{years.leisure} years of leisure",
       "sentence": "Of the roughly {left} years an average {who} your age has left in {name}, you'd spend {years.sleep} asleep and {years.paidWork} at work or study.",
       "caveats": [
-        "Country averages cover people aged 15 to 64 and every day of the week."
+        "Country averages cover people aged 15 to 64 and every day of the week.",
+        "OECD publishes sleep together with eating and personal hygiene, so the country figure is for all three."
       ]
     }
   }

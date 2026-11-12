@@ -265,11 +265,11 @@
         "Show O*NET's exact credit line from the license page",
         "Write O*NET only as an adjective, with the trademark symbol"
       ],
-      "credit": "Includes information from the O*NET Database by USDOL/ETA, used under CC BY 4.0. O*NET® is a trademark of USDOL/ETA. TODO: replace with the exact credit line from the license page.",
+      "credit": "This page includes information from the O*NET 31.0 Database by the U.S. Department of Labor, Employment and Training Administration (USDOL/ETA). Used under the CC BY 4.0 license. O*NET® is a trademark of USDOL/ETA. Where you stand has modified all or some of this information. USDOL/ETA has not approved, endorsed, or tested these modifications.",
       "url": "https://www.onetcenter.org/database.html",
-      "pipeline": "pending",
+      "pipeline": "auto",
       "refresh": "Quarterly releases",
-      "todo": "Use Task Statements to label the tasks that the Anthropic Economic Index maps to each occupation (see anthropic_aei)."
+      "todo": "Built by the anthropic_aei builder (task statements label the Economic Index tasks)."
     },
     "anthropic_aei": {
       "name": "Anthropic Economic Index",
@@ -280,7 +280,7 @@
       "licenseUrl": "https://huggingface.co/datasets/Anthropic/EconomicIndex/blob/main/README.md",
       "credit": "Anthropic Economic Index (Anthropic), CC BY 4.0",
       "url": "https://huggingface.co/datasets/Anthropic/EconomicIndex",
-      "pipeline": "pending",
+      "pipeline": "auto",
       "refresh": "Each new release",
       "todo": "From the latest release, write task usage shares by occupation (us.aei.tasks, with O*NET task text) and usage per person by country (world.aei.country)."
     },
@@ -346,7 +346,7 @@
       "licenseUrl": "https://oecd.org/en/about/oecd-open-by-default-policy.html",
       "credit": "OECD, CC BY 4.0",
       "url": "https://data-explorer.oecd.org/",
-      "pipeline": "pending",
+      "pipeline": "auto",
       "refresh": "Yearly",
       "todo": "Write world.oecd.hours (average annual hours worked per worker), world.oecd.time_use (minutes per day by activity) and world.oecd.housing. Note: OECD's standard price-to-income measure is an index, so 'Years to a home (OECD)' needs absolute price and income levels from another OECD table; confirm one exists before building it."
     },
@@ -356,10 +356,10 @@
       "region": "world",
       "licenseCode": "PD",
       "license": "Public domain; publication ended February 2026, so figures are frozen",
-      "licenseUrl": "https://www.gigazine.net/gsc_news/en/20260206-the-world-factbook",
+      "licenseUrl": "https://www.cia.gov/stories/story/spotlighting-the-world-factbook-as-we-bid-a-fond-farewell/",
       "credit": "CIA World Factbook (archived edition)",
       "url": "https://web.archive.org/web/20260103000011/https://www.cia.gov/the-world-factbook/",
-      "pipeline": "pending",
+      "pipeline": "auto",
       "refresh": "Frozen",
       "todo": "From an archived copy of the final edition, record religion shares by country in world.factbook.religion."
     },

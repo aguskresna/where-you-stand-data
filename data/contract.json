@@ -234,8 +234,8 @@
     },
     "world.oecd.time_use": {
       "sources": ["oecd"], "kind": "table", "file": "world/oecd_time_use.json",
-      "description": "Average minutes per day by activity, OECD members.",
-      "schema": "{countries:{'<ISO3>': {name, minutes:{sleep, paidWork, unpaidWork, leisure}}}}"
+      "description": "Average minutes per day by activity, countries in the OECD time-use database (OECD has no separate sleep figure: personal care covers sleep, eating and hygiene).",
+      "schema": "{countries:{'<ISO3>': {name, minutes:{personalCare, paidWork, unpaidWork, leisure, other}, definitionDiffers?}}}"
     },
     "world.oecd.hours": {
       "sources": ["oecd"], "kind": "table", "file": "world/oecd_hours.json",
