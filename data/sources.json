@@ -56,7 +56,7 @@
       ],
       "credit": "CDC National Center for Health Statistics, NHIS",
       "url": "https://www.cdc.gov/nchs/nhis/",
-      "pipeline": "pending",
+      "pipeline": "auto",
       "refresh": "Yearly",
       "todo": "From the NHIS adult file, compute weighted shares by sex and age band: sexual orientation (straight, gay or lesbian, bisexual) and current non-smokers. Write us.nhis.traits."
     },
@@ -73,7 +73,7 @@
       ],
       "credit": "CDC National Center for Health Statistics, NSFG",
       "url": "https://www.cdc.gov/nchs/nsfg/",
-      "pipeline": "pending",
+      "pipeline": "auto",
       "refresh": "Every survey release",
       "todo": "Estimate the share of first marriages still intact 10 and 20 years after the wedding, by age at marriage and education. Write us.nsfg.marriage."
     },
@@ -157,7 +157,7 @@
       "licenseUrl": "https://www.bls.gov/opub/copyright-information.htm",
       "credit": "U.S. Bureau of Labor Statistics, American Time Use Survey",
       "url": "https://www.bls.gov/tus/",
-      "pipeline": "pending",
+      "pipeline": "manual",
       "refresh": "Yearly",
       "todo": "From the ATUS microdata, compute weighted percentiles of hours slept by age band and average hours per day for sleep, work, screens and travel. Write us.bls.atus."
     },
@@ -193,10 +193,10 @@
       "region": "us",
       "licenseCode": "PD",
       "license": "Public domain",
-      "licenseUrl": "https://WWW.FEDERALRESERVE.GOV/files/BGFRS-20-survey-of-consumer-finances.pdf",
+      "licenseUrl": "https://www.federalreserve.gov/disclaimer.htm",
       "credit": "Federal Reserve Board, Survey of Consumer Finances",
       "url": "https://www.federalreserve.gov/econres/scfindex.htm",
-      "pipeline": "pending",
+      "pipeline": "auto",
       "refresh": "Every three years",
       "todo": "From the summary extract (all five implicates, weighted), compute percentiles by age band of net worth, retirement accounts, total debt and each debt type, plus the share holding each debt. Write us.fed.scf."
     },
@@ -222,9 +222,9 @@
       "licenseUrl": "https://resources.data.gov/open-licenses/",
       "credit": "U.S. Census Bureau and HUD, American Housing Survey",
       "url": "https://www.census.gov/programs-surveys/ahs.html",
-      "pipeline": "pending",
+      "pipeline": "auto",
       "refresh": "Every two years",
-      "todo": "From the public use file, compute weighted percentiles of unit square footage for all, owner and renter homes. Write us.ahs.size."
+      "todo": "From the public use file, compute the weighted share of occupied homes in each floor-area class (UNITSIZE) for all, owner and renter homes. Write us.ahs.size."
     },
     "ssa_names": {
       "name": "Baby names from Social Security card applications",

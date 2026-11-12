@@ -405,7 +405,16 @@
     },
     "text": {
       "headline": "{share}",
-      "sentence": "{share} of first marriages like yours are still together after 10 years, and {y20} after 20."
+      "sentence": "{share} of first marriages like yours are still together after 10 years.",
+      "stats": [
+        [
+          "Still together after 20 years",
+          "{y20}"
+        ]
+      ],
+      "caveats": [
+        "The survey interviews people aged 15 to 49, so 20-year figures are missing (–) where too few marriages could be followed that long."
+      ]
     }
   },
   {
@@ -1011,7 +1020,7 @@
     "topic": "home",
     "title": "Home size",
     "question": "How big is your home compared with others?",
-    "kind": "group_rank",
+    "kind": "category_rank",
     "datasets": [
       "us.ahs.size"
     ],
@@ -1049,6 +1058,7 @@
     ],
     "params": {
       "dataset": "us.ahs.size",
+      "mode": "brackets",
       "path": [
         "groups"
       ],
@@ -1067,22 +1077,30 @@
       "fallbackOrder": [
         0
       ],
-      "fallbackCaveat": "",
       "suffix": "in the US",
       "format": {
         "type": "number",
         "digits": 0,
         "suffix": " sq ft"
-      }
+      },
+      "rangeText": {
+        "closed": "{from} to {to}",
+        "open": "{from} or more"
+      },
+      "missing": "There are no figures for that kind of home yet."
     },
     "text": {
       "headline": "{rank}",
-      "sentence": "Your home is bigger than {pct} of {group}.",
+      "sentence": "Your home is bigger than about {pct} of {group}.",
       "stats": [
         [
-          "Median size",
-          "{median}"
+          "Homes in your size class ({range})",
+          "{bracketShare}"
         ]
+      ],
+      "caveats": [
+        "The survey records floor area in size classes, so within a class homes are assumed to be spread evenly.",
+        "Counts occupied homes whose size was reported."
       ]
     }
   },

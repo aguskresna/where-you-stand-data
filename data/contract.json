@@ -100,7 +100,7 @@
     "us.nsfg.marriage": {
       "sources": ["nchs_nsfg"], "kind": "shares", "file": "us/nsfg_marriage.json",
       "description": "Share of first marriages still intact after 10 and 20 years.",
-      "schema": "{groups:{'<age at marriage <20|20-24|25-29|30+|*>|<edu 0-4|*>': {y10, y20}}}"
+      "schema": "{groups:{'<age at marriage <20|20-24|25-29|30+|*>|<edu 0-4|*>': {y10, y20 (null when too few marriages were followed 20 years)}}}"
     },
     "us.nchs.lifetable": {
       "sources": ["nchs_lifetables"], "kind": "lifetable", "file": "us/nchs_lifetable.json",
