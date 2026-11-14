@@ -73,8 +73,8 @@
     ]
   },
   "census_ahs": {
-    "fingerprint": "9d0383fed84a3f5e11de55c0010aeaddc2b60d974cdfe45cde0ee1c1b3d9e4c8",
-    "built": "2026-11-14T13:23:40+00:00",
+    "fingerprint": "749eeeffc5ce2385204639856604de21d7e64fb7c2330cfe51e89156f41c2e94",
+    "built": "2026-11-14T13:31:41+00:00",
     "datasets": [
       "us.ahs.size"
     ]
@@ -186,8 +186,8 @@
     ]
   },
   "worldbank_wdi": {
-    "fingerprint": "04646c08751c32b5b6b050fe537c7583778e0efe4e84ed6fb0b9085f84d5a21a",
-    "built": "2026-11-10T15:49:47+00:00",
+    "fingerprint": "0d0418e576e14489210300d3b264114aeca8c44f9c258175212846ef5c1a3e4b",
+    "built": "2026-11-14T13:31:29+00:00",
     "datasets": [
       "world.wdi"
     ]
