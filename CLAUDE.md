@@ -1,6 +1,6 @@
 # Notes for Claude Code: data backend
 
-This repository builds the datasets and question catalog for the "Where you stand" mobile app and
+This repository builds the datasets and question catalog for the "Hall of Ranks" mobile app and
 publishes them as static files on Cloudflare Pages. Read README.md first.
 
 ## Rules that don't bend

@@ -8,7 +8,8 @@ site/
   files/sources.<hash>.json          names, credits and licenses of the sources in use
   files/<dataset>.<hash>.json        one file per dataset
   files/<dataset>~<shard>.<hash>.json  one file per shard of a sharded dataset
-  privacy/index.html                 the app's privacy policy, and any other page in backend/pages/
+  <page>/...                         any page in backend/pages/ (none today; the privacy policy is
+                                     its own site, https://aguskresna.github.io/hall-of-ranks-privacy/)
 
 File names carry a hash of their content, so they can be cached forever; only index.json changes
 in place, and it is cached for five minutes. The app compares hashes and downloads what changed.
@@ -30,8 +31,6 @@ HEADERS = """/index.json
   Cache-Control: public, max-age=300
 /files/*
   Cache-Control: public, max-age=31536000, immutable
-/privacy/*
-  Cache-Control: public, max-age=3600
 """
 
 

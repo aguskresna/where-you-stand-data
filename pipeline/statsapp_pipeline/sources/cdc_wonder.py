@@ -287,7 +287,7 @@ def request_xml(form: dict, **overrides) -> str:
     keep = ("B_", "M_", "F_", "I_", "O_", "V_", "VM_", "finder-stage", "stage")
     params = {k: v for k, v in form.items() if k.startswith(keep)}
     params.update({"B_2": ["*None*"], "B_3": ["*None*"], "B_4": ["*None*"], "B_5": ["*None*"], "O_javascript": ["on"],
-                   "O_show_suppressed": ["true"], "O_show_zeros": ["false"], "O_title": ["where-you-stand"],
+                   "O_show_suppressed": ["true"], "O_show_zeros": ["false"], "O_title": ["hall-of-ranks"],
                    "action-Send": ["Send"], "accept_datause_restrictions": ["true"]})
     params.update({k.replace("__", "."): v if isinstance(v, list) else [v] for k, v in overrides.items()})
     out = ["<request-parameters>"]

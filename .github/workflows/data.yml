@@ -33,7 +33,7 @@ jobs:
     timeout-minutes: 180
     env:
       CAN_DEPLOY: ${{ secrets.CLOUDFLARE_API_TOKEN != '' }}
-      PROJECT: ${{ vars.PAGES_PROJECT || 'aguskresna-data' }}
+      PROJECT: ${{ vars.PAGES_PROJECT || 'hall-of-ranks-data' }}
     defaults:
       run:
         working-directory: pipeline
@@ -100,7 +100,7 @@ jobs:
         if: env.CAN_DEPLOY == 'true'
         working-directory: .
         env:
-          SITE: ${{ vars.PAGES_URL || format('https://{0}.pages.dev/', vars.PAGES_PROJECT || 'aguskresna-data') }}
+          SITE: ${{ vars.PAGES_URL || format('https://{0}.pages.dev/', vars.PAGES_PROJECT || 'hall-of-ranks-data') }}
         run: |
           sleep 20
           curl -fsS --retry 6 --retry-delay 15 --retry-all-errors "${SITE%/}/index.json" -o live-index.json

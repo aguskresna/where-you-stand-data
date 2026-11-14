@@ -1,4 +1,4 @@
-# Where you stand: data backend
+# Hall of Ranks: data backend
 
 A daily job that downloads official statistics, turns them into small JSON datasets, and publishes
 them as static files the app downloads. There is no server and no database, so the cost does not
@@ -39,7 +39,7 @@ repository secrets.
    permission "Cloudflare Pages: Edit". You don't need to create the Pages project; the job does.
 3. In the GitHub repository settings (Secrets and variables → Actions), add the secret
    `CLOUDFLARE_API_TOKEN`, and the variables `CLOUDFLARE_ACCOUNT_ID` and `PAGES_PROJECT` (the project
-   name, `aguskresna-data` for this app; it becomes `https://aguskresna-data.pages.dev/`).
+   name, `hall-of-ranks-data` for this app; it becomes `https://hall-of-ranks-data.pages.dev/`).
 4. Build the sources that read hand-saved files on your own computer (see below), commit `data/`.
 5. Actions → Update data → Run workflow. When it finishes, `https://<project>.pages.dev/index.json`
    lists every published dataset.

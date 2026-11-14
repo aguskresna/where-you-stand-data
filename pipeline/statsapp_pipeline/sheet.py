@@ -41,7 +41,7 @@ COMMENTS = "Translator comments"
 # Words that must stay as they are: publishers and their data sites, products, the app's name, the
 # owner's name, currency codes and symbols, and official terms kept in their own language.
 DO_NOT_TRANSLATE = [
-    "Where you stand", "Agus Kresna", "BPS", "DOSM", "OpenDOSM", "data.gov.my", "Census Bureau",
+    "Hall of Ranks", "Agus Kresna", "BPS", "DOSM", "OpenDOSM", "data.gov.my", "Census Bureau",
     "BLS", "NCHS", "CDC", "OECD", "CIA World Factbook", "Anthropic Economic Index", "Claude", "GED",
     "Bumiputera", "B40", "M40", "T20", "USD", "MYR", "IDR", "RM", "Rp",
 ]

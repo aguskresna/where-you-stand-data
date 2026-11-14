@@ -26,7 +26,7 @@ PIPELINE_DIR = ROOT / "pipeline"
 RAW_DIR = PIPELINE_DIR / "raw"
 MANUAL_DIR = PIPELINE_DIR / "manual"
 
-USER_AGENT = "where-you-stand-data/0.1 (+https://github.com/aguskresna/where-you-stand-data)"
+USER_AGENT = "hall-of-ranks-data/0.1 (+https://github.com/aguskresna/hall-of-ranks-data)"
 MIN_RECORDS = 50  # survey records a group needs before we publish figures for it
 
 # Keep these in step with app/lib/engine/groups.dart and backend/questions/modes.json.
