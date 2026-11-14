@@ -226,6 +226,14 @@
       ],
       "year": "1994-2014"
     },
+    "us.bls.atus": {
+      "built": "2026-11-14T11:57:48+00:00",
+      "file": "us/bls_atus.json",
+      "sources": [
+        "bls_atus"
+      ],
+      "year": 2025
+    },
     "us.bls.cpi": {
       "built": "2026-11-14T11:31:46+00:00",
       "file": "us/bls_cpi.json",

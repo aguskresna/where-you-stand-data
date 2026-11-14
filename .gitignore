@@ -28,3 +28,5 @@ pipeline/manual/bls_oews/*
 
 # Translation sheets returned by a reviewer (imported, then deleted)
 *.returned.csv
+pipeline/manual/bls_atus/*
+!pipeline/manual/bls_atus/.gitkeep
