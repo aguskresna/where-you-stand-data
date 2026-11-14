@@ -205,7 +205,7 @@ class Context:
 
         self.raw.mkdir(parents=True, exist_ok=True)
         self.log(f"  downloading {url}")
-        with requests.get(url, headers={"User-Agent": USER_AGENT}, stream=True, timeout=120) as r:
+        with _get_retrying(url, headers={"User-Agent": USER_AGENT}, stream=True, timeout=120) as r:
             if r.status_code != 200:
                 raise PipelineError(f"{url} returned HTTP {r.status_code}")
             if _is_html_instead_of_file(name, r.headers):
@@ -247,7 +247,7 @@ class Context:
             raise PipelineError(f"Can't fetch {url}: downloads are off")
         import requests
 
-        r = requests.get(url, params=params, headers={"User-Agent": USER_AGENT}, timeout=120)
+        r = _get_retrying(url, params=params, headers={"User-Agent": USER_AGENT}, timeout=120)
         if r.status_code != 200:
             raise PipelineError(f"{r.url} returned HTTP {r.status_code}")
         return r.json()
@@ -342,6 +342,27 @@ class Context:
             write_json_atomic(manifest_path, manifest, indent=2)
         self.written.append(dataset_id)
         self.log(f"  wrote {dataset_id}" if dataset_id in self.changed or shards is not None else f"  {dataset_id} unchanged")
+
+
+def _get_retrying(url: str, *, attempts: int = 4, wait: float = 30.0, **kwargs):
+    """requests.get that tries again after a timeout, a dropped connection or a 5xx answer (some APIs,
+    like the World Bank's, are slow now and then), waiting 30 s, 60 s, then 120 s."""
+    import time
+
+    import requests
+
+    for attempt in range(attempts):
+        last = attempt == attempts - 1
+        try:
+            r = requests.get(url, **kwargs)
+        except (requests.Timeout, requests.ConnectionError):
+            if last:
+                raise
+        else:
+            if r.status_code < 500 or last:
+                return r
+        time.sleep(wait * 2 ** attempt)
+    raise AssertionError("unreachable")
 
 
 def _is_html_instead_of_file(name: str, headers) -> bool:

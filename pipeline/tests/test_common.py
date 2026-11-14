@@ -98,3 +98,38 @@ def test_a_web_page_is_not_a_data_file():
     assert _is_html_instead_of_file("csv_pus.zip", {"Content-Type": "text/html; charset=utf-8"})
     assert not _is_html_instead_of_file("csv_pus.zip", {"Content-Type": "application/zip"})
     assert not _is_html_instead_of_file("release.html", {"Content-Type": "text/html"})
+
+
+def test_get_retrying_tries_again_after_a_timeout_and_a_5xx(monkeypatch):
+    import requests
+
+    from statsapp_pipeline import common
+
+    answers = [requests.Timeout("slow"), type("R", (), {"status_code": 503})(), type("R", (), {"status_code": 200})()]
+    calls = []
+
+    def fake_get(url, **kwargs):
+        calls.append(url)
+        a = answers.pop(0)
+        if isinstance(a, Exception):
+            raise a
+        return a
+
+    monkeypatch.setattr(requests, "get", fake_get)
+    monkeypatch.setattr("time.sleep", lambda s: None)
+    assert common._get_retrying("https://x.example/a", timeout=1).status_code == 200
+    assert len(calls) == 3
+
+
+def test_get_retrying_gives_up_after_the_last_attempt(monkeypatch):
+    import requests
+
+    from statsapp_pipeline import common
+
+    def always_slow(url, **kwargs):
+        raise requests.Timeout("slow")
+
+    monkeypatch.setattr(requests, "get", always_slow)
+    monkeypatch.setattr("time.sleep", lambda s: None)
+    with pytest.raises(requests.Timeout):
+        common._get_retrying("https://x.example/a", attempts=3)
