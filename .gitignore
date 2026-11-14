@@ -22,3 +22,6 @@ __pycache__/
 .env
 .DS_Store
 live-index.json
+pipeline/manual/bls/
+pipeline/manual/bls_oews/*
+!pipeline/manual/bls_oews/.gitkeep
