@@ -22,8 +22,8 @@
     ]
   },
   "bls_cpi": {
-    "fingerprint": "7de1accef979cbc7cd5e25d54c1da20beef2dc9df558b84bda5a16df67ca941b",
-    "built": "2026-11-12T09:57:44+00:00",
+    "fingerprint": "976a0b1978bf276c554a4dd5445edbd1b630b2f4d9582f955e1b5dd2cb665dbb",
+    "built": "2026-11-14T13:23:35+00:00",
     "datasets": [
       "us.bls.cpi"
     ]
@@ -73,8 +73,8 @@
     ]
   },
   "census_ahs": {
-    "fingerprint": "fb78193746f966b07b016fd1c2af46115ba3048952a09c32d282df5a8175ba02",
-    "built": "2026-11-14T09:08:27+00:00",
+    "fingerprint": "9d0383fed84a3f5e11de55c0010aeaddc2b60d974cdfe45cde0ee1c1b3d9e4c8",
+    "built": "2026-11-14T13:23:40+00:00",
     "datasets": [
       "us.ahs.size"
     ]
