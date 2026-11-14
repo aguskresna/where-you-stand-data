@@ -25,6 +25,7 @@ publishes them as static files on Cloudflare Pages. Read README.md first.
 cd pipeline
 pytest -q                                   # must pass before every commit
 python -m statsapp_pipeline questions       # the catalog validator
+python -m statsapp_pipeline sheet           # re-generate questions/i18n/translations.csv after text changes
 python -m statsapp_pipeline check           # built files against data/contract.json
 python -m statsapp_pipeline build <source>  # build one source
 python -m statsapp_pipeline update          # the daily job

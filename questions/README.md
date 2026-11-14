@@ -155,6 +155,11 @@ anything missing stays English and a new question works before it's translated.
 - Every `{placeholder}` must appear exactly as in the English, no more and no fewer.
 - `python -m statsapp_pipeline i18n <lang>` prints what a language doesn't translate yet, in the
   overlay's shape (proper names such as US states stay English on purpose).
+- `python -m statsapp_pipeline sheet` writes `i18n/translations.csv`, every text as a row for a
+  translator or native speaker (the shared workflow's columns; the key is the text's path in the
+  overlay). `python -m statsapp_pipeline sheet-import <returned.csv>` checks a returned sheet
+  (empty text, unknown keys and changed placeholders are refused; a missing do-not-translate word
+  is a warning) and `--write` updates the overlays. See `i18n/README.md`.
 - Publishing writes one hashed file per language (`files/catalog.<lang>.<hash>.json`, listed in
   `index.json` under `catalogI18n`), so a phone downloads only its own language.
 - Placeholders are filled with values the app has already put into the person's language: ranks

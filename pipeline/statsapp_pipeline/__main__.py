@@ -5,6 +5,8 @@
     python -m statsapp_pipeline update                    the daily job: rebuild only what changed
     python -m statsapp_pipeline questions                 check the question catalog
     python -m statsapp_pipeline i18n <lang>               the catalog text a language doesn't translate yet
+    python -m statsapp_pipeline sheet                     write the catalog's translation sheet (CSV)
+    python -m statsapp_pipeline sheet-import <csv> [--write]  check a returned sheet; --write updates i18n/
     python -m statsapp_pipeline publish --out ../site     write the static site the app downloads
     python -m statsapp_pipeline check                     check built files against the contract
 """
@@ -153,6 +155,50 @@ def cmd_i18n(args) -> int:
     return 0
 
 
+def cmd_sheet(args) -> int:
+    from . import sheet
+
+    out = Path(args.out) if args.out else sheet.SHEET
+    n = sheet.export(out)
+    print(f"{n} rows -> {out}")
+    return 0
+
+
+def cmd_sheet_import(args) -> int:
+    from . import i18n, questions, sheet
+    from .common import QUESTIONS_DIR
+
+    sys.stdout.reconfigure(encoding="utf-8")
+    catalog = questions.load()
+    overlays = i18n.load_overlays()
+    new, problems, warnings, changes = sheet.apply(catalog, overlays, sheet.read_sheet(Path(args.csv)))
+    for p in problems:
+        print(f"REFUSED  {p}")
+    for w in warnings:
+        print(f"WARNING  {w}")
+    print("changed:", changes)
+    if not args.write:
+        print("Check only. Run again with --write to update questions/i18n/.")
+        return 1 if problems else 0
+    if problems:
+        print("Not written: fix the REFUSED rows first.")
+        return 1
+    after = []
+    for lang, overlay in new.items():
+        after += i18n.validate_overlay(catalog, overlay, lang)
+    if after:
+        for p in after:
+            print(f"PROBLEM {p}")
+        print("Not written: the result would not pass the validator.")
+        return 1
+    for lang, overlay in new.items():
+        path = QUESTIONS_DIR / "i18n" / f"{lang}.json"
+        if sheet.write_overlay(path, overlay):
+            print(f"wrote {path}")
+    print("Next: python -m statsapp_pipeline questions, pytest -q, then python -m statsapp_pipeline sheet.")
+    return 0
+
+
 def cmd_publish(args) -> int:
     from . import publish
 
@@ -194,6 +240,13 @@ def main(argv=None) -> int:
     tr = sub.add_parser("i18n", help="print the catalog text a language doesn't translate yet, as JSON")
     tr.add_argument("lang")
     tr.set_defaults(fn=cmd_i18n)
+    sh = sub.add_parser("sheet", help="write the catalog's translation sheet, questions/i18n/translations.csv")
+    sh.add_argument("--out", help="write it somewhere else")
+    sh.set_defaults(fn=cmd_sheet)
+    si = sub.add_parser("sheet-import", help="check a returned translation sheet; --write updates questions/i18n/")
+    si.add_argument("csv")
+    si.add_argument("--write", action="store_true")
+    si.set_defaults(fn=cmd_sheet_import)
     pub = sub.add_parser("publish", help="write the static site the app downloads")
     pub.add_argument("--out", required=True, help="folder to write, e.g. ../site")
     pub.add_argument("--bundle", help="also copy a snapshot into the app, e.g. ../../app/assets/data")

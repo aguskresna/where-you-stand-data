@@ -25,3 +25,6 @@ live-index.json
 pipeline/manual/bls/
 pipeline/manual/bls_oews/*
 !pipeline/manual/bls_oews/.gitkeep
+
+# Translation sheets returned by a reviewer (imported, then deleted)
+*.returned.csv
